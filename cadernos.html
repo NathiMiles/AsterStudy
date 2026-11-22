@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,246 +6,156 @@
 <title>AsterStudy — Cadernos</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Serif+Display&display=swap');
-
-:root{
-  --bg:#f5f3f9;--card:#fff;--text:#332d40;
-  --muted:#8b849a;--purple:#8975b7;
-  --pale:#eee8f7;--border:#ece7f2;
-}
+:root{--bg:#f5f3f9;--card:#fff;--text:#332d40;--muted:#8b849a;--purple:#8975b7;--pale:#eee8f7;--border:#ece7f2}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Nunito,sans-serif}
 button,input,select{font:inherit}
-button{
-  border:0;cursor:pointer;border-radius:10px;
-  padding:9px 13px;background:var(--pale);
-  color:var(--purple);font-weight:700
-}
-button:hover{opacity:.82}
+button{border:0;cursor:pointer;border-radius:10px;padding:9px 13px;background:var(--pale);color:var(--purple);font-weight:800}
+button:hover{filter:brightness(.97)}
 button.primary{background:var(--purple);color:white}
 button.danger{background:#f8e5e9;color:#b6657c}
 button.active{background:var(--purple);color:white}
 .hidden{display:none!important}
-
-header{
-  background:white;border-bottom:1px solid var(--border);
-  padding:16px 24px;display:flex;justify-content:space-between;
-  align-items:center;position:sticky;top:0;z-index:30
-}
+header{background:white;border-bottom:1px solid var(--border);padding:15px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30}
 .logo{font-weight:800;font-size:21px;color:var(--purple)}
 .logo span{color:#c2a5d6}
-
-.container{max-width:1250px;margin:auto;padding:35px 25px}
+.container{max-width:1250px;margin:auto;padding:30px 22px}
 h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
 .subtitle{color:var(--muted)}
-.library{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
-.book{
-  min-height:220px;border-radius:23px;padding:23px;
-  display:flex;flex-direction:column;justify-content:space-between;
-  box-shadow:0 8px 30px #00000008
-}
-.book-icon{font-size:38px}
-.book h3{margin:10px 0 5px}
-.book-actions{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
-.book-actions button{font-size:12px;padding:8px}
-.newbook{
-  background:white;border:2px dashed #d6c9e7;color:var(--purple);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;min-height:220px;border-radius:23px;
-  font-weight:800;font-size:18px
-}
-
-.editor-top{
-  display:flex;align-items:center;gap:12px;
-  flex-wrap:wrap;margin-bottom:12px
-}
-.editor-top h2{
-  margin:0;font-family:'DM Serif Display',serif;font-weight:400
-}
-.status{font-size:12px;color:#7b9b80}
-
-.toolbar{
-  position:sticky;top:69px;z-index:20;
-  background:#ffffffed;backdrop-filter:blur(10px);
-  border:1px solid var(--border);border-radius:14px;
-  padding:6px;display:flex;align-items:center;gap:5px;
-  flex-wrap:wrap;margin-bottom:12px;
-  box-shadow:0 4px 16px #3020400a
-}
-.toolbar button{
-  width:35px;height:35px;padding:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:17px;border-radius:9px
-}
-.toolbar button.active{background:var(--purple);color:white}
-.toolbar input[type=color]{
-  width:34px;height:34px;padding:2px;border:1px solid var(--border);
-  border-radius:9px;background:white
-}
-.toolbar input[type=range]{width:70px}
-.toolbar select{
-  border:1px solid var(--border);border-radius:8px;
-  padding:6px;background:white;font-size:12px
-}
-.toolsep{height:25px;width:1px;background:var(--border);margin:0 3px}
-.toolbar .pageinfo{
-  font-size:12px;color:var(--muted);padding:0 5px
-}
-.toolbar .tiny{font-size:12px}
-
-.paper-wrap{padding:8px 4px 40px}
-.paper{
-  position:relative;background-color:white;
-  width:100%;max-width:900px;min-height:1000px;
-  margin:auto;box-shadow:0 8px 35px #30204012;
-  border:1px solid #eae6ee;overflow:hidden;
-  --line:#e4dced;--spacing:25px
-}
-.paper.grid{
-  background-image:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:var(--spacing) var(--spacing)
-}
-.paper.lined{
-  background-image:linear-gradient(transparent 95%,var(--line) 96%);
-  background-size:100% var(--spacing)
-}
-.paper.dotted{
-  background-image:radial-gradient(var(--line) 1px,transparent 1px);
-  background-size:var(--spacing) var(--spacing)
-}
+.library{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.book{min-height:205px;border-radius:22px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 25px #00000008}
+.book-icon{font-size:36px}
+.book h3{margin:9px 0 4px}
+.book-actions{display:flex;gap:7px;flex-wrap:wrap}
+.book-actions button{font-size:12px;padding:7px 10px}
+.newbook{min-height:205px;border:2px dashed #d6c9e7;border-radius:22px;background:#fff;color:var(--purple);display:grid;place-items:center;font-weight:800;font-size:18px;cursor:pointer}
+.editor-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.editor-top h2{font-family:'DM Serif Display',serif;font-weight:400;margin:0}
+.status{font-size:12px;color:#729477}
+.toolbar{position:sticky;top:65px;z-index:20;background:#ffffffed;backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:14px;padding:7px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:12px;box-shadow:0 4px 16px #3020400a}
+.toolbar button{width:35px;height:35px;padding:0;display:grid;place-items:center;font-size:16px}
+.toolbar select{max-width:115px;border:1px solid var(--border);border-radius:8px;padding:7px;background:white;font-size:12px}
+.toolbar input[type=color]{width:34px;height:34px;padding:2px;border:1px solid var(--border);border-radius:8px}
+.toolbar input[type=range]{width:65px}
+.toolsep{height:24px;width:1px;background:var(--border);margin:0 3px}
+.pageinfo{font-size:12px;color:var(--muted);padding:0 4px}
+.paper-wrap{padding:5px 0 35px}
+.paper{position:relative;background-color:white;width:100%;max-width:900px;min-height:1050px;margin:auto;overflow:hidden;box-shadow:0 8px 35px #30204012;border:1px solid #eae6ee;--line:#e4dced;--spacing:25px}
+.paper.grid{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:var(--spacing) var(--spacing)}
+.paper.lined{background-image:linear-gradient(transparent 95%,var(--line) 96%);background-size:100% var(--spacing)}
+.paper.dotted{background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:var(--spacing) var(--spacing)}
 .paper.blank{background-image:none}
-
-.objects{position:absolute;inset:0;min-height:1000px}
-.obj{
-  position:absolute;min-width:80px;min-height:35px;
-  border:1px solid transparent;border-radius:5px;
-  padding:5px;touch-action:none
-}
+.paper.binder{background-image:linear-gradient(90deg,transparent 58px,#e8a5b5 59px,transparent 60px),linear-gradient(transparent 95%,var(--line) 96%);background-size:100% 100%,100% var(--spacing)}
+.paper.cornell{background-image:linear-gradient(90deg,transparent 70%,var(--line) 70.2%),linear-gradient(transparent 95%,var(--line) 96%);background-size:100% 100%,100% var(--spacing)}
+.paper.math{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:15px 15px}
+.objects{position:absolute;inset:0;min-height:1050px}
+.obj{position:absolute;min-width:65px;min-height:35px;border:1px solid transparent;border-radius:5px;padding:5px;touch-action:none;overflow-wrap:anywhere}
 .obj.selected{border:1px dashed var(--purple)}
-.obj.textobj{
-  width:260px;min-height:100px;
-  font-size:17px;line-height:1.65;
-  outline:none;overflow-wrap:anywhere
-}
-.obj.textobj:focus{border:1px dashed #c2a5d6}
-.obj.textobj:empty:before{
-  content:"Digite aqui...";
-  color:#b7b0c2
-}
-.obj img{
-  display:block;width:100%;height:100%;
-  object-fit:contain;pointer-events:none
-}
+.obj.textobj{width:260px;min-height:90px;font-size:17px;line-height:1.6;outline:none;overflow:visible}
+.obj.textobj:empty:before{content:"Digite aqui...";color:#b7b0c2}
 .obj.imageobj{width:220px;height:160px;padding:0}
-.obj .resize{
-  display:none;position:absolute;right:-6px;bottom:-6px;
-  width:13px;height:13px;border-radius:50%;
-  background:var(--purple);border:2px solid white;
-  cursor:nwse-resize;touch-action:none
-}
+.obj img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+.resize{display:none;position:absolute;right:-6px;bottom:-6px;width:13px;height:13px;border-radius:50%;background:var(--purple);border:2px solid white;cursor:nwse-resize;touch-action:none}
 .obj.selected .resize{display:block}
-.obj.textobj ul,.obj.textobj ol{padding-left:25px}
-.obj.textobj a{color:var(--purple)}
-
-.canvas{
-  position:absolute;inset:0;width:100%;height:100%;
-  z-index:5;touch-action:none;pointer-events:none
-}
+.canvas{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none;touch-action:none}
 .canvas.drawing{pointer-events:auto;cursor:crosshair}
-.canvas.eraser{cursor:cell}
-
-.modal-bg{
-  position:fixed;inset:0;background:#30243c70;z-index:40;
-  display:flex;align-items:center;justify-content:center;padding:20px
-}
-.modal{
-  background:white;border-radius:23px;padding:25px;
-  width:100%;max-width:420px;box-shadow:0 15px 50px #0002
-}
+.modal-bg{position:fixed;inset:0;background:#30243c70;z-index:50;display:grid;place-items:center;padding:18px}
+.modal{background:white;border-radius:22px;padding:24px;width:100%;max-width:420px;box-shadow:0 15px 50px #0002}
 .modal h2{font-family:'DM Serif Display',serif;font-weight:400}
-.modal input,.modal select{
-  width:100%;padding:10px;border:1px solid var(--border);
-  border-radius:12px;margin:8px 0 15px
-}
-.modal-actions{display:flex;justify-content:flex-end;gap:10px}
-.hint{font-size:12px;color:var(--muted);margin:10px 0}
-
-@media(max-width:700px){
-  .container{padding:25px 12px}
-  .toolbar{top:65px}
-  .paper{min-height:900px}
-  .objects{min-height:900px}
-  .book-actions{flex-wrap:wrap}
-}
+.modal input,.modal select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;margin:7px 0 14px}
+.modal-actions{display:flex;justify-content:flex-end;gap:9px}
+body.dark{--bg:#201d27;--text:#eee8f7;--muted:#b4a8c5;--border:#41384b;--pale:#3b3248}
+body.dark header,body.dark .toolbar,body.dark .modal{background:#292432;color:var(--text)}
+body.dark .paper{background-color:#292432}
+body.dark .paper{--line:#51465e}
+@media(max-width:650px){.container{padding:22px 12px}.toolbar{top:60px}.paper{min-height:900px}.objects{min-height:900px}}
+@media print{header,.editor-top,.toolbar,#reabrirBarra{display:none!important}.container{padding:0}.paper{box-shadow:none;border:0;max-width:none}}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">✦ Aster<span>Study</span></div>
-  <button onclick="voltar()">←</button>
+  <button onclick="voltar()">← Início</button>
 </header>
 
-<div class="container" id="biblioteca">
+<main class="container" id="biblioteca">
   <h1>Meus cadernos ✧</h1>
   <p class="subtitle">Um espaço para suas anotações e descobertas.</p>
   <div class="library" id="listaLivros"></div>
-</div>
+</main>
 
-<div class="container hidden" id="editor">
+<main class="container hidden" id="editor">
   <div class="editor-top">
-    <button onclick="voltarBiblioteca()">←</button>
+    <button onclick="voltarBiblioteca()">← Cadernos</button>
     <h2 id="nomeLivro"></h2>
     <span class="status" id="status"></span>
   </div>
 
-  <div class="toolbar" id="barra">
+  <nav class="toolbar" id="barra">
     <button title="Página anterior" onclick="paginaAnterior()">‹</button>
-    <button title="Página seguinte" onclick="paginaSeguinte()">›</button>
+    <button title="Próxima página" onclick="paginaSeguinte()">›</button>
     <span class="pageinfo" id="paginaInfo"></span>
     <button title="Nova página" onclick="novaPagina()">＋</button>
+    <button title="Duplicar página" onclick="duplicarPagina()">⧉</button>
     <span class="toolsep"></span>
-
-    <button id="btnSelect" title="Selecionar e mover" onclick="modo('select')">↖</button>
-    <button id="btnText" title="Adicionar texto" onclick="adicionarTexto()">T</button>
+    <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">↖</button>
+    <button title="Adicionar texto" onclick="adicionarTexto()">T</button>
     <button id="btnPen" title="Caneta" onclick="modo('pen')">✎</button>
     <button id="btnMark" title="Marca-texto" onclick="modo('mark')">▰</button>
     <button id="btnErase" title="Borracha" onclick="modo('erase')">⌫</button>
     <button title="Desfazer desenho" onclick="desfazer()">↶</button>
     <button title="Limpar desenhos" onclick="limparDesenho()">⌧</button>
     <button title="Inserir imagem" onclick="inserirImagem()">▧</button>
-    <button title="Excluir elemento selecionado" onclick="excluirSelecionado()">🗑</button>
+    <button title="Excluir selecionado" onclick="excluirSelecionado()">🗑</button>
     <span class="toolsep"></span>
-
-    <input type="color" id="corCaneta" value="#51456f" title="Cor do desenho">
-    <input type="range" id="tamanho" min="1" max="24" value="3" title="Tamanho">
+    <input type="color" id="corCaneta" value="#51456f" title="Cor">
+    <input type="range" id="tamanho" min="1" max="24" value="3" title="Espessura">
     <span class="toolsep"></span>
-
+    <select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
+      <option value="Nunito">Nunito</option><option value="Arial">Arial</option>
+      <option value="Georgia">Georgia</option><option value="Verdana">Verdana</option>
+      <option value="Courier New">Courier</option>
+    </select>
+    <select id="tamanhoFonte" title="Tamanho da letra" onchange="mudarTamanho(this.value)">
+      <option value="2">Pequeno</option><option value="3" selected>Normal</option>
+      <option value="4">Grande</option><option value="5">Maior</option><option value="6">Título</option>
+    </select>
     <button title="Negrito" onclick="formatar('bold')"><b>B</b></button>
     <button title="Itálico" onclick="formatar('italic')"><i>I</i></button>
     <button title="Sublinhado" onclick="formatar('underline')"><u>U</u></button>
     <button title="Lista" onclick="formatar('insertUnorderedList')">•</button>
+    <button title="Centralizar" onclick="formatar('justifyCenter')">≡</button>
+    <button title="Checklist" onclick="inserirChecklist()">☑</button>
+    <button title="Tabela" onclick="inserirTabela()">▦</button>
+    <button title="Link" onclick="inserirLink()">🔗</button>
     <span class="toolsep"></span>
-
-    <button title="Configurações da folha" onclick="configurar()">⚙</button>
-    <button title="Renomear caderno" onclick="renomearLivro()">✏</button>
-    <button title="Ocultar barra" onclick="toggleBarra()">☰</button>
-  </div>
+    <button title="Sticker" onclick="inserirSticker()">✦</button>
+    <button title="Post-it" onclick="postit()">▣</button>
+    <button title="Configurar folha" onclick="configurar()">⚙</button>
+    <button title="Pesquisar" onclick="buscarTexto()">⌕</button>
+    <button title="Exportar backup" onclick="exportarBackup()">⬇</button>
+    <button title="Importar backup" onclick="importarBackup()">⬆</button>
+    <button title="Imprimir/salvar PDF" onclick="window.print()">▤</button>
+    <button title="Modo escuro" onclick="document.body.classList.toggle('dark')">◐</button>
+    <button title="Ocultar ferramentas" onclick="toggleBarra()">☰</button>
+  </nav>
+  <button id="reabrirBarra" class="hidden" onclick="toggleBarra()" style="position:fixed;top:78px;left:10px;z-index:60" title="Mostrar ferramentas">✦</button>
 
   <div class="paper-wrap">
-    <div class="paper grid" id="folha">
+    <section class="paper grid" id="folha">
       <div class="objects" id="objects"></div>
       <canvas class="canvas" id="desenho"></canvas>
-    </div>
+    </section>
   </div>
-</div>
+</main>
 
-<!-- Modal novo caderno -->
 <div class="modal-bg hidden" id="modal">
   <div class="modal">
     <h2>Novo caderno</h2>
-    <input id="modalNome" placeholder="Nome do caderno">
+    <label>Nome do caderno</label>
+    <input id="modalNome" placeholder="Ex.: Matemática">
+    <label>Cor da capa</label>
+    <input type="color" id="modalCor" value="#eee8f7">
     <div class="modal-actions">
       <button onclick="fecharModal()">Cancelar</button>
       <button class="primary" onclick="confirmarModal()">Criar</button>
@@ -254,21 +163,18 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
   </div>
 </div>
 
-<!-- Modal folha -->
 <div class="modal-bg hidden" id="modalFolha">
   <div class="modal">
-    <h2>Folha</h2>
-    <label>Tipo</label>
+    <h2>Personalizar folha</h2>
+    <label>Tipo de folha</label>
     <select id="tipoFolha">
-      <option value="grid">Quadriculada</option>
-      <option value="lined">Pautada</option>
-      <option value="dotted">Pontilhada</option>
-      <option value="blank">Branca</option>
+      <option value="grid">Quadriculada</option><option value="lined">Pautada</option>
+      <option value="dotted">Pontilhada</option><option value="blank">Branca</option>
+      <option value="binder">Fichário</option><option value="cornell">Cornell</option>
+      <option value="math">Matemática</option>
     </select>
-    <label>Cor das linhas</label>
-    <input type="color" id="corLinha">
-    <label>Espaçamento</label>
-    <input type="range" id="espacamento" min="12" max="50" value="25">
+    <label>Cor das linhas</label><input type="color" id="corLinha" value="#e4dced">
+    <label>Espaçamento</label><input type="range" id="espacamento" min="12" max="50" value="25">
     <div class="modal-actions">
       <button onclick="fecharFolha()">Cancelar</button>
       <button class="primary" onclick="salvarConfigFolha()">Salvar</button>
@@ -276,100 +182,61 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
   </div>
 </div>
 
-<script>
-const STORAGE='aster_notebooks_v1';
+<script> const STORAGE='aster_notebooks_v1';
 let livros=[];
 let livroAtual=null,paginaAtual=0;
 let modoAtual='select',desenhando=false,ultimo=null;
-let undoStack=[],selecionado=null;
+let selecionado=null,undoStack=[];
 const cores=['#eee8f7','#e5f0fa','#f8e5e9','#e5f2e9','#fff0dc','#f1e9dd'];
 
-try{
-  livros=JSON.parse(localStorage.getItem(STORAGE)||'[]');
-}catch(e){livros=[]}
+try{livros=JSON.parse(localStorage.getItem(STORAGE)||'[]')}catch(e){livros=[]}
 
 function paginaVazia(){
-  return {
-    html:'',
-    desenho:'',
-    tipo:'grid',
-    corLinha:'#e4dced',
-    espacamento:25,
-    objetos:[]
-  };
+  return {objetos:[],desenho:'',tipo:'grid',corLinha:'#e4dced',espacamento:25};
 }
-
 function salvarBiblioteca(){
-  try{
-    localStorage.setItem(STORAGE,JSON.stringify(livros));
-  }catch(e){
-    alert('O armazenamento do navegador está cheio. Talvez seja necessário remover algumas imagens.');
-  }
+  try{localStorage.setItem(STORAGE,JSON.stringify(livros))}
+  catch(e){alert('O armazenamento está cheio. Exporte um backup ou remova imagens grandes.')}
 }
-
 function montarBiblioteca(){
   const lista=document.getElementById('listaLivros');
   lista.innerHTML='';
-
   livros.forEach((l,i)=>{
     const div=document.createElement('div');
-    div.className='book';
-    div.style.background=l.cor||cores[0];
-
+    div.className='book';div.style.background=l.cor||cores[0];
     const topo=document.createElement('div');
     topo.innerHTML='<div class="book-icon">📔</div>';
-
-    const titulo=document.createElement('h3');
-    titulo.textContent=l.nome;
-
+    const titulo=document.createElement('h3');titulo.textContent=l.nome;
     const info=document.createElement('small');
     info.textContent=(l.paginas?.length||1)+' página(s)';
-
     topo.append(titulo,info);
-
-    const actions=document.createElement('div');
-    actions.className='book-actions';
-
+    const actions=document.createElement('div');actions.className='book-actions';
     const abrir=document.createElement('button');
-    abrir.textContent='Abrir';
-    abrir.className='primary';
-    abrir.onclick=()=>abrirLivro(i);
-
+    abrir.textContent='Abrir';abrir.className='primary';abrir.onclick=()=>abrirLivro(i);
     const ren=document.createElement('button');
-    ren.textContent='Renomear';
-    ren.onclick=()=>editarNome(i);
-
+    ren.textContent='Renomear';ren.onclick=()=>editarNome(i);
     const del=document.createElement('button');
-    del.textContent='Excluir';
-    del.className='danger';
-    del.onclick=()=>excluirLivro(i);
-
-    actions.append(abrir,ren,del);
-    div.append(topo,actions);
-    lista.append(div);
+    del.textContent='Excluir';del.className='danger';del.onclick=()=>excluirLivro(i);
+    actions.append(abrir,ren,del);div.append(topo,actions);lista.append(div);
   });
-
   const novo=document.createElement('div');
-  novo.className='newbook';
-  novo.textContent='＋ Criar caderno';
-  novo.onclick=criarLivro;
-  lista.append(novo);
+  novo.className='newbook';novo.textContent='＋ Criar caderno';
+  novo.onclick=criarLivro;lista.append(novo);
 }
-
 function criarLivro(){
   document.getElementById('modalNome').value='';
+  document.getElementById('modalCor').value='#eee8f7';
   document.getElementById('modal').classList.remove('hidden');
 }
-function fecharModal(){
-  document.getElementById('modal').classList.add('hidden');
-}
+function fecharModal(){document.getElementById('modal').classList.add('hidden')}
 function confirmarModal(){
   const nome=document.getElementById('modalNome').value.trim();
-  if(!nome)return alert('Digite um nome.');
-  livros.push({nome,cor:cores[Math.floor(Math.random()*cores.length)],paginas:[paginaVazia()]});
-  salvarBiblioteca();
-  fecharModal();
-  montarBiblioteca();
+  if(!nome)return alert('Digite um nome para o caderno.');
+  livros.push({
+    nome,cor:document.getElementById('modalCor').value,
+    paginas:[paginaVazia()]
+  });
+  salvarBiblioteca();fecharModal();montarBiblioteca();
 }
 function abrirLivro(i){
   livroAtual=i;paginaAtual=0;
@@ -387,59 +254,50 @@ function carregarPagina(){
   paginaAtual=Math.max(0,Math.min(paginaAtual,l.paginas.length-1));
   const p=l.paginas[paginaAtual];
 
-  // Compatibilidade com páginas do formato antigo
-  if(!p.objetos){
-    p.objetos=[];
-    if(p.html){
-      p.objetos.push({
-        tipo:'texto',x:55,y:50,w:780,h:400,html:p.html
-      });
-      p.html='';
-    }
+  // Compatibilidade com páginas da versão anterior
+  if(!p.objetos)p.objetos=[];
+  if(p.html&&!p.objetos.length){
+    p.objetos.push({tipo:'texto',x:55,y:50,w:780,h:400,html:p.html});
+    p.html='';
   }
 
   const folha=document.getElementById('folha');
   folha.className='paper '+(p.tipo||'grid');
   folha.style.setProperty('--line',p.corLinha||'#e4dced');
   folha.style.setProperty('--spacing',(p.espacamento||25)+'px');
-
   document.getElementById('paginaInfo').textContent=
-    (paginaAtual+1)+'/'+l.paginas.length;
+    (paginaAtual+1)+' / '+l.paginas.length;
 
   renderObjetos();
   redimensionarCanvas();
   carregarDesenho(p.desenho||'');
   modo(modoAtual);
 }
-
 function salvarPagina(){
   if(livroAtual===null)return;
   const p=livros[livroAtual].paginas[paginaAtual];
   p.objetos=[];
-  document.querySelectorAll('.obj').forEach(el=>{
+  document.querySelectorAll('#objects .obj').forEach(el=>{
     const o={
       tipo:el.dataset.tipo,
       x:parseFloat(el.style.left)||0,
       y:parseFloat(el.style.top)||0,
-      w:el.offsetWidth,
-      h:el.offsetHeight
+      w:el.offsetWidth,h:el.offsetHeight
     };
     if(o.tipo==='texto')o.html=el.innerHTML;
     if(o.tipo==='imagem')o.src=el.querySelector('img').src;
     p.objetos.push(o);
   });
-  p.desenho=canvas.toDataURL();
+  p.desenho=canvas.toDataURL('image/png');
   salvarBiblioteca();
   document.getElementById('status').textContent='✓ Salvo';
 }
-
 function renderObjetos(){
-  const area=document.getElementById('objects');
-  area.innerHTML='';
+  document.getElementById('objects').innerHTML='';
   const p=livros[livroAtual].paginas[paginaAtual];
   (p.objetos||[]).forEach(o=>criarObjeto(o));
+  selecionado=null;
 }
-
 function criarObjeto(o){
   const el=document.createElement('div');
   el.className='obj '+(o.tipo==='texto'?'textobj':'imageobj');
@@ -447,143 +305,123 @@ function criarObjeto(o){
   el.style.left=(o.x||40)+'px';
   el.style.top=(o.y||40)+'px';
   el.style.width=(o.w||260)+'px';
-  el.style.height=(o.h||150)+'px';
+  el.style.height=(o.h||120)+'px';
 
   if(o.tipo==='texto'){
     el.contentEditable='true';
     el.innerHTML=o.html||'';
-    el.addEventListener('input',salvarPagina);
-  }else{
+    el.addEventListener('input',()=>salvarPagina());
+    el.addEventListener('focus',()=>selecionar(el));
+  }else if(o.tipo==='imagem'){
     const img=document.createElement('img');
-    img.src=o.src;
-    el.append(img);
+    img.src=o.src||'';el.append(img);
   }
 
   const handle=document.createElement('div');
-  handle.className='resize';
-  el.append(handle);
+  handle.className='resize';el.append(handle);
 
   el.addEventListener('pointerdown',e=>{
-    if(modoAtual==='pen'||modoAtual==='mark'||modoAtual==='erase')return;
+    if(['pen','mark','erase'].includes(modoAtual))return;
     if(e.target===handle)return;
-    if(o.tipo==='texto'&&e.target!==el&&el.contains(e.target))return;
-    if(o.tipo==='texto'&&e.target===el&&el.isContentEditable&&modoAtual==='select'){
-      if(!e.altKey)return;
-    }
+    if(e.target.closest('a'))return;
     selecionar(el);
-    if(modoAtual==='select'&&(o.tipo==='imagem'||e.altKey)){
-      arrastar(el,e);
-    }
+    if(modoAtual==='select'&&!el.isContentEditable)arrastar(el,e);
+    else if(modoAtual==='select'&&e.target===el)arrastar(el,e);
   });
-
   handle.addEventListener('pointerdown',e=>{
-    e.stopPropagation();
-    selecionar(el);
-    redimensionar(el,e);
+    e.stopPropagation();selecionar(el);redimensionar(el,e);
   });
-
   document.getElementById('objects').append(el);
   return el;
 }
-
-function adicionarTexto(){
-  modo('select');
-  const o={tipo:'texto',x:55,y:55,w:260,h:120,html:''};
-  const el=criarObjeto(o);
-  selecionar(el);
-  el.focus();
-  salvarPagina();
-}
-function inserirImagem(){
-  const input=document.createElement('input');
-  input.type='file';input.accept='image/*';
-  input.onchange=()=>{
-    const file=input.files[0];
-    if(!file)return;
-    if(file.size>2*1024*1024){
-      alert('Escolha uma imagem de até 2 MB.');
-      return;
-    }
-    const reader=new FileReader();
-    reader.onload=()=>{
-      const o={tipo:'imagem',x:60,y:80,w:220,h:160,src:reader.result};
-      const el=criarObjeto(o);
-      selecionar(el);
-      salvarPagina();
-    };
-    reader.readAsDataURL(file);
-  };
-  input.click();
-}
-
 function selecionar(el){
   document.querySelectorAll('.obj').forEach(x=>x.classList.remove('selected'));
   selecionado=el;
   if(el)el.classList.add('selected');
 }
-function excluirSelecionado(){
-  if(!selecionado)return;
-  selecionado.remove();
-  selecionado=null;
-  salvarPagina();
+function adicionarTexto(){
+  modo('select');
+  const el=criarObjeto({tipo:'texto',x:55,y:55,w:260,h:110,html:''});
+  selecionar(el);el.focus();salvarPagina();
 }
-
+function inserirImagem(){
+  const input=document.createElement('input');
+  input.type='file';input.accept='image/*';
+  input.onchange=()=>{
+    const file=input.files[0];if(!file)return;
+    if(file.size>2*1024*1024)return alert('Escolha uma imagem de até 2 MB.');
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const el=criarObjeto({tipo:'imagem',x:60,y:80,w:220,h:160,src:reader.result});
+      selecionar(el);salvarPagina();
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
 function arrastar(el,e){
   if(e.button!==0)return;
+  if(el.isContentEditable&&e.target!==el)return;
   e.preventDefault();
   const sx=e.clientX,sy=e.clientY;
-  const ox=parseFloat(el.style.left),oy=parseFloat(el.style.top);
-  el.setPointerCapture?.(e.pointerId);
-  function move(ev){
+  const ox=parseFloat(el.style.left)||0,oy=parseFloat(el.style.top)||0;
+  function mover(ev){
     el.style.left=(ox+ev.clientX-sx)+'px';
     el.style.top=(oy+ev.clientY-sy)+'px';
   }
-  function end(){
-    window.removeEventListener('pointermove',move);
-    window.removeEventListener('pointerup',end);
+  function fim(){
+    window.removeEventListener('pointermove',mover);
+    window.removeEventListener('pointerup',fim);
     salvarPagina();
   }
-  window.addEventListener('pointermove',move);
-  window.addEventListener('pointerup',end);
+  window.addEventListener('pointermove',mover);
+  window.addEventListener('pointerup',fim);
 }
-
 function redimensionar(el,e){
   e.preventDefault();
   const sx=e.clientX,sy=e.clientY;
   const sw=el.offsetWidth,sh=el.offsetHeight;
-  function move(ev){
-    el.style.width=Math.max(80,sw+ev.clientX-sx)+'px';
+  function mover(ev){
+    el.style.width=Math.max(70,sw+ev.clientX-sx)+'px';
     el.style.height=Math.max(40,sh+ev.clientY-sy)+'px';
   }
-  function end(){
-    window.removeEventListener('pointermove',move);
-    window.removeEventListener('pointerup',end);
+  function fim(){
+    window.removeEventListener('pointermove',mover);
+    window.removeEventListener('pointerup',fim);
     salvarPagina();
   }
-  window.addEventListener('pointermove',move);
-  window.addEventListener('pointerup',end);
+  window.addEventListener('pointermove',mover);
+  window.addEventListener('pointerup',fim);
 }
-
+function excluirSelecionado(){
+  if(!selecionado)return;
+  selecionado.remove();selecionado=null;salvarPagina();
+}
 function modo(m){
   modoAtual=m;
-  canvas.classList.toggle('drawing',m==='pen'||m==='mark'||m==='erase');
-  canvas.classList.toggle('eraser',m==='erase');
-  ['btnSelect','btnPen','btnMark','btnErase'].forEach(id=>{
-    document.getElementById(id).classList.remove('active');
-  });
+  canvas.classList.toggle('drawing',['pen','mark','erase'].includes(m));
+  ['btnSelect','btnPen','btnMark','btnErase'].forEach(id=>
+    document.getElementById(id).classList.remove('active')
+  );
   const mapa={select:'btnSelect',pen:'btnPen',mark:'btnMark',erase:'btnErase'};
   if(mapa[m])document.getElementById(mapa[m]).classList.add('active');
 }
 function formatar(cmd){
   if(!selecionado||selecionado.dataset.tipo!=='texto'){
-    alert('Selecione uma caixa de texto primeiro.');
-    return;
+    alert('Selecione uma caixa de texto primeiro.');return;
   }
   selecionado.focus();
   document.execCommand(cmd,false,null);
   salvarPagina();
 }
-
+function mudarFonte(fonte){
+  if(!selecionado||selecionado.dataset.tipo!=='texto')return;
+  selecionado.style.fontFamily=fonte;salvarPagina();
+}
+function mudarTamanho(tamanho){
+  if(!selecionado||selecionado.dataset.tipo!=='texto')return;
+  selecionado.focus();document.execCommand('fontSize',false,tamanho);salvarPagina();
+}
 function configurar(){
   const p=livros[livroAtual].paginas[paginaAtual];
   document.getElementById('tipoFolha').value=p.tipo||'grid';
@@ -591,19 +429,84 @@ function configurar(){
   document.getElementById('espacamento').value=p.espacamento||25;
   document.getElementById('modalFolha').classList.remove('hidden');
 }
-function fecharFolha(){
-  document.getElementById('modalFolha').classList.add('hidden');
-}
+function fecharFolha(){document.getElementById('modalFolha').classList.add('hidden')}
 function salvarConfigFolha(){
   const p=livros[livroAtual].paginas[paginaAtual];
   p.tipo=document.getElementById('tipoFolha').value;
   p.corLinha=document.getElementById('corLinha').value;
   p.espacamento=Number(document.getElementById('espacamento').value);
-  salvarBiblioteca();
-  fecharFolha();
-  carregarPagina();
+  salvarBiblioteca();fecharFolha();carregarPagina();
 }
+  const canvas=document.getElementById('desenho');
+const ctx=canvas.getContext('2d');
 
+function redimensionarCanvas(){
+  const folha=document.getElementById('folha');
+  const largura=folha.clientWidth;
+  const altura=folha.clientHeight;
+  if(canvas.width===largura&&canvas.height===altura)return;
+  const anterior=canvas.toDataURL();
+  canvas.width=largura;canvas.height=altura;
+  if(anterior&&anterior!=='data:,')carregarDesenho(anterior);
+}
+function carregarDesenho(data){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(!data)return;
+  const img=new Image();
+  img.onload=()=>ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  img.src=data;
+}
+function posicao(e){
+  const r=canvas.getBoundingClientRect();
+  return {
+    x:(e.clientX-r.left)*(canvas.width/r.width),
+    y:(e.clientY-r.top)*(canvas.height/r.height)
+  };
+}
+canvas.addEventListener('pointerdown',e=>{
+  if(!['pen','mark','erase'].includes(modoAtual))return;
+  desenhando=true;
+  canvas.setPointerCapture(e.pointerId);
+  undoStack.push(canvas.toDataURL());
+  if(undoStack.length>15)undoStack.shift();
+  ultimo=posicao(e);
+});
+canvas.addEventListener('pointermove',e=>{
+  if(!desenhando)return;
+  const p=posicao(e);
+  ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.lineWidth=Number(document.getElementById('tamanho').value);
+  if(modoAtual==='erase'){
+    ctx.globalCompositeOperation='destination-out';
+    ctx.globalAlpha=1;
+  }else{
+    ctx.globalCompositeOperation='source-over';
+    ctx.strokeStyle=document.getElementById('corCaneta').value;
+    ctx.globalAlpha=modoAtual==='mark'?.3:1;
+    if(modoAtual==='mark')ctx.lineWidth*=4;
+  }
+  ctx.beginPath();ctx.moveTo(ultimo.x,ultimo.y);
+  ctx.lineTo(p.x,p.y);ctx.stroke();
+  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
+  ultimo=p;
+});
+function finalizarDesenho(){
+  if(!desenhando)return;
+  desenhando=false;salvarPagina();
+}
+canvas.addEventListener('pointerup',finalizarDesenho);
+canvas.addEventListener('pointercancel',finalizarDesenho);
+
+function desfazer(){
+  if(!undoStack.length)return;
+  carregarDesenho(undoStack.pop());salvarPagina();
+}
+function limparDesenho(){
+  if(!confirm('Apagar os desenhos desta página?'))return;
+  undoStack.push(canvas.toDataURL());
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  salvarPagina();
+}
 function novaPagina(){
   salvarPagina();
   livros[livroAtual].paginas.push(paginaVazia());
@@ -620,114 +523,131 @@ function paginaSeguinte(){
   if(paginaAtual<livros[livroAtual].paginas.length-1)paginaAtual++;
   carregarPagina();
 }
+function duplicarPagina(){
+  salvarPagina();
+  const copia=JSON.parse(JSON.stringify(livros[livroAtual].paginas[paginaAtual]));
+  livros[livroAtual].paginas.splice(paginaAtual+1,0,copia);
+  paginaAtual++;salvarBiblioteca();carregarPagina();
+}
 function voltarBiblioteca(){
   salvarPagina();
   document.getElementById('editor').classList.add('hidden');
   document.getElementById('biblioteca').classList.remove('hidden');
   montarBiblioteca();
 }
-function voltar(){
-  window.location.href='index.html';
-}
+function voltar(){window.location.href='index.html'}
 function editarNome(i){
-  const n=prompt('Novo nome:',livros[i].nome);
+  const n=prompt('Novo nome do caderno:',livros[i].nome);
   if(n&&n.trim()){
     livros[i].nome=n.trim();salvarBiblioteca();montarBiblioteca();
   }
 }
-function renomearLivro(){
-  const n=prompt('Novo nome:',livros[livroAtual].nome);
-  if(n&&n.trim()){
-    livros[livroAtual].nome=n.trim();
-    salvarBiblioteca();carregarLivro();
-  }
-}
 function excluirLivro(i){
-  if(confirm('Excluir este caderno e suas páginas?')){
-    livros.splice(i,1);salvarBiblioteca();montarBiblioteca();
-  }
+  if(!confirm('Excluir este caderno e todas as suas páginas?'))return;
+  livros.splice(i,1);salvarBiblioteca();montarBiblioteca();
 }
 function toggleBarra(){
-  const b=document.getElementById('barra');
-  b.classList.toggle('hidden');
+  const barra=document.getElementById('barra');
+  const botao=document.getElementById('reabrirBarra');
+  barra.classList.toggle('hidden');
+  botao.classList.toggle('hidden',!barra.classList.contains('hidden'));
 }
-
-// Canvas
-const canvas=document.getElementById('desenho');
-const ctx=canvas.getContext('2d');
-function redimensionarCanvas(){
-  const folha=document.getElementById('folha');
-  const old=canvas.toDataURL();
-  canvas.width=folha.clientWidth;
-  canvas.height=folha.clientHeight;
-  carregarDesenho(old);
+function inserirChecklist(){
+  adicionarConteudo('<ul><li>☐ Tarefa</li><li>☐ Tarefa</li><li>☐ Tarefa</li></ul>');
 }
-function carregarDesenho(data){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  if(data){
-    const img=new Image();
-    img.onload=()=>ctx.drawImage(img,0,0,canvas.width,canvas.height);
-    img.src=data;
+function inserirTabela(){
+  const linhas=Math.max(1,Math.min(8,parseInt(prompt('Número de linhas:','3'))||3));
+  const colunas=Math.max(1,Math.min(8,parseInt(prompt('Número de colunas:','3'))||3));
+  let html='<table border="1" style="border-collapse:collapse;width:100%">';
+  for(let i=0;i<linhas;i++){
+    html+='<tr>';
+    for(let j=0;j<colunas;j++)html+='<td style="padding:8px">&nbsp;</td>';
+    html+='</tr>';
   }
+  html+='</table>';adicionarConteudo(html);
 }
-function pos(e){
-  const r=canvas.getBoundingClientRect();
-  return{
-    x:(e.clientX-r.left)*(canvas.width/r.width),
-    y:(e.clientY-r.top)*(canvas.height/r.height)
-  };
-}
-canvas.addEventListener('pointerdown',e=>{
-  if(!['pen','mark','erase'].includes(modoAtual))return;
-  desenhando=true;
-  canvas.setPointerCapture(e.pointerId);
-  undoStack.push(canvas.toDataURL());
-  if(undoStack.length>12)undoStack.shift();
-  ultimo=pos(e);
-});
-canvas.addEventListener('pointermove',e=>{
-  if(!desenhando)return;
-  const p=pos(e);
-  ctx.lineCap='round';ctx.lineJoin='round';
-  ctx.lineWidth=Number(document.getElementById('tamanho').value);
-  if(modoAtual==='mark'){
-    ctx.globalCompositeOperation='source-over';
-    ctx.strokeStyle=document.getElementById('corCaneta').value;
-    ctx.globalAlpha=.3;ctx.lineWidth*=4;
-  }else if(modoAtual==='erase'){
-    ctx.globalCompositeOperation='destination-out';
-    ctx.globalAlpha=1;
-  }else{
-    ctx.globalCompositeOperation='source-over';
-    ctx.strokeStyle=document.getElementById('corCaneta').value;
-    ctx.globalAlpha=1;
+function inserirLink(){
+  if(!selecionado||selecionado.dataset.tipo!=='texto'){
+    alert('Selecione uma caixa de texto e marque uma palavra primeiro.');return;
   }
-  ctx.beginPath();ctx.moveTo(ultimo.x,ultimo.y);ctx.lineTo(p.x,p.y);ctx.stroke();
-  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
-  ultimo=p;
-});
-canvas.addEventListener('pointerup',()=>{
-  if(desenhando){desenhando=false;salvarPagina()}
-});
-canvas.addEventListener('pointercancel',()=>desenhando=false);
-
-function desfazer(){
-  if(!undoStack.length)return;
-  carregarDesenho(undoStack.pop());
+  const url=prompt('Cole o endereço do link:');
+  if(!url)return;
+  selecionado.focus();document.execCommand('createLink',false,url);salvarPagina();
+}
+function adicionarConteudo(html){
+  const el=criarObjeto({tipo:'texto',x:60,y:60,w:350,h:140,html});
+  selecionar(el);el.focus();salvarPagina();
+}
+function inserirSticker(){
+  const opcoes=['✦','★','♡','❀','☾','➤','✿','❄','☀','♪','⚡','✓','❦','✧','∞','❥'];
+  const sticker=prompt('Digite ou escolha um símbolo:',opcoes[Math.floor(Math.random()*opcoes.length)]);
+  if(!sticker)return;
+  adicionarConteudo('<div style="font-size:42px;text-align:center">'+
+    sticker.replace(/[<>]/g,'')+'</div>');
+}
+function postit(){
+  adicionarConteudo('<div style="background:#fff2a8;padding:18px;min-height:120px;color:#55472c;box-shadow:2px 4px 8px #0002">Lembrete ✨</div>');
+}
+function buscarTexto(){
+  const termo=prompt('O que deseja pesquisar nos cadernos?');
+  if(!termo)return;
+  const resultados=[];
+  livros.forEach(l=>{
+    (l.paginas||[]).forEach((p,i)=>{
+      (p.objetos||[]).forEach(o=>{
+        if(o.tipo==='texto'&&(o.html||'').toLowerCase().includes(termo.toLowerCase())){
+          resultados.push(l.nome+' — página '+(i+1));
+        }
+      });
+    });
+  });
+  alert(resultados.length?'Encontrado em:\n'+resultados.join('\n'):'Nenhum resultado encontrado.');
+}
+function exportarBackup(){
   salvarPagina();
+  const blob=new Blob([JSON.stringify(livros,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='AsterStudy-backup.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-function limparDesenho(){
-  if(confirm('Apagar os desenhos desta página?')){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    salvarPagina();
+function importarBackup(){
+  const input=document.createElement('input');
+  input.type='file';input.accept='.json,application/json';
+  input.onchange=()=>{
+    const file=input.files[0];if(!file)return;
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try{
+        const dados=JSON.parse(reader.result);
+        if(!Array.isArray(dados))throw new Error('Formato inválido');
+        if(!confirm('Importar este backup? Os cadernos atuais serão substituídos.'))return;
+        livros=dados;
+        salvarBiblioteca();
+        livroAtual=null;
+        document.getElementById('editor').classList.add('hidden');
+        document.getElementById('biblioteca').classList.remove('hidden');
+        montarBiblioteca();
+      }catch(e){alert('Não foi possível ler esse backup.')}
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+window.addEventListener('keydown',e=>{
+  if(document.getElementById('editor').classList.contains('hidden'))return;
+  if(e.ctrlKey&&e.key.toLowerCase()==='s'){
+    e.preventDefault();salvarPagina();
   }
-}
-
+  if(e.key==='Escape')selecionar(null);
+});
 window.addEventListener('resize',()=>{
-  if(!document.getElementById('editor').classList.contains('hidden'))
+  if(!document.getElementById('editor').classList.contains('hidden')){
     redimensionarCanvas();
+  }
 });
 
+// Inicia a biblioteca
 montarBiblioteca();
 </script>
 </body>
