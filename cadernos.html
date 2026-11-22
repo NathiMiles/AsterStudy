@@ -221,6 +221,183 @@ body.dark .modal input,body.dark .modal select{background:#332b25;color:var(--te
   .paper{box-shadow:none;border:0;max-width:none}
   body{background:white}
 }
+  
+/* ===== ASTERSTUDY: BARRA LATERAL ===== */
+
+#editor{
+  padding-right:75px !important;
+  box-sizing:border-box;
+}
+
+#barra{
+  position:fixed !important;
+  right:16px !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  left:auto !important;
+  bottom:auto !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:8px !important;
+
+  width:54px !important;
+  max-height:80vh !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+
+  padding:12px 8px !important;
+  border:1px solid var(--border) !important;
+  border-radius:18px !important;
+  background:var(--card) !important;
+  box-shadow:0 4px 20px #00015 !important;
+  z-index:100 !important;
+}
+
+#barra button{
+  width:38px !important;
+  min-width:38px !important;
+  height:38px !important;
+  min-height:38px !important;
+  padding:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border-radius:12px !important;
+  flex-shrink:0 !important;
+}
+
+#barra .toolsep{
+  width:26px !important;
+  height:1px !important;
+  min-height:1px !important;
+  margin:4px 0 !important;
+  background:var(--border) !important;
+}
+
+#folha{
+  margin-right:auto !important;
+  margin-left:auto !important;
+}
+
+@media(max-width:700px){
+  #editor{
+    padding-right:65px !important;
+  }
+
+  #barra{
+    right:6px !important;
+    width:46px !important;
+    padding:8px 5px !important;
+  }
+
+  #barra button{
+    width:34px !important;
+    min-width:34px !important;
+    height:34px !important;
+    min-height:34px !important;
+  }
+}
+  
+/* ===== GRUPOS DA BARRA LATERAL ===== */
+
+#barra .grupoFerramentas{
+  position:relative;
+  flex-shrink:0;
+  width:100%;
+}
+
+#barra .grupoFerramentas>summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;
+  height:38px;
+  margin:auto;
+  border-radius:12px;
+  font-size:18px;
+  user-select:none;
+}
+
+#barra .grupoFerramentas>summary::-webkit-details-marker{
+  display:none;
+}
+
+#barra .grupoFerramentas>summary:hover{
+  background:var(--border);
+}
+
+#barra .grupoFerramentas[open]>summary{
+  background:var(--border);
+}
+
+#barra .menuFerramentas{
+  position:absolute;
+  right:62px;
+  top:0;
+  width:220px;
+  max-height:70vh;
+  overflow-y:auto;
+
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:7px;
+
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--card);
+  color:var(--text);
+  box-shadow:0 8px 30px #0002;
+  z-index:150;
+}
+
+#barra .menuFerramentas button{
+  width:100% !important;
+  min-width:0 !important;
+  height:38px !important;
+}
+
+#barra .menuFerramentas select{
+  width:100%;
+  min-width:0;
+  padding:8px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--card);
+  color:var(--text);
+}
+
+#barra .menuFerramentas .pageinfo{
+  text-align:center;
+  font-size:12px;
+  padding:5px;
+}
+
+#barra .controleCor,
+#barra .controleTamanho{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  padding:6px;
+}
+
+#barra .controleCor input{
+  width:100%;
+  height:32px;
+}
+
+#barra .controleTamanho input{
+  width:100%;
+}
+
 </style>
 </head>
 <body>
@@ -242,92 +419,149 @@ body.dark .modal input,body.dark .modal select{background:#332b25;color:var(--te
     <span class="status" id="status"></span>
   </div>
 
-  <nav class="toolbar" id="barra">
-    <button title="Página anterior" onclick="paginaAnterior()">‹</button>
-    <button title="Próxima página" onclick="paginaSeguinte()">›</button>
-    <span class="pageinfo" id="paginaInfo"></span>
-    <button title="Nova página" onclick="novaPagina()">＋</button>
-    <button title="Duplicar página" onclick="duplicarPagina()">⧉</button>
-    <button title="Renomear página" onclick="renomearPagina()">✎</button>
+<nav class="toolbar" id="barra">
 
-    <span class="toolsep"></span>
+  <!-- PÁGINAS -->
+  <details class="grupoFerramentas">
+    <summary title="Páginas">📄</summary>
+    <div class="menuFerramentas">
+      <button title="Página anterior" onclick="paginaAnterior()">‹</button>
+      <button title="Próxima página" onclick="paginaSeguinte()">›</button>
+      <span class="pageinfo" id="paginaInfo"></span>
+      <button title="Nova página" onclick="novaPagina()">＋</button>
+      <button title="Duplicar página" onclick="duplicarPagina()">⧉</button>
+      <button title="Renomear página" onclick="renomearPagina()">✎</button>
+    </div>
+  </details>
 
-    <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">↖</button>
-    <button title="Adicionar texto" onclick="adicionarTexto()">T</button>
-    <button id="btnPen" title="Caneta" onclick="modo('pen')">✎</button>
-    <button id="btnMark" title="Marca-texto" onclick="modo('mark')">▰</button>
-    <button id="btnErase" title="Borracha" onclick="modo('erase')">⌫</button>
-    <button title="Desfazer desenho" onclick="desfazer()">↶</button>
-    <button title="Limpar desenhos" onclick="limparDesenho()">⌧</button>
+  <!-- DESENHO -->
+  <details class="grupoFerramentas">
+    <summary title="Desenho">✏️</summary>
+    <div class="menuFerramentas">
+      <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">↖</button>
+      <button title="Adicionar texto" onclick="adicionarTexto()">T</button>
+      <button id="btnPen" title="Caneta" onclick="modo('pen')">✎</button>
+      <button id="btnMark" title="Marca-texto" onclick="modo('mark')">▰</button>
+      <button id="btnErase" title="Borracha" onclick="modo('erase')">⌫</button>
+      <button title="Desfazer desenho" onclick="desfazer()">↶</button>
+      <button title="Limpar desenhos" onclick="limparDesenho()">⌧</button>
+      <button title="Linha reta" onclick="alternarLinha()">╱</button>
+      <label title="Cor do desenho" class="controleCor">
+        🎨
+        <input type="color" id="corCaneta" value="#795b43">
+      </label>
+      <label title="Espessura" class="controleTamanho">
+        ↔
+        <input type="range" id="tamanho" min="1" max="24" value="3">
+      </label>
+    </div>
+  </details>
 
-    <span class="toolsep"></span>
+  <!-- ELEMENTOS -->
+  <details class="grupoFerramentas">
+    <summary title="Elementos">▧</summary>
+    <div class="menuFerramentas">
+      <button title="Inserir imagem" onclick="inserirImagem()">▧</button>
+      <button title="Excluir selecionado" onclick="excluirSelecionado()">🗑</button>
+      <button title="Duplicar elemento" onclick="duplicarObjeto()">⧉</button>
+      <button title="Bloquear/desbloquear" onclick="bloquearObjeto()">♙</button>
+      <button title="Enviar para trás" onclick="camada(-1)">↓</button>
+      <button title="Trazer para frente" onclick="camada(1)">↑</button>
+      <button title="Sticker" onclick="inserirSticker()">✦</button>
+      <button title="Post-it" onclick="postit()">▣</button>
+      <button title="Tabela" onclick="inserirTabela()">▦</button>
+      <button title="Checklist" onclick="inserirChecklist()">☑</button>
+      <button title="Link" onclick="inserirLink()">🔗</button>
+    </div>
+  </details>
 
-    <button title="Inserir imagem" onclick="inserirImagem()">▧</button>
-    <button title="Excluir selecionado" onclick="excluirSelecionado()">🗑</button>
-    <button title="Duplicar elemento" onclick="duplicarObjeto()">⧉</button>
-    <button title="Bloquear/desbloquear" onclick="bloquearObjeto()">♙</button>
-    <button title="Enviar para trás" onclick="camada(-1)">↓</button>
-    <button title="Trazer para frente" onclick="camada(1)">↑</button>
+  <!-- TEXTO -->
+  <details class="grupoFerramentas">
+    <summary title="Texto">A</summary>
+    <div class="menuFerramentas">
+      <select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
+        <option value="Nunito">Nunito</option>
+        <option value="Arial">Arial</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Courier New">Courier</option>
+      </select>
 
-    <span class="toolsep"></span>
+      <select id="tamanhoFonte" title="Tamanho da letra" onchange="mudarTamanho(this.value)">
+        <option value="2">Pequeno</option>
+        <option value="3" selected>Normal</option>
+        <option value="4">Grande</option>
+        <option value="5">Maior</option>
+        <option value="6">Título</option>
+      </select>
 
-    <input type="color" id="corCaneta" value="#795b43" title="Cor do desenho">
-    <input type="range" id="tamanho" min="1" max="24" value="3" title="Espessura">
-    <button title="Linha reta" onclick="alternarLinha()">╱</button>
+      <button title="Negrito" onclick="formatar('bold')"><b>B</b></button>
+      <button title="Itálico" onclick="formatar('italic')"><i>I</i></button>
+      <button title="Sublinhado" onclick="formatar('underline')"><u>U</u></button>
+      <button title="Riscado" onclick="formatar('strikeThrough')">S̶</button>
+      <button title="Subscrito" onclick="formatar('subscript')">x₂</button>
+      <button title="Sobrescrito" onclick="formatar('superscript')">x²</button>
+      <button title="Lista" onclick="formatar('insertUnorderedList')">•</button>
+      <button title="Lista numerada" onclick="formatar('insertOrderedList')">1.</button>
+      <button title="Alinhar à esquerda" onclick="formatar('justifyLeft')">☰</button>
+      <button title="Centralizar" onclick="formatar('justifyCenter')">≡</button>
+      <button title="Alinhar à direita" onclick="formatar('justifyRight')">☷</button>
+      <button title="Justificar" onclick="formatar('justifyFull')">▤</button>
+      <button title="Título" onclick="estiloTexto('h2')">H</button>
+      <button title="Texto normal" onclick="estiloTexto('p')">¶</button>
+    </div>
+  </details>
 
-    <span class="toolsep"></span>
+  <!-- UTILIDADES -->
+  <details class="grupoFerramentas">
+    <summary title="Utilidades">⚙</summary>
+    <div class="menuFerramentas">
+      <button title="Relógio" onclick="mostrarRelogio()">🕒</button>
+      <button title="Temporizador" onclick="abrirTemporizador()">⏱</button>
+      <button title="Pesquisar" onclick="abrirPesquisa()">⌕</button>
+      <button title="Configurar folha" onclick="configurar()">⚙</button>
+    </div>
+  </details>
 
-    <select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
-      <option value="Nunito">Nunito</option>
-      <option value="Arial">Arial</option>
-      <option value="Georgia">Georgia</option>
-      <option value="Verdana">Verdana</option>
-      <option value="Courier New">Courier</option>
-    </select>
+  <!-- ARQUIVOS -->
+  <details class="grupoFerramentas">
+    <summary title="Arquivos e opções">☰</summary>
+    <div class="menuFerramentas">
+      <button title="Exportar backup" onclick="exportarBackup()">⬇</button>
+      <button title="Importar backup" onclick="importarBackup()">⬆</button>
+      <button title="Imprimir/salvar PDF" onclick="window.print()">▤</button>
+      <button title="Modo escuro" onclick="alternarEscuro()">◐</button>
+      <button title="Tela cheia" onclick="telaCheia()">⛶</button>
+      <button title="Ocultar ferramentas" onclick="toggleBarra()">☰</button>
+    </div>
+  </details>
 
-    <select id="tamanhoFonte" title="Tamanho da letra" onchange="mudarTamanho(this.value)">
-      <option value="2">Pequeno</option>
-      <option value="3" selected>Normal</option>
-      <option value="4">Grande</option>
-      <option value="5">Maior</option>
-      <option value="6">Título</option>
-    </select>
+</nav>
 
-    <button title="Negrito" onclick="formatar('bold')"><b>B</b></button>
-    <button title="Itálico" onclick="formatar('italic')"><i>I</i></button>
-    <button title="Sublinhado" onclick="formatar('underline')"><u>U</u></button>
-    <button title="Riscado" onclick="formatar('strikeThrough')">S̶</button>
-    <button title="Subscrito" onclick="formatar('subscript')">x₂</button>
-    <button title="Sobrescrito" onclick="formatar('superscript')">x²</button>
-    <button title="Lista" onclick="formatar('insertUnorderedList')">•</button>
-    <button title="Lista numerada" onclick="formatar('insertOrderedList')">1.</button>
-    <button title="Alinhar à esquerda" onclick="formatar('justifyLeft')">☰</button>
-    <button title="Centralizar" onclick="formatar('justifyCenter')">≡</button>
-    <button title="Alinhar à direita" onclick="formatar('justifyRight')">☷</button>
-    <button title="Justificar" onclick="formatar('justifyFull')">▤</button>
-    <button title="Título" onclick="estiloTexto('h2')">H</button>
-    <button title="Texto normal" onclick="estiloTexto('p')">¶</button>
+<div id="painelTempo" class="hidden" style="position:fixed;right:20px;top:120px;z-index:80;background:var(--card);color:var(--text);border:1px solid var(--border);padding:18px;border-radius:16px;width:260px;box-shadow:0 8px 30px #0002">
 
-    <span class="toolsep"></span>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <strong>⏰ AsterStudy Time</strong>
+    <button onclick="fecharTempo()" style="padding:4px 8px">✕</button>
+  </div>
 
-    <button title="Checklist" onclick="inserirChecklist()">☑</button>
-    <button title="Tabela" onclick="inserirTabela()">▦</button>
-    <button title="Link" onclick="inserirLink()">🔗</button>
-    <button title="Sticker" onclick="inserirSticker()">✦</button>
-    <button title="Post-it" onclick="postit()">▣</button>
-    <button title="Configurar folha" onclick="configurar()">⚙</button>
-    <button title="Pesquisar" onclick="abrirPesquisa()">⌕</button>
+  <div id="relogioAtual" style="font-size:28px;text-align:center;margin:15px 0;font-weight:800">00:00:00</div>
 
-    <span class="toolsep"></span>
+  <hr style="border:0;border-top:1px solid var(--border)">
 
-    <button title="Exportar backup" onclick="exportarBackup()">⬇</button>
-    <button title="Importar backup" onclick="importarBackup()">⬆</button>
-    <button title="Imprimir/salvar PDF" onclick="window.print()">▤</button>
-    <button title="Modo escuro" onclick="alternarEscuro()">◐</button>
-    <button title="Tela cheia" onclick="telaCheia()">⛶</button>
-    <button title="Ocultar ferramentas" onclick="toggleBarra()">☰</button>
-  </nav>
+  <h3 style="text-align:center;margin:12px 0">⏱ Temporizador</h3>
 
+  <label>Minutos</label>
+  <input id="minutosTimer" type="number" min="1" value="25" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;margin:8px 0">
+
+  <div id="tempoRestante" style="font-size:32px;font-weight:800;text-align:center;margin:12px 0">25:00</div>
+
+  <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
+    <button class="primary" onclick="iniciarTimer()">▶</button>
+    <button onclick="pausarTimer()">⏸</button>
+    <button onclick="reiniciarTimer()">↺</button>
+  </div>
+</div>
   <button id="reabrirBarra" class="hidden" onclick="toggleBarra()" title="Mostrar ferramentas">✦</button>
 
   <div id="painelPesquisa" class="hidden">
@@ -801,6 +1035,74 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('resize',()=>{
  if(!editor.classList.contains('hidden'))redimensionarCanvas();
 });
+  // ===== RELÓGIO E TEMPORIZADOR =====
+let timerInterval=null;
+let timerSegundos=25*60;
+
+function mostrarRelogio(){
+ document.getElementById('painelTempo').classList.remove('hidden');
+ atualizarRelogio();
+}
+
+function abrirTemporizador(){
+ document.getElementById('painelTempo').classList.remove('hidden');
+ reiniciarTimer();
+}
+
+function fecharTempo(){
+ document.getElementById('painelTempo').classList.add('hidden');
+}
+
+function atualizarRelogio(){
+ const agora=new Date();
+ document.getElementById('relogioAtual').textContent=
+  agora.toLocaleTimeString('pt-BR');
+}
+
+setInterval(atualizarRelogio,1000);
+
+function atualizarDisplayTimer(){
+ const m=Math.floor(timerSegundos/60);
+ const s=timerSegundos%60;
+
+ document.getElementById('tempoRestante').textContent=
+  String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function iniciarTimer(){
+ if(timerInterval)return;
+
+ if(timerSegundos<=0){
+  timerSegundos=Math.max(1,Number(document.getElementById('minutosTimer').value)||25)*60;
+ }
+
+ timerInterval=setInterval(()=>{
+  timerSegundos--;
+  atualizarDisplayTimer();
+
+  if(timerSegundos<=0){
+   clearInterval(timerInterval);
+   timerInterval=null;
+   alert('⏰ Tempo encerrado! Hora de descansar.');
+  }
+ },1000);
+}
+
+function pausarTimer(){
+ clearInterval(timerInterval);
+ timerInterval=null;
+}
+
+function reiniciarTimer(){
+ pausarTimer();
+ timerSegundos=Math.max(1,Number(document.getElementById('minutosTimer').value)||25)*60;
+ atualizarDisplayTimer();
+}
+
+document.getElementById('minutosTimer').addEventListener('change',reiniciarTimer);
+
+atualizarRelogio();
+atualizarDisplayTimer();
 // ABERTURA DIRETA DO CADERNO
 const livroSolicitado = new URLSearchParams(window.location.search).get('book');
 
