@@ -902,35 +902,68 @@ function editarCaderno(bookId){
 }
 function fecharModal(){document.getElementById('bookModal').classList.remove('show')}
 function salvarCaderno(){
- const nome=document.getElementById('bookName').value.trim();
- if(!nome){toast('Digite o nome do caderno');return;}
- const bookTags=document.getElementById('bookTags').value.split(',').map(x=>x.trim()).filter(Boolean);
- const chapters=document.getElementById('bookChapters').value.split(',').map(x=>x.trim()).filter(Boolean);
- const image=document.getElementById('coverImageInput').value.trim();
- if(editingBookId){
-  const b=getBook(editingBookId);if(!b)return;
-  b.nome=nome;b.cor=selectedColor;b.icone=selectedIcon;
-  b.tags=bookTags;b.capitulos=chapters;b.imagem=image;
-  b.atualizado=Date.now();
- }else{
-  const model=MODELS.find(m=>m.id===document.getElementById('bookTemplate').value)||MODELS[0];
-  const pages=[];
-  for(let i=0;i<model.pages;i++){
-   pages.push({
-    objetos:[],desenho:'',tipo:model.type,
-    corLinha:'#D6BFA7',espacamento:30,
-    titulo:i===0?'Introdução':'',favorita:false
+ try{
+  const nome=document.getElementById('bookName').value.trim();
+  if(!nome){toast('Digite o nome do caderno');return;}
+
+  const bookTags=document.getElementById('bookTags').value.split(',').map(x=>x.trim()).filter(Boolean);
+  const chapters=document.getElementById('bookChapters').value.split(',').map(x=>x.trim()).filter(Boolean);
+  const image=document.getElementById('coverImageInput').value.trim();
+
+  if(editingBookId){
+   const b=getBook(editingBookId);
+   if(!b){toast('Caderno não encontrado');return;}
+
+   b.nome=nome;
+   b.cor=selectedColor;
+   b.icone=selectedIcon;
+   b.tags=bookTags;
+   b.capitulos=chapters;
+   b.imagem=image;
+   b.atualizado=Date.now();
+  }else{
+   const model=MODELS.find(m=>m.id===document.getElementById('bookTemplate').value)||MODELS[0];
+   const pages=[];
+
+   for(let i=0;i<model.pages;i++){
+    pages.push({
+     objetos:[],
+     desenho:'',
+     tipo:model.type,
+     corLinha:'#D6BFA7',
+     espacamento:30,
+     titulo:i===0?'Introdução':'',
+     favorita:false
+    });
+   }
+
+   books.push({
+    id:id(),
+    nome,
+    cor:selectedColor,
+    icone:selectedIcon,
+    imagem,
+    tags:bookTags,
+    capitulos:chapters,
+    favorito:false,
+    arquivado:false,
+    criado:Date.now(),
+    atualizado:Date.now(),
+    acesso:0,
+    paginas
    });
   }
-  books.push({
-   id:id(),nome,cor:selectedColor,icone:selectedIcon,
-   imagem,tags:bookTags,capitulos:chapters,
-   favorito:false,arquivado:false,criado:Date.now(),
-   atualizado:Date.now(),acesso:0,paginas
-  });
+
+  persist();
+  fecharModal();
+  renderAll();
+  toast(editingBookId?'Caderno atualizado':'Caderno criado');
+  editingBookId=null;
+
+ }catch(error){
+  console.error('Erro ao salvar caderno:',error);
+  toast('Erro ao criar caderno. Verifique os dados e tente novamente.');
  }
- persist();fecharModal();renderAll();toast(editingBookId?'Caderno atualizado':'Caderno criado');
- editingBookId=null;
 }
 
 // SUMÁRIO
