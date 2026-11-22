@@ -213,6 +213,33 @@ select,input{color:var(--text)}
 }
 .toast.show{opacity:1}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+  /* RELÓGIO ASTERSTUDY */
+.aster-clock{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ gap:2px;
+ padding:7px 14px;
+ border:1px solid var(--border);
+ border-radius:14px;
+ background:var(--card);
+ min-width:95px;
+}
+
+#clockTime{
+ font-family:'DM Serif Display',serif;
+ font-size:23px;
+ letter-spacing:1px;
+ color:var(--coffee);
+}
+
+#clockDate{
+ font-family:'Nunito',sans-serif;
+ font-size:11px;
+ color:var(--muted);
+ text-transform:capitalize;
+}
 @media(max-width:950px){
  .sidebar{width:205px}.main{margin-left:205px;padding:25px}
 }
@@ -274,6 +301,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 <main class="main">
   <div class="topbar">
     <div class="date" id="dateNow"></div>
+    
+        <div class="aster-clock">
+      <span id="clockTime">00:00</span>
+      <span id="clockDate"></span>
+    </div>
+    
     <div class="top-actions">
       <button class="icon-btn" id="backupBtn" title="Backup">⇧</button>
       <button class="icon-btn profile-btn" id="profileBtn" title="Perfil">
@@ -911,10 +944,10 @@ function salvarCaderno(){
    b.atualizado=Date.now();
   }else{
    const model=MODELS.find(m=>m.id===document.getElementById('bookTemplate').value)||MODELS[0];
-   const pages=[];
+ const paginas=[];
 
    for(let i=0;i<model.pages;i++){
-    pages.push({
+    paginas.push({
      objetos:[],
      desenho:'',
      tipo:model.type,
@@ -1024,6 +1057,26 @@ document.getElementById('logoMark').addEventListener('click',e=>{
 prepararTemplates();
 atualizarPerfilUI();
 renderAll();
+// RELÓGIO ASTERSTUDY
+function atualizarRelogio(){
+ const agora=new Date();
+
+ const hora=agora.toLocaleTimeString('pt-BR',{
+  hour:'2-digit',
+  minute:'2-digit'
+ });
+
+ const data=agora.toLocaleDateString('pt-BR',{
+  day:'2-digit',
+  month:'short'
+ });
+
+ document.getElementById('clockTime').textContent=hora;
+ document.getElementById('clockDate').textContent=data;
+}
+
+atualizarRelogio();
+setInterval(atualizarRelogio,1000);
 </script>
 </body>
 </html>
