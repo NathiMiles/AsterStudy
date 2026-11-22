@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AsterStudy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
+
+:root {
+  --bg: #f6f4fa;
+  --card: #ffffff;
+  --text: #302c3d;
+  --muted: #89849a;
+  --purple: #8b79bd;
+  --purple-light: #eee8f8;
+  --pink: #f4e5ee;
+  --green: #e4efe7;
+  --blue: #e5ebf7;
+  --border: #eeeaf3;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: white;
+  padding: 28px 18px;
+  border-right: 1px solid var(--border);
+  position: fixed;
+  height: 100vh;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--purple);
+  margin-bottom: 35px;
+}
+
+.logo span { color: #c4a7d8; }
+
+.menu-title {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  margin: 24px 12px 10px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav a {
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 12px;
+  color: #777188;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.nav a:hover, .nav a.active {
+  background: var(--purple-light);
+  color: var(--purple);
+  font-weight: 700;
+}
+
+.sidebar-bottom {
+  position: absolute;
+  bottom: 25px;
+  left: 18px;
+  right: 18px;
+  background: #f8f5fb;
+  border-radius: 16px;
+  padding: 15px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.main {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  padding: 35px;
+  max-width: 1600px;
+}
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom: 30px;
+}
+
+.date {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.clock {
+  background: white;
+  border-radius: 13px;
+  padding: 10px 16px;
+  font-weight: 700;
+  color: var(--purple);
+  border: 1px solid var(--border);
+}
+
+.welcome {
+  background: linear-gradient(120deg, #eae2f5, #f5e8f0, #e9edf8);
+  padding: 30px;
+  border-radius: 24px;
+  margin-bottom: 25px;
+}
+
+.welcome h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  margin: 0 0 8px;
+  font-weight: 400;
+}
+
+.welcome p {
+  color: #777188;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 23px;
+}
+
+.card h2 {
+  font-size: 17px;
+  margin: 0 0 20px;
+  font-weight: 800;
+}
+
+.timer-card { background: #fff; }
+.task-card { background: #fff; }
+.pomo-card { background: #fff; }
+.notes-card { background: #fff; }
+
+.timer {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--purple);
+  text-align: center;
+  margin: 15px 0;
+}
+
+.pomo {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #b67593;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 9px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  border-radius: 11px;
+  padding: 10px 17px;
+  cursor: pointer;
+  background: var(--purple-light);
+  color: var(--purple);
+  font-weight: 700;
+  transition: .2s;
+}
+
+button:hover { transform: translateY(-1px); opacity: .85; }
+button.primary { background: var(--purple); color: white; }
+button.soft-pink { background: var(--pink); color: #ad6688; }
+
+.input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #faf9fc;
+  color: var(--text);
+  outline: none;
+  width: 100%;
+}
+
+input:focus, textarea:focus {
+  border-color: #c4a7d8;
+}
+
+.task {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 4px;
+  border-bottom:1px solid var(--border);
+}
+
+.task:last-child { border-bottom:none; }
+
+.task span {
+  flex:1;
+  font-size:14px;
+}
+
+.task.done span {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.task input[type=checkbox] {
+  width:17px;
+  height:17px;
+  accent-color:var(--purple);
+}
+
+.delete {
+  background: transparent;
+  color: #b8a9bd;
+  padding: 5px 8px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 170px;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 13px;
+  padding: 10px 0;
+}
+
+.full { grid-column: 1 / -1; }
+
+.quote {
+  margin-top: 25px;
+  text-align: center;
+  color: #9a8ba9;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 17px;
+}
+
+.mobile-title { display:none; }
+
+@media(max-width:900px) {
+  .sidebar { width: 190px; }
+  .main { margin-left:190px; width:calc(100% - 190px); padding:22px; }
+}
+
+@media(max-width:650px) {
+  .sidebar { display:none; }
+  .main { margin:0; width:100%; padding:18px; }
+  .grid { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+  .welcome h1 { font-size:27px; }
+  .timer,.pomo { font-size:38px; }
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="logo">✦ Aster<span>Study</span></div>
+
+  <div class="menu-title">MENU PRINCIPAL</div>
+  <nav class="nav">
+    <a class="active" href="#inicio">⌂ &nbsp; Início</a>
+    <a href="#cronometro">◷ &nbsp; Cronômetro</a>
+    <a href="#pomodoro">◴ &nbsp; Pomodoro</a>
+    <a href="#tarefas">☑ &nbsp; Tarefas</a>
+    <a href="#notas">✎ &nbsp; Anotações</a>
+  </nav>
+
+  <div class="menu-title">SEU ESPAÇO</div>
+  <nav class="nav">
+    <a href="#notas">♡ &nbsp; Meu caderno</a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    ✧ Um passo de cada vez.<br>
+    Você está evoluindo!
+  </div>
+</aside>
+
+<main class="main" id="inicio">
+
+  <div class="topbar">
+    <div>
+      <div class="date" id="data"></div>
+    </div>
+    <div class="clock" id="relogio">00:00:00</div>
+  </div>
+
+  <section class="welcome">
+    <h1>Olá, estudante! ✦</h1>
+    <p>Seu espaço para aprender, organizar e florescer.</p>
+  </section>
+
+  <div class="grid">
+
+    <section class="card timer-card" id="cronometro">
+      <h2>◷ Cronômetro de estudos</h2>
+      <div class="timer" id="cronometroDisplay">00:00:00</div>
+      <div class="buttons">
+        <button class="primary" onclick="iniciarCronometro()">Iniciar</button>
+        <button onclick="pausarCronometro()">Pausar</button>
+        <button onclick="zerarCronometro()">Zerar</button>
+      </div>
+    </section>
+
+    <section class="card pomo-card" id="pomodoro">
+      <h2>◴ Temporizador Pomodoro</h2>
+      <div class="pomo" id="pomoDisplay">25:00</div>
+      <div class="buttons">
+        <button onclick="definirPomo(25)">25 min</button>
+        <button onclick="definirPomo(50)">50 min</button>
+        <button class="soft-pink" onclick="definirPomo(5)">5 min</button>
+      </div>
+      <div class="buttons" style="margin-top:12px">
+        <button class="primary" onclick="iniciarPomo()">Iniciar</button>
+        <button onclick="pausarPomo()">Pausar</button>
+        <button onclick="zerarPomo()">Resetar</button>
+      </div>
+      <p class="empty" style="text-align:center">Escolha um tempo e comece a focar.</p>
+    </section>
+
+    <section class="card task-card" id="tarefas">
+      <h2>☑ Lista de tarefas</h2>
+      <div class="input-row">
+        <input id="novaTarefa" placeholder="Adicionar uma tarefa..." maxlength="120">
+        <button class="primary" onclick="adicionarTarefa()">+</button>
+      </div>
+      <div id="listaTarefas"></div>
+    </section>
+
+    <section class="card notes-card" id="notas">
+      <h2>✎ Meu bloco de notas</h2>
+      <textarea id="anotacoes" placeholder="Escreva suas ideias, resumos e lembretes aqui..."></textarea>
+      <p class="empty">Suas anotações são salvas automaticamente neste navegador.</p>
+    </section>
+
+  </div>
+
+  <div class="quote">“Grandes conquistas começam com pequenos passos.”</div>
+
+</main>
+</div>
+
+<script>
+// RELÓGIO
+function atualizarRelogio() {
+  const agora = new Date();
+  document.getElementById('relogio').textContent =
+    agora.toLocaleTimeString('pt-BR');
+  document.getElementById('data').textContent =
+    agora.toLocaleDateString('pt-BR', {
+      weekday:'long', day:'numeric', month:'long', year:'numeric'
+    });
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
+
+// CRONÔMETRO
+let segundos = 0;
+let intervaloCronometro = null;
+
+function exibirCronometro() {
+  const h = Math.floor(segundos/3600);
+  const m = Math.floor((segundos%3600)/60);
+  const s = segundos%60;
+  document.getElementById('cronometroDisplay').textContent =
+    [h,m,s].map(n=>String(n).padStart(2,'0')).join(':');
+}
+
+function iniciarCronometro() {
+  if(intervaloCronometro) return;
+  intervaloCronometro = setInterval(()=>{
+    segundos++;
+    exibirCronometro();
+  },1000);
+}
+
+function pausarCronometro() {
+  clearInterval(intervaloCronometro);
+  intervaloCronometro = null;
+}
+
+function zerarCronometro() {
+  pausarCronometro();
+  segundos = 0;
+  exibirCronometro();
+}
+
+// POMODORO
+let pomoSegundos = 25*60;
+let intervaloPomo = null;
+
+function exibirPomo() {
+  const m = Math.floor(pomoSegundos/60);
+  const s = pomoSegundos%60;
+  document.getElementById('pomoDisplay').textContent =
+    [m,s].map(n=>String(n).padStart(2,'0')).join(':');
+}
+
+function definirPomo(minutos) {
+  pausarPomo();
+  pomoSegundos = minutos*60;
+  exibirPomo();
+}
+
+function iniciarPomo() {
+  if(intervaloPomo || pomoSegundos<=0) return;
+  intervaloPomo = setInterval(()=>{
+    pomoSegundos--;
+    exibirPomo();
+    if(pomoSegundos<=0) {
+      pausarPomo();
+      alert('Tempo concluído! Parabéns pelo seu foco. ✨');
+    }
+  },1000);
+}
+
+function pausarPomo() {
+  clearInterval(intervaloPomo);
+  intervaloPomo = null;
+}
+
+function zerarPomo() {
+  pausarPomo();
+  pomoSegundos = 25*60;
+  exibirPomo();
+}
+
+// TAREFAS
+let tarefas = JSON.parse(localStorage.getItem('aster_tarefas') || '[]');
+
+function salvarTarefas() {
+  localStorage.setItem('aster_tarefas',JSON.stringify(tarefas));
+}
+
+function desenharTarefas() {
+  const lista = document.getElementById('listaTarefas');
+  lista.innerHTML = '';
+
+  if(tarefas.length===0) {
+    lista.innerHTML='<div class="empty">Nenhuma tarefa por enquanto. ✧</div>';
+    return;
+  }
+
+  tarefas.forEach((t,i)=>{
+    const div=document.createElement('div');
+    div.className='task'+(t.feita?' done':'');
+
+    const check=document.createElement('input');
+    check.type='checkbox';
+    check.checked=t.feita;
+    check.addEventListener('change',()=>{
+      tarefas[i].feita=check.checked;
+      salvarTarefas();
+      desenharTarefas();
+    });
+
+    const texto=document.createElement('span');
+    texto.textContent=t.texto;
+
+    const excluir=document.createElement('button');
+    excluir.textContent='×';
+    excluir.className='delete';
+    excluir.title='Excluir tarefa';
+    excluir.addEventListener('click',()=>{
+      tarefas.splice(i,1);
+      salvarTarefas();
+      desenharTarefas();
+    });
+
+    div.append(check,texto,excluir);
+    lista.appendChild(div);
+  });
+}
+
+function adicionarTarefa() {
+  const input=document.getElementById('novaTarefa');
+  const texto=input.value.trim();
+  if(!texto) return;
+  tarefas.push({texto,feita:false});
+  input.value='';
+  salvarTarefas();
+  desenharTarefas();
+}
+
+document.getElementById('novaTarefa').addEventListener('keydown',e=>{
+  if(e.key==='Enter') adicionarTarefa();
+});
+
+// NOTAS
+const anotacoes=document.getElementById('anotacoes');
+anotacoes.value=localStorage.getItem('aster_notas') || '';
+anotacoes.addEventListener('input',()=>{
+  localStorage.setItem('aster_notas',anotacoes.value);
+});
+
+desenharTarefas();
+exibirCronometro();
+exibirPomo();
+</script>
+</body>
+</html>
