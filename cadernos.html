@@ -320,14 +320,17 @@ function criarObjeto(o){
   const handle=document.createElement('div');
   handle.className='resize';el.append(handle);
 
-  el.addEventListener('pointerdown',e=>{
-    if(['pen','mark','erase'].includes(modoAtual))return;
-    if(e.target===handle)return;
-    if(e.target.closest('a'))return;
-    selecionar(el);
-    if(modoAtual==='select'&&!el.isContentEditable)arrastar(el,e);
-    else if(modoAtual==='select'&&e.target===el)arrastar(el,e);
-  });
+el.addEventListener('pointerdown',e=>{
+  if(['pen','mark','erase'].includes(modoAtual))return;
+  if(e.target===handle)return;
+  if(e.target.closest('a'))return;
+
+  selecionar(el);
+
+  if(modoAtual==='select'&&!el.isContentEditable){
+    arrastar(el,e);
+  }
+});
   handle.addEventListener('pointerdown',e=>{
     e.stopPropagation();selecionar(el);redimensionar(el,e);
   });
