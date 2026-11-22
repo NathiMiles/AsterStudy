@@ -2,548 +2,1009 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AsterStudy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AsterStudy — Biblioteca</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
 
-:root {
-  --bg: #f6f4fa;
-  --card: #ffffff;
-  --text: #302c3d;
-  --muted: #89849a;
-  --purple: #8b79bd;
-  --purple-light: #eee8f8;
-  --pink: #f4e5ee;
-  --green: #e4efe7;
-  --blue: #e5ebf7;
-  --border: #eeeaf3;
+:root{
+  --bg:#F4EEE5;--card:#FFFCF8;--text:#49372C;
+  --muted:#947E6C;--coffee:#79563E;--caramel:#A47C5A;
+  --latte:#E8DED1;--cream:#F4EEE5;--border:#E5D8CA;
+  --dark:#49372C;--soft:#D6BFA7;--shadow:0 8px 28px rgba(73,55,44,.07);
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Nunito', sans-serif;
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Nunito,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+button:focus-visible,input:focus-visible,select:focus-visible{
+ outline:2px solid var(--caramel);outline-offset:2px
 }
-
-.layout {
-  display: flex;
-  min-height: 100vh;
+.layout{min-height:100vh}
+.sidebar{
+ width:245px;position:fixed;left:0;top:0;bottom:0;
+ background:var(--dark);color:var(--cream);padding:25px 17px;
+ display:flex;flex-direction:column;z-index:10
 }
-
-.sidebar {
-  width: 240px;
-  background: white;
-  padding: 28px 18px;
-  border-right: 1px solid var(--border);
-  position: fixed;
-  height: 100vh;
+.logo{display:flex;align-items:center;gap:11px;margin:4px 5px 35px}
+.logo-mark{
+ width:42px;height:42px;background:var(--soft);color:var(--dark);
+ border-radius:13px;display:grid;place-items:center;font-size:22px;
+ transition:transform .4s
 }
-
-.logo {
-  font-size: 23px;
-  font-weight: 800;
-  color: var(--purple);
-  margin-bottom: 35px;
+.logo-mark:hover{transform:rotate(18deg)}
+.logo-name{font-weight:800;font-size:18px}
+.logo-name span{color:var(--soft)}
+.nav-label{font-size:10px;letter-spacing:1.7px;color:#BBA895;margin:19px 12px 9px}
+.nav{display:flex;flex-direction:column;gap:5px}
+.nav button{
+ background:transparent;color:#E6D7C8;text-align:left;
+ padding:12px;border-radius:12px;font-size:14px;
+ transition:.2s;display:flex;align-items:center;gap:11px
 }
-
-.logo span { color: #c4a7d8; }
-
-.menu-title {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 1.5px;
-  margin: 24px 12px 10px;
+.nav button:hover,.nav button.active{background:#65503F;color:#fff}
+.nav button.active{font-weight:800}
+.nav-icon{width:22px;text-align:center;font-size:17px}
+.sidebar-bottom{margin-top:auto;padding:14px;background:#5A4535;border-radius:15px}
+.sidebar-bottom p{font-size:12px;color:#D7C4B2;margin:6px 0 0;line-height:1.6}
+.profile-mini{display:flex;align-items:center;gap:10px}
+.avatar{
+ width:38px;height:38px;border-radius:50%;background:var(--soft);
+ color:var(--dark);display:grid;place-items:center;font-weight:800
 }
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.profile-mini small{display:block;color:#D7C4B2;font-size:11px}
+.main{margin-left:245px;padding:32px 38px 50px;max-width:1700px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:28px}
+.date{font-size:13px;color:var(--muted)}
+.top-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{
+ width:42px;height:42px;border-radius:13px;background:var(--card);
+ border:1px solid var(--border);color:var(--coffee);display:grid;place-items:center;
+ font-size:18px;transition:.2s
 }
-
-.nav a {
-  text-decoration: none;
-  padding: 12px;
-  border-radius: 12px;
-  color: #777188;
-  font-size: 14px;
-  cursor: pointer;
-  transition: .2s;
+.icon-btn:hover{background:var(--latte)}
+.profile-btn{display:flex;align-items:center;gap:9px;padding:5px 12px 5px 5px}
+.profile-btn span{font-size:13px;font-weight:800}
+.hero{
+ background:linear-gradient(120deg,#E8DED1,#D6BFA7,#E8DED1);
+ border-radius:24px;padding:30px 32px;margin-bottom:28px;
+ display:flex;align-items:center;justify-content:space-between;gap:20px;
+ overflow:hidden;position:relative
 }
-
-.nav a:hover, .nav a.active {
-  background: var(--purple-light);
-  color: var(--purple);
-  font-weight: 700;
+.hero h1{font:400 34px 'DM Serif Display',serif;margin:0 0 8px}
+.hero p{margin:0;color:#715642;font-size:14px}
+.hero-symbol{font-size:55px;color:#79563E;opacity:.7;padding-right:15px}
+.section{margin-bottom:30px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:17px}
+.section-head h2{font:400 25px 'DM Serif Display',serif;margin:0}
+.section-head p{font-size:13px;color:var(--muted);margin:5px 0 0}
+.primary{
+ background:var(--coffee);color:white;padding:12px 17px;border-radius:13px;
+ font-weight:800;transition:.2s
 }
-
-.sidebar-bottom {
-  position: absolute;
-  bottom: 25px;
-  left: 18px;
-  right: 18px;
-  background: #f8f5fb;
-  border-radius: 16px;
-  padding: 15px;
-  font-size: 13px;
-  color: var(--muted);
+.primary:hover{background:var(--dark);transform:translateY(-1px)}
+.secondary{
+ background:var(--latte);color:var(--coffee);padding:11px 15px;
+ border-radius:12px;font-weight:800;transition:.2s
 }
-
-.main {
-  margin-left: 240px;
-  width: calc(100% - 240px);
-  padding: 35px;
-  max-width: 1600px;
+.secondary:hover{background:var(--soft)}
+.danger{background:#F1E2D9;color:#8B5039}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.search{
+ flex:1;min-width:210px;display:flex;align-items:center;gap:9px;
+ background:var(--card);border:1px solid var(--border);border-radius:13px;padding:0 13px
 }
-
-.topbar {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom: 30px;
+.search input{border:0;outline:0;background:transparent;padding:12px 0;width:100%;color:var(--text)}
+.search input:focus{outline:none}
+.toolbar select{width:auto;min-width:145px;background:var(--card)}
+.view-toggle{display:flex;gap:5px;background:var(--latte);padding:4px;border-radius:12px}
+.view-toggle button{background:transparent;color:var(--coffee);padding:8px 11px;border-radius:9px}
+.view-toggle button.active{background:var(--card)}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.book-card{
+ background:var(--card);border:1px solid var(--border);border-radius:19px;
+ overflow:hidden;box-shadow:var(--shadow);transition:.22s;min-width:0
 }
-
-.date {
-  color: var(--muted);
-  font-size: 14px;
+.book-card:hover{transform:translateY(-3px);box-shadow:0 13px 35px rgba(73,55,44,.12)}
+.cover{
+ height:155px;padding:20px;position:relative;display:flex;flex-direction:column;
+ justify-content:space-between;overflow:hidden;color:white
 }
-
-.clock {
-  background: white;
-  border-radius: 13px;
-  padding: 10px 16px;
-  font-weight: 700;
-  color: var(--purple);
-  border: 1px solid var(--border);
+.cover:after{
+ content:"";position:absolute;width:150px;height:150px;border-radius:50%;
+ background:rgba(255,255,255,.11);right:-50px;top:-55px
 }
-
-.welcome {
-  background: linear-gradient(120deg, #eae2f5, #f5e8f0, #e9edf8);
-  padding: 30px;
-  border-radius: 24px;
-  margin-bottom: 25px;
+.cover-icon{font-size:34px;position:relative;z-index:1}
+.cover-title{font:400 22px 'DM Serif Display',serif;position:relative;z-index:1;overflow-wrap:anywhere}
+.cover-image{background-size:cover;background-position:center}
+.cover-image .cover-title{background:rgba(0,0,0,.25);padding:5px 8px;border-radius:9px}
+.book-info{padding:14px 15px 15px}
+.book-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.book-meta small{font-size:11px;color:var(--muted)}
+.book-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.tag{
+ background:#E8DED1;color:#79563E;padding:4px 8px;border-radius:20px;
+ font-size:10px;font-weight:800
 }
-
-.welcome h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 32px;
-  margin: 0 0 8px;
-  font-weight: 400;
+.book-actions{display:flex;align-items:center;justify-content:space-between;margin-top:13px}
+.book-actions button{background:transparent;color:var(--coffee);padding:7px;border-radius:9px}
+.book-actions button:hover{background:var(--latte)}
+.book-actions .open-book{background:var(--latte);padding:8px 12px;font-size:12px;font-weight:800}
+.book-list{display:flex;flex-direction:column;gap:10px}
+.book-list .book-card{display:flex;align-items:center}
+.book-list .cover{width:135px;height:100px;flex-shrink:0}
+.book-list .book-info{flex:1}
+.empty-state{
+ border:1px dashed var(--border);border-radius:18px;padding:35px;text-align:center;
+ color:var(--muted);background:rgba(255,252,248,.5)
 }
-
-.welcome p {
-  color: #777188;
-  margin: 0;
+.empty-state h3{font:400 23px 'DM Serif Display',serif;color:var(--coffee)}
+  /* PAINÉIS, MODAIS E ORGANIZAÇÃO */
+.panel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.panel-card{
+ background:var(--card);border:1px solid var(--border);border-radius:17px;
+ padding:18px;transition:.2s
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+.panel-card:hover{transform:translateY(-2px)}
+.panel-card .big-icon{font-size:25px;margin-bottom:12px}
+.panel-card h3{margin:0 0 5px;font-size:15px}
+.panel-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.panel-card button{margin-top:13px}
+.chip-row{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+ display:flex;align-items:center;gap:7px;background:var(--card);
+ border:1px solid var(--border);padding:9px 12px;border-radius:12px;
+ color:var(--coffee);font-size:13px;font-weight:800
 }
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 23px;
+.chip button{background:transparent;color:var(--muted)}
+.modal-backdrop{
+ position:fixed;inset:0;background:rgba(40,28,20,.45);
+ display:none;align-items:center;justify-content:center;padding:20px;z-index:100
 }
-
-.card h2 {
-  font-size: 17px;
-  margin: 0 0 20px;
-  font-weight: 800;
+.modal-backdrop.show{display:flex}
+.modal{
+ background:var(--card);border-radius:23px;padding:25px;
+ width:min(520px,100%);max-height:90vh;overflow:auto;box-shadow:0 25px 70px #0002
 }
-
-.timer-card { background: #fff; }
-.task-card { background: #fff; }
-.pomo-card { background: #fff; }
-.notes-card { background: #fff; }
-
-.timer {
-  font-size: 48px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: var(--purple);
-  text-align: center;
-  margin: 15px 0;
+.modal h2{font:400 27px 'DM Serif Display',serif;margin:0 0 18px}
+.modal label{font-size:13px;font-weight:800;display:block;margin:14px 0 6px}
+.modal input,.modal select{width:100%;padding:11px;border:1px solid var(--border);border-radius:12px;background:#FAF7F2}
+.modal-footer{display:flex;justify-content:flex-end;gap:9px;margin-top:20px;flex-wrap:wrap}
+.color-options,.icon-options{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.color-option{
+ width:34px;height:34px;border-radius:11px;border:2px solid transparent;
+ cursor:pointer
 }
-
-.pomo {
-  font-size: 48px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: #b67593;
-  text-align: center;
-  margin: 15px 0;
+.color-option.selected{border-color:var(--dark);box-shadow:0 0 0 2px var(--soft)}
+.icon-option{
+ width:40px;height:40px;border-radius:12px;background:var(--latte);
+ display:grid;place-items:center;font-size:20px
 }
-
-.buttons {
-  display: flex;
-  gap: 9px;
-  justify-content: center;
-  flex-wrap: wrap;
+.icon-option.selected{background:var(--coffee);color:white}
+.cover-preview{border-radius:15px;padding:17px;height:110px;color:white;margin-top:12px}
+.hidden{display:none!important}
+.content-view{display:none}
+.content-view.active{display:block}
+.profile-pop{
+ position:absolute;right:38px;top:85px;width:250px;background:var(--card);
+ border:1px solid var(--border);border-radius:17px;padding:15px;
+ box-shadow:var(--shadow);z-index:30;display:none
 }
-
-button {
-  font-family: inherit;
-  border: none;
-  border-radius: 11px;
-  padding: 10px 17px;
-  cursor: pointer;
-  background: var(--purple-light);
-  color: var(--purple);
-  font-weight: 700;
-  transition: .2s;
+.profile-pop.show{display:block}
+.profile-pop button{display:block;width:100%;text-align:left;padding:10px;background:transparent;color:var(--coffee);border-radius:10px}
+.profile-pop button:hover{background:var(--latte)}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid var(--border)}
+.setting-row:last-child{border:0}
+.setting-row small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+select,input{color:var(--text)}
+.page-list{display:flex;flex-direction:column;gap:10px}
+.page-item{background:var(--card);border:1px solid var(--border);padding:14px;border-radius:14px}
+.page-item h4{margin:0 0 6px}
+.page-item small{color:var(--muted)}
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.model-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:17px}
+.model-card .model-icon{font-size:30px}
+.model-card h3{margin:10px 0 6px}
+.model-card p{font-size:12px;color:var(--muted);line-height:1.6}
+.toast{
+ position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+ background:var(--dark);color:white;padding:12px 18px;border-radius:14px;
+ z-index:200;opacity:0;pointer-events:none;transition:.25s;font-size:13px
 }
-
-button:hover { transform: translateY(-1px); opacity: .85; }
-button.primary { background: var(--purple); color: white; }
-button.soft-pink { background: var(--pink); color: #ad6688; }
-
-.input-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 15px;
+.toast.show{opacity:1}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:950px){
+ .sidebar{width:205px}.main{margin-left:205px;padding:25px}
 }
-
-input, textarea, select {
-  font-family: inherit;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #faf9fc;
-  color: var(--text);
-  outline: none;
-  width: 100%;
+@media(max-width:700px){
+ .sidebar{position:relative;width:auto;height:auto;bottom:auto;display:block}
+ .sidebar-bottom{display:none}.sidebar .nav{display:grid;grid-template-columns:repeat(2,1fr)}
+ .sidebar .nav-label{display:none}.logo{margin-bottom:14px}
+ .main{margin:0;padding:18px}
+ .hero{padding:22px}.hero h1{font-size:27px}
+ .hero-symbol{font-size:35px}
+ .topbar{align-items:flex-start}
+ .profile-pop{right:18px;top:110px}
+ .book-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
 }
-
-input:focus, textarea:focus {
-  border-color: #c4a7d8;
-}
-
-.task {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 4px;
-  border-bottom:1px solid var(--border);
-}
-
-.task:last-child { border-bottom:none; }
-
-.task span {
-  flex:1;
-  font-size:14px;
-}
-
-.task.done span {
-  text-decoration: line-through;
-  color: #aaa;
-}
-
-.task input[type=checkbox] {
-  width:17px;
-  height:17px;
-  accent-color:var(--purple);
-}
-
-.delete {
-  background: transparent;
-  color: #b8a9bd;
-  padding: 5px 8px;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 170px;
-}
-
-.empty {
-  color: var(--muted);
-  font-size: 13px;
-  padding: 10px 0;
-}
-
-.full { grid-column: 1 / -1; }
-
-.quote {
-  margin-top: 25px;
-  text-align: center;
-  color: #9a8ba9;
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: 17px;
-}
-
-.mobile-title { display:none; }
-
-@media(max-width:900px) {
-  .sidebar { width: 190px; }
-  .main { margin-left:190px; width:calc(100% - 190px); padding:22px; }
-}
-
-@media(max-width:650px) {
-  .sidebar { display:none; }
-  .main { margin:0; width:100%; padding:18px; }
-  .grid { grid-template-columns:1fr; }
-  .full { grid-column:auto; }
-  .welcome h1 { font-size:27px; }
-  .timer,.pomo { font-size:38px; }
+@media(max-width:450px){
+ .book-grid{grid-template-columns:1fr 1fr;gap:10px}
+ .cover{height:130px;padding:13px}
+ .cover-title{font-size:18px}
+ .book-info{padding:10px}
+ .book-actions{flex-wrap:wrap}
+ .hero-symbol{display:none}
 }
 </style>
 </head>
-
 <body>
 <div class="layout">
-
 <aside class="sidebar">
-  <div class="logo">✦ Aster<span>Study</span></div>
+  <div class="logo">
+    <div class="logo-mark" id="logoMark">✦</div>
+    <div class="logo-name">Aster<span>Study</span></div>
+  </div>
 
-  <div class="menu-title">MENU PRINCIPAL</div>
+  <div class="nav-label">BIBLIOTECA</div>
   <nav class="nav">
-    <a class="active" href="#inicio">⌂ &nbsp; Início</a>
-    <a href="#cronometro">◷ &nbsp; Cronômetro</a>
-    <a href="#pomodoro">◴ &nbsp; Pomodoro</a>
-    <a href="#tarefas">☑ &nbsp; Tarefas</a>
-    <a href="#notas">✎ &nbsp; Anotações</a>
+    <button class="active" data-view="library"><span class="nav-icon">▦</span>Meus cadernos</button>
+    <button data-view="favorites"><span class="nav-icon">☆</span>Favoritos</button>
+    <button data-view="recent"><span class="nav-icon">◷</span>Recentes</button>
+    <button data-view="tags"><span class="nav-icon">⌑</span>Tags</button>
+    <button data-view="chapters"><span class="nav-icon">▤</span>Capítulos</button>
+    <button data-view="models"><span class="nav-icon">✧</span>Modelos</button>
+    <button data-view="archive"><span class="nav-icon">▣</span>Arquivados</button>
+    <button data-view="trash"><span class="nav-icon">♲</span>Lixeira</button>
   </nav>
 
-  <div class="menu-title">SEU ESPAÇO</div>
+  <div class="nav-label">ESPAÇO</div>
   <nav class="nav">
-    <a href="cadernos.html">♡ &nbsp;Meu caderno</a>
+    <button data-view="settings"><span class="nav-icon">⚙</span>Configurações</button>
   </nav>
 
   <div class="sidebar-bottom">
-    ✧ Um passo de cada vez.<br>
-    Você está evoluindo!
+    <div class="profile-mini">
+      <div class="avatar" id="sideAvatar">✦</div>
+      <div><strong id="sideName">Estudante</strong><small>Meu espaço de estudos</small></div>
+    </div>
+    <p>Um passo de cada vez. Seu conhecimento floresce aqui.</p>
   </div>
 </aside>
 
-<main class="main" id="inicio">
-
+<main class="main">
   <div class="topbar">
-    <div>
-      <div class="date" id="data"></div>
+    <div class="date" id="dateNow"></div>
+    <div class="top-actions">
+      <button class="icon-btn" id="backupBtn" title="Backup">⇧</button>
+      <button class="icon-btn profile-btn" id="profileBtn" title="Perfil">
+        <div class="avatar" id="topAvatar">✦</div><span id="topName">Perfil</span>
+      </button>
     </div>
-    <div class="clock" id="relogio">00:00:00</div>
   </div>
 
-  <section class="welcome">
-    <h1>Olá, estudante! ✦</h1>
-    <p>Seu espaço para aprender, organizar e florescer.</p>
+  <div class="profile-pop" id="profilePop">
+    <div class="profile-mini" style="margin-bottom:10px">
+      <div class="avatar" id="popAvatar">✦</div>
+      <div><strong id="popName">Estudante</strong><small>Perfil local</small></div>
+    </div>
+    <button onclick="abrirPerfil()">✎ Editar perfil</button>
+    <button onclick="mudarView('settings')">⚙ Configurações</button>
+    <button onclick="exportarBackup()">⇧ Exportar biblioteca</button>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1 id="welcomeTitle">Sua biblioteca, seu universo. ✦</h1>
+      <p>Organize seus estudos, ideias e descobertas.</p>
+    </div>
+    <div class="hero-symbol">✦</div>
   </section>
 
-  <div class="grid">
-
-    <section class="card timer-card" id="cronometro">
-      <h2>◷ Cronômetro de estudos</h2>
-      <div class="timer" id="cronometroDisplay">00:00:00</div>
-      <div class="buttons">
-        <button class="primary" onclick="iniciarCronometro()">Iniciar</button>
-        <button onclick="pausarCronometro()">Pausar</button>
-        <button onclick="zerarCronometro()">Zerar</button>
+  <!-- BIBLIOTECA -->
+  <section class="content-view active" id="view-library">
+    <div class="section">
+      <div class="section-head">
+        <div><h2>Meus cadernos</h2><p id="bookCount">Sua biblioteca</p></div>
+        <button class="primary" onclick="abrirCriacao()">＋ Novo caderno</button>
       </div>
-    </section>
-
-    <section class="card pomo-card" id="pomodoro">
-      <h2>◴ Temporizador Pomodoro</h2>
-      <div class="pomo" id="pomoDisplay">25:00</div>
-      <div class="buttons">
-        <button onclick="definirPomo(25)">25 min</button>
-        <button onclick="definirPomo(50)">50 min</button>
-        <button class="soft-pink" onclick="definirPomo(5)">5 min</button>
+      <div class="toolbar">
+        <div class="search"><span>⌕</span><input id="searchInput" placeholder="Buscar cadernos ou tags..."></div>
+        <select id="sortSelect" aria-label="Ordenar cadernos">
+          <option value="recent">Última edição</option>
+          <option value="name">Nome (A–Z)</option>
+          <option value="created">Criação</option>
+          <option value="favorites">Favoritos primeiro</option>
+        </select>
+        <div class="view-toggle">
+          <button id="gridBtn" class="active" title="Grade">▦</button>
+          <button id="listBtn" title="Lista">☰</button>
+        </div>
       </div>
-      <div class="buttons" style="margin-top:12px">
-        <button class="primary" onclick="iniciarPomo()">Iniciar</button>
-        <button onclick="pausarPomo()">Pausar</button>
-        <button onclick="zerarPomo()">Resetar</button>
-      </div>
-      <p class="empty" style="text-align:center">Escolha um tempo e comece a focar.</p>
-    </section>
+      <div id="libraryBooks" class="book-grid"></div>
+    </div>
 
-    <section class="card task-card" id="tarefas">
-      <h2>☑ Lista de tarefas</h2>
-      <div class="input-row">
-        <input id="novaTarefa" placeholder="Adicionar uma tarefa..." maxlength="120">
-        <button class="primary" onclick="adicionarTarefa()">+</button>
-      </div>
-      <div id="listaTarefas"></div>
-    </section>
+    <div class="section" id="recentSection">
+      <div class="section-head"><div><h2>Recentemente acessados</h2><p>Retome de onde parou.</p></div></div>
+      <div id="recentBooks" class="book-grid"></div>
+    </div>
+  </section>
 
-    <section class="card notes-card" id="notas">
-      <h2>✎ Meu bloco de notas</h2>
-      <textarea id="anotacoes" placeholder="Escreva suas ideias, resumos e lembretes aqui..."></textarea>
-      <p class="empty">Suas anotações são salvas automaticamente neste navegador.</p>
-    </section>
+  <!-- FAVORITOS -->
+  <section class="content-view" id="view-favorites">
+    <div class="section-head"><div><h2>Favoritos</h2><p>Seus cadernos especiais.</p></div></div>
+    <div id="favoriteBooks" class="book-grid"></div>
+  </section>
 
-  </div>
+  <!-- RECENTES -->
+  <section class="content-view" id="view-recent">
+    <div class="section-head"><div><h2>Recentes</h2><p>Últimos cadernos acessados.</p></div></div>
+    <div id="recentAll" class="book-grid"></div>
+  </section>
 
-  <div class="quote">“Grandes conquistas começam com pequenos passos.”</div>
+  <!-- TAGS -->
+  <section class="content-view" id="view-tags">
+    <div class="section-head"><div><h2>Tags</h2><p>Explore seus cadernos por assunto.</p></div><button class="primary" onclick="criarTag()">＋ Nova tag</button></div>
+    <div id="tagsContainer" class="chip-row"></div>
+    <div id="tagBooks" style="margin-top:20px"></div>
+  </section>
 
+  <!-- CAPÍTULOS -->
+  <section class="content-view" id="view-chapters">
+    <div class="section-head"><div><h2>Capítulos</h2><p>Organize seus cadernos em divisões.</p></div></div>
+    <div id="chaptersContainer"></div>
+  </section>
+
+  <!-- MODELOS -->
+  <section class="content-view" id="view-models">
+    <div class="section-head"><div><h2>Modelos</h2><p>Comece com uma estrutura pronta.</p></div></div>
+    <div id="modelsContainer" class="model-grid"></div>
+  </section>
+
+  <!-- ARQUIVADOS -->
+  <section class="content-view" id="view-archive">
+    <div class="section-head"><div><h2>Arquivados</h2><p>Cadernos guardados fora da biblioteca principal.</p></div></div>
+    <div id="archiveBooks" class="book-grid"></div>
+  </section>
+
+  <!-- LIXEIRA -->
+  <section class="content-view" id="view-trash">
+    <div class="section-head"><div><h2>Lixeira</h2><p>Recupere ou exclua permanentemente.</p></div><button class="secondary danger" onclick="limparLixeira()">Esvaziar lixeira</button></div>
+    <div id="trashBooks" class="book-grid"></div>
+  </section>
+
+  <!-- CONFIGURAÇÕES -->
+  <section class="content-view" id="view-settings">
+    <div class="section-head"><div><h2>Configurações</h2><p>Preferências da biblioteca.</p></div></div>
+    <div class="card">
+      <div class="setting-row"><div><strong>Perfil</strong><small>Nome e avatar</small></div><button class="secondary" onclick="abrirPerfil()">Editar</button></div>
+      <div class="setting-row"><div><strong>Exportar backup</strong><small>Salvar uma cópia dos cadernos e configurações.</small></div><button class="secondary" onclick="exportarBackup()">Exportar</button></div>
+      <div class="setting-row"><div><strong>Importar backup</strong><small>Restaurar uma cópia JSON.</small></div><button class="secondary" onclick="document.getElementById('importFile').click()">Importar</button></div>
+      <div class="setting-row"><div><strong>Biblioteca</strong><small>Informações sobre o armazenamento local.</small></div><span>Local</span></div>
+      <div class="setting-row"><div><strong>AsterStudy</strong><small>Seu ambiente pessoal de estudos.</small></div><span>✦</span></div>
+    </div>
+  </section>
+
+  <footer>✦ AsterStudy · Sua biblioteca de conhecimento ✦</footer>
 </main>
 </div>
 
+<input type="file" id="importFile" accept=".json,application/json" class="hidden">
+<div class="toast" id="toast"></div>
+
+<!-- MODAL DE CADERNO -->
+<div class="modal-backdrop" id="bookModal">
+<div class="modal">
+<h2 id="modalTitle">Novo caderno</h2>
+<label>Nome</label><input id="bookName" maxlength="70" placeholder="Ex.: Matemática">
+<label>Ícone</label><div id="iconChoices" class="icon-options"></div>
+<label>Cor da capa</label><div id="colorChoices" class="color-options"></div>
+<label>Tags (separadas por vírgula)</label><input id="bookTags" placeholder="Matéria, revisão, prova...">
+<label>Capítulos (separados por vírgula)</label><input id="bookChapters" placeholder="Capítulo 1, Capítulo 2...">
+<label>Modelo</label><select id="bookTemplate"></select>
+<div class="cover-preview" id="coverPreview"><div id="previewIcon">📚</div><div id="previewTitle">Meu caderno</div></div>
+<div class="modal-footer">
+<button class="secondary" onclick="fecharModal()">Cancelar</button>
+<button class="primary" id="saveBookBtn" onclick="salvarCaderno()">Criar caderno</button>
+</div>
+</div>
+</div>
+
+<!-- MODAL PERFIL -->
+<div class="modal-backdrop" id="profileModal">
+<div class="modal">
+<h2>Meu perfil</h2>
+<label>Nome</label><input id="profileNameInput" maxlength="40" placeholder="Seu nome">
+<label>Avatar (emoji)</label><input id="profileAvatarInput" maxlength="4" placeholder="✦">
+<div class="modal-footer">
+<button class="secondary" onclick="fecharPerfil()">Cancelar</button>
+<button class="primary" onclick="salvarPerfil()">Salvar</button>
+</div>
+</div>
+</div>
+
+<!-- MODAL TAG -->
+<div class="modal-backdrop" id="tagModal">
+<div class="modal">
+<h2>Nova tag</h2>
+<label>Nome</label><input id="tagNameInput" maxlength="30" placeholder="Ex.: Revisão">
+<div class="modal-footer">
+<button class="secondary" onclick="fecharTagModal()">Cancelar</button>
+<button class="primary" onclick="salvarTag()">Salvar tag</button>
+</div>
+</div>
+</div>
 <script>
-// RELÓGIO
-function atualizarRelogio() {
-  const agora = new Date();
-  document.getElementById('relogio').textContent =
-    agora.toLocaleTimeString('pt-BR');
-  document.getElementById('data').textContent =
-    agora.toLocaleDateString('pt-BR', {
-      weekday:'long', day:'numeric', month:'long', year:'numeric'
-    });
+/* ASTERSTUDY — BIBLIOTECA */
+
+// Armazenamento compatível com o editor existente
+const STORAGE_KEY='aster_notebooks_v1';
+const TRASH_KEY='aster_trash_v1';
+const PROFILE_KEY='aster_profile_v1';
+const TAGS_KEY='aster_tags_v1';
+
+const COLORS=[
+ '#79563E','#A47C5A','#49372C','#D6BFA7',
+ '#B88A70','#92745D','#6F6654','#9A8BA9',
+ '#8C8175','#75866F','#B67593','#6E8393'
+];
+const ICONS=['📚','📖','✎','✦','🧮','🔬','🌍','📝','🎨','📜','🧠','💡','☁️','🌿','⭐','📐','⚗️','🗂️'];
+
+const MODELS=[
+ {id:'blank',name:'Caderno simples',icon:'📚',desc:'Um caderno básico para qualquer matéria.',pages:1,type:'quadriculada'},
+ {id:'math',name:'Matemática',icon:'🧮',desc:'Folhas quadriculadas para cálculos.',pages:3,type:'quadriculada'},
+ {id:'notes',name:'Anotações',icon:'📝',desc:'Folhas pautadas para notas.',pages:3,type:'linhas'},
+ {id:'revision',name:'Revisão',icon:'🧠',desc:'Organize conteúdos para revisar.',pages:3,type:'cornell'},
+ {id:'planner',name:'Planejamento',icon:'📅',desc:'Estrutura inicial para planejamento.',pages:3,type:'linhas'},
+ {id:'mindmap',name:'Mapa mental',icon:'💡',desc:'Folhas em branco para diagramas.',pages:3,type:'branco'},
+ {id:'literature',name:'Fichamento',icon:'📜',desc:'Organize leituras e referências.',pages:3,type:'linhas'}
+];
+
+let books=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+let trash=JSON.parse(localStorage.getItem(TRASH_KEY)||'[]');
+let profile=JSON.parse(localStorage.getItem(PROFILE_KEY)||'{"nome":"Estudante","avatar":"✦"}');
+let tags=JSON.parse(localStorage.getItem(TAGS_KEY)||'[]');
+let currentView='library';
+let gridMode=true;
+let editingBookId=null;
+let selectedColor=COLORS[0];
+let selectedIcon=ICONS[0];
+let selectedTagFilter=null;
+
+function persist(){
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(books));
 }
-atualizarRelogio();
-setInterval(atualizarRelogio, 1000);
-
-// CRONÔMETRO
-let segundos = 0;
-let intervaloCronometro = null;
-
-function exibirCronometro() {
-  const h = Math.floor(segundos/3600);
-  const m = Math.floor((segundos%3600)/60);
-  const s = segundos%60;
-  document.getElementById('cronometroDisplay').textContent =
-    [h,m,s].map(n=>String(n).padStart(2,'0')).join(':');
+function persistTrash(){
+ localStorage.setItem(TRASH_KEY,JSON.stringify(trash));
 }
-
-function iniciarCronometro() {
-  if(intervaloCronometro) return;
-  intervaloCronometro = setInterval(()=>{
-    segundos++;
-    exibirCronometro();
-  },1000);
+function persistProfile(){
+ localStorage.setItem(PROFILE_KEY,JSON.stringify(profile));
 }
-
-function pausarCronometro() {
-  clearInterval(intervaloCronometro);
-  intervaloCronometro = null;
-}
-
-function zerarCronometro() {
-  pausarCronometro();
-  segundos = 0;
-  exibirCronometro();
-}
-
-// POMODORO
-let pomoSegundos = 25*60;
-let intervaloPomo = null;
-
-function exibirPomo() {
-  const m = Math.floor(pomoSegundos/60);
-  const s = pomoSegundos%60;
-  document.getElementById('pomoDisplay').textContent =
-    [m,s].map(n=>String(n).padStart(2,'0')).join(':');
+function persistTags(){
+ localStorage.setItem(TAGS_KEY,JSON.stringify(tags));
 }
 
-function definirPomo(minutos) {
-  pausarPomo();
-  pomoSegundos = minutos*60;
-  exibirPomo();
+function escapeHTML(str){
+ return String(str??'').replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+function toast(msg){
+ const t=document.getElementById('toast');
+ t.textContent=msg;t.classList.add('show');
+ clearTimeout(toast.timeout);
+ toast.timeout=setTimeout(()=>t.classList.remove('show'),2500);
+}
+function id(){
+ return 'ast_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+}
+function getBook(id){
+ return books.find(b=>b.id===id);
+}
+function pageCount(b){
+ return (b.paginas||[]).length;
+}
+function getTags(b){
+ return Array.isArray(b.tags)?b.tags:[];
+}
+function getChapters(b){
+ return Array.isArray(b.capitulos)?b.capitulos:[];
+}
+function dateText(value){
+ if(!value)return'';
+ const d=new Date(value);
+ if(isNaN(d))return'';
+ return d.toLocaleDateString('pt-BR');
 }
 
-function iniciarPomo() {
-  if(intervaloPomo || pomoSegundos<=0) return;
-  intervaloPomo = setInterval(()=>{
-    pomoSegundos--;
-    exibirPomo();
-    if(pomoSegundos<=0) {
-      pausarPomo();
-      alert('Tempo concluído! Parabéns pelo seu foco. ✨');
-    }
-  },1000);
+// PERFIL
+function atualizarPerfilUI(){
+ const n=profile.nome||'Estudante',a=profile.avatar||'✦';
+ document.getElementById('topName').textContent=n;
+ document.getElementById('sideName').textContent=n;
+ document.getElementById('topAvatar').textContent=a;
+ document.getElementById('sideAvatar').textContent=a;
+ document.getElementById('popName').textContent=n;
+ document.getElementById('popAvatar').textContent=a;
+ document.getElementById('welcomeTitle').textContent='Sua biblioteca, '+n+'! ✦';
+}
+function abrirPerfil(){
+ document.getElementById('profilePop').classList.remove('show');
+ document.getElementById('profileNameInput').value=profile.nome||'';
+ document.getElementById('profileAvatarInput').value=profile.avatar||'✦';
+ document.getElementById('profileModal').classList.add('show');
+}
+function fecharPerfil(){
+ document.getElementById('profileModal').classList.remove('show');
+}
+function salvarPerfil(){
+ profile.nome=document.getElementById('profileNameInput').value.trim()||'Estudante';
+ profile.avatar=document.getElementById('profileAvatarInput').value.trim()||'✦';
+ persistProfile();atualizarPerfilUI();fecharPerfil();toast('Perfil atualizado!');
+}
+document.getElementById('profileBtn').onclick=()=>{
+ document.getElementById('profilePop').classList.toggle('show');
+};
+document.addEventListener('click',e=>{
+ if(!e.target.closest('#profileBtn')&&!e.target.closest('#profilePop')){
+  document.getElementById('profilePop').classList.remove('show');
+ }
+});
+
+// DATA
+document.getElementById('dateNow').textContent=new Date().toLocaleDateString('pt-BR',{
+ weekday:'long',day:'numeric',month:'long',year:'numeric'
+});
+
+// NAVIGAÇÃO
+function mudarView(view){
+ currentView=view;
+ document.querySelectorAll('.content-view').forEach(v=>v.classList.remove('active'));
+ const el=document.getElementById('view-'+view);
+ if(el)el.classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>{
+  b.classList.toggle('active',b.dataset.view===view);
+ });
+ document.getElementById('profilePop').classList.remove('show');
+ renderAll();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.nav button[data-view]').forEach(b=>{
+ b.addEventListener('click',()=>mudarView(b.dataset.view));
+});
+
+// CAPAS
+function coverStyle(b){
+ let style='background:'+escapeHTML(b.cor||COLORS[0]);
+ if(b.imagem){
+  style='background-image:url("'+String(b.imagem).replace(/"/g,'%22')+'");background-size:cover;background-position:center';
+ }
+ return style;
+}
+function createBookCard(b,options={}){
+ const card=document.createElement('article');
+ card.className='book-card';
+ if(options.list)card.classList.add('list-card');
+ const cover=document.createElement('div');
+ cover.className='cover';
+ if(b.imagem)cover.classList.add('cover-image');
+ cover.style.cssText=coverStyle(b);
+ const icon=document.createElement('div');
+ icon.className='cover-icon';icon.textContent=b.icone||'📚';
+ const title=document.createElement('div');
+ title.className='cover-title';title.textContent=b.nome||'Sem título';
+ cover.append(icon,title);
+
+ const info=document.createElement('div');
+ info.className='book-info';
+ const meta=document.createElement('div');meta.className='book-meta';
+ const pages=document.createElement('small');
+ pages.textContent=pageCount(b)+' '+(pageCount(b)===1?'página':'páginas');
+ const last=document.createElement('small');
+ last.textContent=b.atualizado?dateText(b.atualizado):'';
+ meta.append(pages,last);
+ const tagArea=document.createElement('div');tagArea.className='book-tags';
+ getTags(b).slice(0,4).forEach(t=>{
+  const x=document.createElement('span');x.className='tag';x.textContent=t;tagArea.append(x);
+ });
+ info.append(meta,tagArea);
+
+ const actions=document.createElement('div');actions.className='book-actions';
+ const open=document.createElement('button');open.className='open-book';open.textContent='Abrir';
+ open.onclick=()=>abrirCaderno(b.id);
+ const more=document.createElement('button');more.textContent='⋯';more.title='Mais opções';
+ more.onclick=()=>menuCaderno(b.id);
+ const fav=document.createElement('button');
+ fav.textContent=b.favorito?'★':'☆';fav.title='Favoritar';
+ fav.onclick=()=>alternarFavorito(b.id);
+ actions.append(open,fav,more);
+ info.append(actions);
+ card.append(cover,info);
+ return card;
 }
 
-function pausarPomo() {
-  clearInterval(intervaloPomo);
-  intervaloPomo = null;
+function renderBooks(containerId,list,opts={}){
+ const container=document.getElementById(containerId);
+ if(!container)return;
+ container.innerHTML='';
+ if(!list.length){
+  container.className=opts.list?'book-list':'book-grid';
+  container.innerHTML='<div class="empty-state"><div style="font-size:30px">✦</div><h3>'+escapeHTML(opts.emptyTitle||'Nada por aqui')+'</h3><p>'+escapeHTML(opts.emptyText||'Seus cadernos aparecerão aqui.')+'</p></div>';
+  return;
+ }
+ container.className=opts.list?'book-list':'book-grid';
+ list.forEach(b=>container.appendChild(createBookCard(b,{list:opts.list})));
 }
 
-function zerarPomo() {
-  pausarPomo();
-  pomoSegundos = 25*60;
-  exibirPomo();
+function renderLibrary(){
+ const search=document.getElementById('searchInput').value.toLowerCase().trim();
+ let list=books.filter(b=>!b.lixeira&&!b.arquivado);
+ if(search){
+  list=list.filter(b=>(b.nome||'').toLowerCase().includes(search)||
+   getTags(b).some(t=>t.toLowerCase().includes(search))||
+   getChapters(b).some(t=>t.toLowerCase().includes(search)));
+ }
+ const sort=document.getElementById('sortSelect').value;
+ if(sort==='name')list.sort((a,b)=>(a.nome||'').localeCompare(b.nome||''));
+ if(sort==='recent')list.sort((a,b)=>(b.atualizado||0)-(a.atualizado||0));
+ if(sort==='created')list.sort((a,b)=>(b.criado||0)-(a.criado||0));
+ if(sort==='favorites')list.sort((a,b)=>(Number(b.favorito)-Number(a.favorito)));
+ document.getElementById('bookCount').textContent=list.length+' caderno(s)';
+ renderBooks('libraryBooks',list,{list:!gridMode,emptyTitle:'Sua biblioteca está vazia',emptyText:'Crie seu primeiro caderno ou explore os modelos.'});
+ const recent=books.filter(b=>!b.lixeira&&!b.arquivado&&b.acesso)
+  .sort((a,b)=>b.acesso-a.acesso).slice(0,4);
+ renderBooks('recentBooks',recent,{emptyTitle:'Nenhum acesso recente'});
+}
+function renderFavorites(){
+ renderBooks('favoriteBooks',books.filter(b=>!b.lixeira&&!b.arquivado&&b.favorito),{emptyTitle:'Sem favoritos',emptyText:'Marque cadernos com a estrela para encontrá-los aqui.'});
+}
+function renderRecent(){
+ const list=books.filter(b=>!b.lixeira&&!b.arquivado&&b.acesso).sort((a,b)=>b.acesso-a.acesso);
+ renderBooks('recentAll',list,{emptyTitle:'Nenhum caderno recente'});
+}
+function renderArchive(){
+ renderBooks('archiveBooks',books.filter(b=>b.arquivado&&!b.lixeira),{emptyTitle:'Nada arquivado'});
+}
+function renderTrash(){
+ renderBooks('trashBooks',trash,{emptyTitle:'Lixeira vazia'});
 }
 
-// TAREFAS
-let tarefas = JSON.parse(localStorage.getItem('aster_tarefas') || '[]');
-
-function salvarTarefas() {
-  localStorage.setItem('aster_tarefas',JSON.stringify(tarefas));
+// ABRIR
+function abrirCaderno(bookId){
+ const b=getBook(bookId);
+ if(!b)return;
+ b.acesso=Date.now();b.atualizado=b.atualizado||Date.now();
+ persist();
+ // Editor existente
+ location.href='cadernos.html?book='+encodeURIComponent(bookId);
 }
 
-function desenharTarefas() {
-  const lista = document.getElementById('listaTarefas');
-  lista.innerHTML = '';
+// FAVORITOS
+function alternarFavorito(bookId){
+ const b=getBook(bookId);if(!b)return;
+ b.favorito=!b.favorito;
+ persist();renderAll();toast(b.favorito?'Adicionado aos favoritos':'Removido dos favoritos');
+}
 
-  if(tarefas.length===0) {
-    lista.innerHTML='<div class="empty">Nenhuma tarefa por enquanto. ✧</div>';
-    return;
-  }
+// MENU
+function menuCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ const action=prompt(
+ 'Opções do caderno:\n'+
+ '1 — Renomear\n2 — Duplicar\n3 — Arquivar\n4 — Excluir\n5 — Editar capa\n6 — Exportar este caderno\n7 — Sumário / capítulos\n8 — Restaurar (caso arquivado)\n\nDigite o número'
+ );
+ if(action==='1')renomearCaderno(bookId);
+ if(action==='2')duplicarCaderno(bookId);
+ if(action==='3')arquivarCaderno(bookId);
+ if(action==='4')excluirCaderno(bookId);
+ if(action==='5')editarCaderno(bookId);
+ if(action==='6')exportarCaderno(bookId);
+ if(action==='7')editarCapitulos(bookId);
+ if(action==='8')desarquivarCaderno(bookId);
+}
+function renomearCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ const nome=prompt('Novo nome:',b.nome);
+ if(nome&&nome.trim()){b.nome=nome.trim();b.atualizado=Date.now();persist();renderAll();toast('Nome atualizado');}
+}
+function duplicarCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ const copy=JSON.parse(JSON.stringify(b));
+ copy.id=id();copy.nome=b.nome+' (cópia)';copy.criado=Date.now();copy.atualizado=Date.now();copy.acesso=0;
+ books.push(copy);persist();renderAll();toast('Caderno duplicado');
+}
+function arquivarCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ b.arquivado=true;persist();renderAll();toast('Caderno arquivado');
+}
+function desarquivarCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ b.arquivado=false;persist();renderAll();toast('Caderno restaurado');
+}
+function excluirCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ if(!confirm('Enviar "'+b.nome+'" para a lixeira?'))return;
+ books=books.filter(x=>x.id!==bookId);
+ b.excluidoEm=Date.now();trash.push(b);persist();persistTrash();renderAll();toast('Caderno enviado à lixeira');
+}
+function restaurarCaderno(bookId){
+ const b=trash.find(x=>x.id===bookId);if(!b)return;
+ trash=trash.filter(x=>x.id!==bookId);
+ b.lixeira=false;b.arquivado=false;
+ books.push(b);persist();persistTrash();renderAll();toast('Caderno recuperado');
+}
+function excluirDefinitivamente(bookId){
+ if(!confirm('Excluir permanentemente?'))return;
+ trash=trash.filter(x=>x.id!==bookId);persistTrash();renderAll();toast('Excluído definitivamente');
+}
+function limparLixeira(){
+ if(!trash.length){toast('A lixeira já está vazia');return;}
+ if(!confirm('Excluir permanentemente todos os itens da lixeira?'))return;
+ trash=[];persistTrash();renderAll();toast('Lixeira esvaziada');
+}
 
-  tarefas.forEach((t,i)=>{
-    const div=document.createElement('div');
-    div.className='task'+(t.feita?' done':'');
+// RENDER ESPECIAL DA LIXEIRA
+const originalCreateBookCard=createBookCard;
+function renderTrashActions(){
+ document.querySelectorAll('#trashBooks .book-card').forEach((card,i)=>{
+  const b=trash[i];if(!b)return;
+  const actions=card.querySelector('.book-actions');
+  actions.innerHTML='';
+  const restore=document.createElement('button');restore.className='open-book';restore.textContent='Recuperar';
+  restore.onclick=()=>restaurarCaderno(b.id);
+  const del=document.createElement('button');del.textContent='Excluir definitivamente';
+  del.onclick=()=>excluirDefinitivamente(b.id);
+  actions.append(restore,del);
+ });
+}
 
-    const check=document.createElement('input');
-    check.type='checkbox';
-    check.checked=t.feita;
-    check.addEventListener('change',()=>{
-      tarefas[i].feita=check.checked;
-      salvarTarefas();
-      desenharTarefas();
-    });
-
-    const texto=document.createElement('span');
-    texto.textContent=t.texto;
-
-    const excluir=document.createElement('button');
-    excluir.textContent='×';
-    excluir.className='delete';
-    excluir.title='Excluir tarefa';
-    excluir.addEventListener('click',()=>{
-      tarefas.splice(i,1);
-      salvarTarefas();
-      desenharTarefas();
-    });
-
-    div.append(check,texto,excluir);
-    lista.appendChild(div);
+// TAGS
+function criarTag(){
+ document.getElementById('tagNameInput').value='';
+ document.getElementById('tagModal').classList.add('show');
+}
+function fecharTagModal(){document.getElementById('tagModal').classList.remove('show')}
+function salvarTag(){
+ const t=document.getElementById('tagNameInput').value.trim();
+ if(!t){toast('Digite um nome');return;}
+ if(tags.some(x=>x.toLowerCase()===t.toLowerCase())){toast('Essa tag já existe');return;}
+ tags.push(t);persistTags();fecharTagModal();renderAll();toast('Tag criada');
+}
+function renderTags(){
+ const container=document.getElementById('tagsContainer');
+ container.innerHTML='';
+ if(!tags.length){
+  container.innerHTML='<div class="empty-state">Você ainda não criou tags. Elas também podem ser adicionadas nos cadernos.</div>';
+ }
+ tags.forEach(t=>{
+  const chip=document.createElement('div');chip.className='chip';
+  const btn=document.createElement('button');btn.textContent=t;
+  btn.onclick=()=>filtrarTag(t);
+  const del=document.createElement('button');del.textContent='×';del.title='Excluir tag';
+  del.onclick=()=>removerTag(t);
+  chip.append(btn,del);container.append(chip);
+ });
+}
+function filtrarTag(t){
+ selectedTagFilter=t;
+ const list=books.filter(b=>!b.lixeira&&!b.arquivado&&getTags(b).includes(t));
+ const target=document.getElementById('tagBooks');
+ target.innerHTML='<h3>'+escapeHTML(t)+'</h3>';
+ const grid=document.createElement('div');grid.className='book-grid';
+ list.forEach(b=>grid.append(createBookCard(b)));
+ target.append(grid);
+}
+function removerTag(t){
+ if(!confirm('Remover a tag "'+t+'" da lista?'))return;
+ tags=tags.filter(x=>x!==t);
+ books.forEach(b=>b.tags=(b.tags||[]).filter(x=>x!==t));
+ persistTags();persist();renderAll();
+}
+function renderChapters(){
+ const c=document.getElementById('chaptersContainer');
+ c.innerHTML='';
+ const all=books.filter(b=>!b.lixeira&&!b.arquivado&&getChapters(b).length);
+ if(!all.length){c.innerHTML='<div class="empty-state"><h3>Nenhum capítulo criado</h3><p>Os capítulos podem ser adicionados ao criar ou editar um caderno.</p></div>';return;}
+ all.forEach(b=>{
+  const card=document.createElement('div');card.className='panel-card';
+  card.innerHTML='<h3>'+escapeHTML(b.icone||'📚')+' '+escapeHTML(b.nome)+'</h3>';
+  getChapters(b).forEach(ch=>{
+   const btn=document.createElement('button');btn.className='chip';btn.textContent=ch;
+   btn.onclick=()=>toast('Capítulo: '+ch+' — integração com o editor será feita na próxima fase.');
+   card.append(btn);
   });
+  card.appendChild(document.createElement('br'));
+  const edit=document.createElement('button');edit.className='secondary';edit.textContent='Editar capítulos';
+  edit.onclick=()=>editarCapitulos(b.id);card.append(edit);
+  c.append(card);
+ });
+}
+function editarCapitulos(bookId){
+ const b=getBook(bookId);if(!b)return;
+ const v=prompt('Capítulos separados por vírgulas:',getChapters(b).join(', '));
+ if(v===null)return;
+ b.capitulos=v.split(',').map(x=>x.trim()).filter(Boolean);
+ persist();renderAll();toast('Capítulos atualizados');
 }
 
-function adicionarTarefa() {
-  const input=document.getElementById('novaTarefa');
-  const texto=input.value.trim();
-  if(!texto) return;
-  tarefas.push({texto,feita:false});
-  input.value='';
-  salvarTarefas();
-  desenharTarefas();
+// MODELOS
+function renderModels(){
+ const c=document.getElementById('modelsContainer');c.innerHTML='';
+ MODELS.forEach(m=>{
+  const card=document.createElement('div');card.className='model-card';
+  card.innerHTML='<div class="model-icon">'+m.icon+'</div><h3>'+escapeHTML(m.name)+'</h3><p>'+escapeHTML(m.desc)+'</p>';
+  const btn=document.createElement('button');btn.className='primary';btn.textContent='Criar';
+  btn.onclick=()=>abrirCriacao(m.id);card.append(btn);c.append(card);
+ });
 }
 
-document.getElementById('novaTarefa').addEventListener('keydown',e=>{
-  if(e.key==='Enter') adicionarTarefa();
+// CRIAÇÃO
+function montarChoices(){
+ const iconC=document.getElementById('iconChoices');iconC.innerHTML='';
+ ICONS.forEach(i=>{
+  const btn=document.createElement('button');btn.className='icon-option'+(i===selectedIcon?' selected':'');
+  btn.textContent=i;btn.onclick=()=>{selectedIcon=i;montarChoices();atualizarPreview();};
+  iconC.append(btn);
+ });
+ const colorC=document.getElementById('colorChoices');colorC.innerHTML='';
+ COLORS.forEach(c=>{
+  const btn=document.createElement('button');btn.className='color-option'+(c===selectedColor?' selected':'');
+  btn.style.background=c;btn.onclick=()=>{selectedColor=c;montarChoices();atualizarPreview();};
+  colorC.append(btn);
+ });
+}
+function atualizarPreview(){
+ const p=document.getElementById('coverPreview');
+ p.style.background=selectedColor;
+ document.getElementById('previewIcon').textContent=selectedIcon;
+ document.getElementById('previewTitle').textContent=document.getElementById('bookName').value||'Meu caderno';
+}
+function prepararTemplates(){
+ const sel=document.getElementById('bookTemplate');sel.innerHTML='';
+ MODELS.forEach(m=>{
+  const o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.append(o);
+ });
+}
+function prepararImagemCapa(){
+ const modal=document.querySelector('#bookModal .modal');
+ if(document.getElementById('coverImageInput'))return;
+ const label=document.createElement('label');label.textContent='Imagem da capa (URL opcional)';
+ const input=document.createElement('input');input.id='coverImageInput';input.placeholder='https://...';
+ modal.insertBefore(label,document.getElementById('coverPreview'));
+ modal.insertBefore(input,document.getElementById('coverPreview'));
+ input.addEventListener('input',()=>atualizarPreview());
+}
+function abrirCriacao(modelId='blank'){
+ editingBookId=null;
+ selectedColor=COLORS[0];selectedIcon=ICONS[0];
+ document.getElementById('modalTitle').textContent='Novo caderno';
+ document.getElementById('saveBookBtn').textContent='Criar caderno';
+ document.getElementById('bookName').value='';
+ document.getElementById('bookTags').value='';
+ document.getElementById('bookChapters').value='';
+ document.getElementById('bookTemplate').value=modelId;
+ document.getElementById('coverImageInput').value='';
+ montarChoices();atualizarPreview();
+ document.getElementById('bookModal').classList.add('show');
+}
+function editarCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ editingBookId=bookId;
+ selectedColor=b.cor||COLORS[0];selectedIcon=b.icone||ICONS[0];
+ document.getElementById('modalTitle').textContent='Editar caderno';
+ document.getElementById('saveBookBtn').textContent='Salvar alterações';
+ document.getElementById('bookName').value=b.nome||'';
+ document.getElementById('bookTags').value=getTags(b).join(', ');
+ document.getElementById('bookChapters').value=getChapters(b).join(', ');
+ document.getElementById('bookTemplate').value='blank';
+ document.getElementById('coverImageInput').value=b.imagem||'';
+ montarChoices();atualizarPreview();
+ document.getElementById('bookModal').classList.add('show');
+}
+function fecharModal(){document.getElementById('bookModal').classList.remove('show')}
+function salvarCaderno(){
+ const nome=document.getElementById('bookName').value.trim();
+ if(!nome){toast('Digite o nome do caderno');return;}
+ const bookTags=document.getElementById('bookTags').value.split(',').map(x=>x.trim()).filter(Boolean);
+ const chapters=document.getElementById('bookChapters').value.split(',').map(x=>x.trim()).filter(Boolean);
+ const image=document.getElementById('coverImageInput').value.trim();
+ if(editingBookId){
+  const b=getBook(editingBookId);if(!b)return;
+  b.nome=nome;b.cor=selectedColor;b.icone=selectedIcon;
+  b.tags=bookTags;b.capitulos=chapters;b.imagem=image;
+  b.atualizado=Date.now();
+ }else{
+  const model=MODELS.find(m=>m.id===document.getElementById('bookTemplate').value)||MODELS[0];
+  const pages=[];
+  for(let i=0;i<model.pages;i++){
+   pages.push({
+    objetos:[],desenho:'',tipo:model.type,
+    corLinha:'#D6BFA7',espacamento:30,
+    titulo:i===0?'Introdução':'',favorita:false
+   });
+  }
+  books.push({
+   id:id(),nome,cor:selectedColor,icone:selectedIcon,
+   imagem,tags:bookTags,capitulos:chapters,
+   favorito:false,arquivado:false,criado:Date.now(),
+   atualizado:Date.now(),acesso:0,paginas
+  });
+ }
+ persist();fecharModal();renderAll();toast(editingBookId?'Caderno atualizado':'Caderno criado');
+ editingBookId=null;
+}
+
+// SUMÁRIO
+function exportarCaderno(bookId){
+ const b=getBook(bookId);if(!b)return;
+ const blob=new Blob([JSON.stringify(b,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;
+ a.download=(b.nome||'caderno')+'.json';a.click();URL.revokeObjectURL(url);
+ toast('Caderno exportado');
+}
+
+// BACKUP
+function exportarBackup(){
+ const data={books,trash,profile,tags,versao:1};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;
+ a.download='AsterStudy-backup-'+new Date().toISOString().slice(0,10)+'.json';
+ a.click();URL.revokeObjectURL(url);toast('Backup exportado');
+}
+function importarBackup(file){
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const data=JSON.parse(reader.result);
+   if(!confirm('A importação substituirá os dados atuais da biblioteca. Deseja continuar?'))return;
+   if(Array.isArray(data.books))books=data.books;
+   if(Array.isArray(data.trash))trash=data.trash;
+   if(data.profile)profile=data.profile;
+   if(Array.isArray(data.tags))tags=data.tags;
+   persist();persistTrash();persistProfile();persistTags();
+   atualizarPerfilUI();renderAll();toast('Backup restaurado');
+  }catch(e){toast('Arquivo de backup inválido');}
+ };
+ reader.readAsText(file);
+}
+document.getElementById('importFile').addEventListener('change',e=>{
+ const file=e.target.files[0];if(file)importarBackup(file);e.target.value='';
+});
+document.getElementById('backupBtn').onclick=exportarBackup;
+
+// FILTROS
+document.getElementById('searchInput').addEventListener('input',renderLibrary);
+document.getElementById('sortSelect').addEventListener('change',renderLibrary);
+document.getElementById('gridBtn').onclick=()=>{
+ gridMode=true;document.getElementById('gridBtn').classList.add('active');
+ document.getElementById('listBtn').classList.remove('active');renderLibrary();
+};
+document.getElementById('listBtn').onclick=()=>{
+ gridMode=false;document.getElementById('listBtn').classList.add('active');
+ document.getElementById('gridBtn').classList.remove('active');renderLibrary();
+};
+document.getElementById('bookName').addEventListener('input',atualizarPreview);
+
+// RENDER GERAL
+function renderAll(){
+ renderLibrary();renderFavorites();renderRecent();
+ renderArchive();renderTrash();renderTags();
+ renderChapters();renderModels();renderTrashActions();
+}
+
+// ANIMAÇÃO LOGO
+document.getElementById('logoMark').addEventListener('click',e=>{
+ const el=e.currentTarget;
+ el.style.transform='rotate(360deg) scale(1.15)';
+ setTimeout(()=>el.style.transform='',450);
 });
 
-// NOTAS
-const anotacoes=document.getElementById('anotacoes');
-anotacoes.value=localStorage.getItem('aster_notas') || '';
-anotacoes.addEventListener('input',()=>{
-  localStorage.setItem('aster_notas',anotacoes.value);
-});
-
-desenharTarefas();
-exibirCronometro();
-exibirPomo();
+// INICIALIZAÇÃO
+prepararTemplates();
+prepararImagemCapa();
+atualizarPerfilUI();
+renderAll();
 </script>
 </body>
 </html>
