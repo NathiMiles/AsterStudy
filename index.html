@@ -469,7 +469,6 @@ let editingBookId=null;
 let selectedColor=COLORS[0];
 let selectedIcon=ICONS[0];
 let selectedTagFilter=null;
-let selectedImageData='';
 
 function persist(){
  localStorage.setItem(STORAGE_KEY,JSON.stringify(books));
@@ -575,12 +574,9 @@ document.querySelectorAll('.nav button[data-view]').forEach(b=>{
 
 // CAPAS
 function coverStyle(b){
- let style='background:'+escapeHTML(b.cor||COLORS[0]);
- if(b.imagem){
-  style='background-image:url("'+String(b.imagem).replace(/"/g,'%22')+'");background-size:cover;background-position:center';
- }
- return style;
+ return 'background:'+escapeHTML(b.cor||COLORS[0]);
 }
+
 function createBookCard(b,options={}){
  const card=document.createElement('article');
  card.className='book-card';
@@ -856,16 +852,10 @@ function montarChoices(){
 function atualizarPreview(){
  const p=document.getElementById('coverPreview');
  p.style.backgroundColor=selectedColor;
- p.style.backgroundImage='';
- p.style.backgroundSize='cover';
- p.style.backgroundPosition='center';
-
- const url=document.getElementById('coverImageInput')?.value.trim()||'';
- const img=selectedImageData||url;
-
- if(img){
-  p.style.backgroundImage='url("'+img.replace(/"/g,'%22')+'")';
- }
+ p.style.backgroundImage='none';
+ document.getElementById('previewIcon').textContent=selectedIcon;
+ document.getElementById('previewTitle').textContent=document.getElementById('bookName').value||'Meu caderno';
+}
 
  document.getElementById('previewIcon').textContent=selectedIcon;
  document.getElementById('previewTitle').textContent=
@@ -878,77 +868,6 @@ function prepararTemplates(){
  });
 }
 
-function prepararImagemCapa(){
- const modal=document.querySelector('#bookModal .modal');
- if(document.getElementById('coverImageInput'))return;
-
- const label=document.createElement('label');
- label.textContent='Imagem da capa (URL opcional)';
-
- const input=document.createElement('input');
- input.id='coverImageInput';
- input.placeholder='https://...';
-
- const fileLabel=document.createElement('label');
- fileLabel.textContent='Ou escolha uma imagem do computador';
-
- const fileInput=document.createElement('input');
- fileInput.type='file';
- fileInput.id='coverFileInput';
- fileInput.accept='image/*';
-
- const removeBtn=document.createElement('button');
- removeBtn.type='button';
- removeBtn.className='secondary';
- removeBtn.textContent='Remover imagem';
- removeBtn.style.marginTop='8px';
-
- modal.insertBefore(label,document.getElementById('coverPreview'));
- modal.insertBefore(input,document.getElementById('coverPreview'));
- modal.insertBefore(fileLabel,document.getElementById('coverPreview'));
- modal.insertBefore(fileInput,document.getElementById('coverPreview'));
- modal.insertBefore(removeBtn,document.getElementById('coverPreview'));
-
- input.addEventListener('input',()=>{
-  selectedImageData='';
-  fileInput.value='';
-  atualizarPreview();
- });
-
- fileInput.addEventListener('change',()=>{
-  const file=fileInput.files[0];
-  if(!file)return;
-
-  if(!file.type.startsWith('image/')){
-   toast('Escolha um arquivo de imagem');
-   fileInput.value='';
-   return;
-  }
-
-  if(file.size>700*1024){
-   toast('A imagem deve ter no máximo 700 KB');
-   fileInput.value='';
-   return;
-  }
-
-  const reader=new FileReader();
-  reader.onload=()=>{
-   selectedImageData=reader.result;
-   input.value='';
-   atualizarPreview();
-  };
-  reader.onerror=()=>toast('Não foi possível ler a imagem');
-  reader.readAsDataURL(file);
- });
-
- removeBtn.onclick=()=>{
-  selectedImageData='';
-  input.value='';
-  fileInput.value='';
-  atualizarPreview();
-  toast('Imagem removida');
- };
-}
 function abrirCriacao(modelId='blank'){
  editingBookId=null;
  selectedColor=COLORS[0];selectedIcon=ICONS[0];
@@ -958,9 +877,7 @@ function abrirCriacao(modelId='blank'){
  document.getElementById('bookTags').value='';
  document.getElementById('bookChapters').value='';
  document.getElementById('bookTemplate').value=modelId;
- document.getElementById('coverImageInput').value='';
-  selectedImageData='';
-document.getElementById('coverFileInput').value='';
+
  montarChoices();atualizarPreview();
  document.getElementById('bookModal').classList.add('show');
 }
@@ -974,9 +891,7 @@ function editarCaderno(bookId){
  document.getElementById('bookTags').value=getTags(b).join(', ');
  document.getElementById('bookChapters').value=getChapters(b).join(', ');
  document.getElementById('bookTemplate').value='blank';
- document.getElementById('coverImageInput').value=b.imagem||'';
-  selectedImageData='';
-document.getElementById('coverFileInput').value='';
+ 
  montarChoices();atualizarPreview();
  document.getElementById('bookModal').classList.add('show');
 }
@@ -988,7 +903,6 @@ function salvarCaderno(){
 
   const bookTags=document.getElementById('bookTags').value.split(',').map(x=>x.trim()).filter(Boolean);
   const chapters=document.getElementById('bookChapters').value.split(',').map(x=>x.trim()).filter(Boolean);
-  const image=selectedImageData||document.getElementById('coverImageInput').value.trim();
 
   if(editingBookId){
    const b=getBook(editingBookId);
@@ -999,7 +913,6 @@ function salvarCaderno(){
    b.icone=selectedIcon;
    b.tags=bookTags;
    b.capitulos=chapters;
-   b.imagem=image;
    b.atualizado=Date.now();
   }else{
    const model=MODELS.find(m=>m.id===document.getElementById('bookTemplate').value)||MODELS[0];
@@ -1022,7 +935,6 @@ function salvarCaderno(){
     nome,
     cor:selectedColor,
     icone:selectedIcon,
-    imagem,
     tags:bookTags,
     capitulos:chapters,
     favorito:false,
