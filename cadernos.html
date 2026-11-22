@@ -5,71 +5,222 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AsterStudy — Cadernos</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Serif+Display&display=swap');
-:root{--bg:#f5f3f9;--card:#fff;--text:#332d40;--muted:#8b849a;--purple:#8975b7;--pale:#eee8f7;--border:#ece7f2}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
+
+:root{
+  --bg:#f4efe7;
+  --card:#fffdf9;
+  --text:#49372b;
+  --muted:#9b8776;
+  --accent:#8b6347;
+  --accent2:#b18a69;
+  --pale:#e9ded0;
+  --border:#e5d8c9;
+  --dark:#30251e;
+  --success:#758a70;
+  --danger:#a95d55;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Nunito,sans-serif}
-button,input,select{font:inherit}
-button{border:0;cursor:pointer;border-radius:10px;padding:9px 13px;background:var(--pale);color:var(--purple);font-weight:800}
-button:hover{filter:brightness(.97)}
-button.primary{background:var(--purple);color:white}
-button.danger{background:#f8e5e9;color:#b6657c}
-button.active{background:var(--purple);color:white}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Nunito,sans-serif;transition:.2s
+}
+button,input,select,textarea{font:inherit}
+button{
+  border:0;cursor:pointer;border-radius:9px;padding:9px 12px;
+  background:var(--pale);color:var(--accent);font-weight:800;
+  transition:.15s
+}
+button:hover{filter:brightness(.96);transform:translateY(-1px)}
+button.primary{background:var(--accent);color:white}
+button.danger{background:#f2e1dc;color:var(--danger)}
+button.active{background:var(--accent);color:white}
+button:disabled{opacity:.4;cursor:not-allowed}
 .hidden{display:none!important}
-header{background:white;border-bottom:1px solid var(--border);padding:15px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30}
-.logo{font-weight:800;font-size:21px;color:var(--purple)}
-.logo span{color:#c2a5d6}
-.container{max-width:1250px;margin:auto;padding:30px 22px}
+
+header{
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:14px 22px;display:flex;justify-content:space-between;
+  align-items:center;position:sticky;top:0;z-index:30
+}
+.logo{font-weight:800;font-size:21px;color:var(--accent)}
+.logo span{color:var(--accent2)}
+.container{max-width:1300px;margin:auto;padding:30px 22px}
 h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
 .subtitle{color:var(--muted)}
-.library{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-.book{min-height:205px;border-radius:22px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 25px #00000008}
-.book-icon{font-size:36px}
+
+.library{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:18px
+}
+.book{
+  min-height:210px;border-radius:20px;padding:22px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:0 8px 25px #49372b0a;border:1px solid #ffffff80;
+  transition:.2s
+}
+.book:hover{transform:translateY(-3px);box-shadow:0 10px 28px #49372b14}
+.book-icon{font-size:35px}
 .book h3{margin:9px 0 4px}
 .book-actions{display:flex;gap:7px;flex-wrap:wrap}
 .book-actions button{font-size:12px;padding:7px 10px}
-.newbook{min-height:205px;border:2px dashed #d6c9e7;border-radius:22px;background:#fff;color:var(--purple);display:grid;place-items:center;font-weight:800;font-size:18px;cursor:pointer}
-.editor-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
-.editor-top h2{font-family:'DM Serif Display',serif;font-weight:400;margin:0}
-.status{font-size:12px;color:#729477}
-.toolbar{position:sticky;top:65px;z-index:20;background:#ffffffed;backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:14px;padding:7px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:12px;box-shadow:0 4px 16px #3020400a}
-.toolbar button{width:35px;height:35px;padding:0;display:grid;place-items:center;font-size:16px}
-.toolbar select{max-width:115px;border:1px solid var(--border);border-radius:8px;padding:7px;background:white;font-size:12px}
-.toolbar input[type=color]{width:34px;height:34px;padding:2px;border:1px solid var(--border);border-radius:8px}
-.toolbar input[type=range]{width:65px}
-.toolsep{height:24px;width:1px;background:var(--border);margin:0 3px}
+.newbook{
+  min-height:210px;border:2px dashed #c9b39e;border-radius:20px;
+  background:var(--card);color:var(--accent);display:grid;
+  place-items:center;font-weight:800;font-size:17px;cursor:pointer
+}
+.newbook:hover{background:#eee4d8}
+
+.editor-top{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px
+}
+.editor-top h2{
+  font-family:'DM Serif Display',serif;font-weight:400;margin:0
+}
+.status{font-size:12px;color:var(--success)}
+
+.toolbar{
+  position:sticky;top:65px;z-index:20;background:#fffdf9ed;
+  backdrop-filter:blur(10px);border:1px solid var(--border);
+  border-radius:13px;padding:6px;display:flex;align-items:center;
+  gap:4px;flex-wrap:wrap;margin-bottom:12px;
+  box-shadow:0 4px 16px #30251e0a
+}
+.toolbar button{
+  width:34px;height:34px;padding:0;display:grid;
+  place-items:center;font-size:15px;border-radius:8px
+}
+.toolbar select{
+  max-width:110px;border:1px solid var(--border);
+  border-radius:8px;padding:6px;background:white;font-size:12px
+}
+.toolbar input[type=color]{
+  width:32px;height:32px;padding:2px;border:1px solid var(--border);
+  border-radius:8px;cursor:pointer
+}
+.toolbar input[type=range]{width:60px}
+.toolsep{height:22px;width:1px;background:var(--border);margin:0 3px}
 .pageinfo{font-size:12px;color:var(--muted);padding:0 4px}
+
 .paper-wrap{padding:5px 0 35px}
-.paper{position:relative;background-color:white;width:100%;max-width:900px;min-height:1050px;margin:auto;overflow:hidden;box-shadow:0 8px 35px #30204012;border:1px solid #eae6ee;--line:#e4dced;--spacing:25px}
-.paper.grid{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:var(--spacing) var(--spacing)}
-.paper.lined{background-image:linear-gradient(transparent 95%,var(--line) 96%);background-size:100% var(--spacing)}
-.paper.dotted{background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:var(--spacing) var(--spacing)}
+.paper{
+  position:relative;background-color:white;width:100%;max-width:900px;
+  min-height:1050px;margin:auto;overflow:hidden;
+  box-shadow:0 8px 35px #30251e12;border:1px solid #e7ded5;
+  --line:#e6d9ca;--spacing:25px
+}
+.paper.grid{
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+  linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:var(--spacing) var(--spacing)
+}
+.paper.lined{
+  background-image:linear-gradient(transparent 95%,var(--line) 96%);
+  background-size:100% var(--spacing)
+}
+.paper.dotted{
+  background-image:radial-gradient(var(--line) 1px,transparent 1px);
+  background-size:var(--spacing) var(--spacing)
+}
 .paper.blank{background-image:none}
-.paper.binder{background-image:linear-gradient(90deg,transparent 58px,#e8a5b5 59px,transparent 60px),linear-gradient(transparent 95%,var(--line) 96%);background-size:100% 100%,100% var(--spacing)}
-.paper.cornell{background-image:linear-gradient(90deg,transparent 70%,var(--line) 70.2%),linear-gradient(transparent 95%,var(--line) 96%);background-size:100% 100%,100% var(--spacing)}
-.paper.math{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:15px 15px}
+.paper.binder{
+  background-image:linear-gradient(90deg,transparent 58px,#d9a4a0 59px,transparent 60px),
+  linear-gradient(transparent 95%,var(--line) 96%);
+  background-size:100% 100%,100% var(--spacing)
+}
+.paper.cornell{
+  background-image:linear-gradient(90deg,transparent 70%,var(--line) 70.2%),
+  linear-gradient(transparent 95%,var(--line) 96%);
+  background-size:100% 100%,100% var(--spacing)
+}
+.paper.math{
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+  linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:15px 15px
+}
 .objects{position:absolute;inset:0;min-height:1050px}
-.obj{position:absolute;min-width:65px;min-height:35px;border:1px solid transparent;border-radius:5px;padding:5px;touch-action:none;overflow-wrap:anywhere}
-.obj.selected{border:1px dashed var(--purple)}
-.obj.textobj{width:260px;min-height:90px;font-size:17px;line-height:1.6;outline:none;overflow:visible}
-.obj.textobj:empty:before{content:"Digite aqui...";color:#b7b0c2}
+.obj{
+  position:absolute;min-width:65px;min-height:35px;
+  border:1px solid transparent;border-radius:5px;padding:5px;
+  touch-action:none;overflow-wrap:anywhere
+}
+.obj.selected{border:1px dashed var(--accent)}
+.obj.textobj{
+  width:260px;min-height:90px;font-size:17px;
+  line-height:1.6;outline:none;overflow:visible
+}
+.obj.textobj:empty:before{content:"Digite aqui...";color:#b7a797}
+.obj.textobj table{border-collapse:collapse}
+.obj.textobj td,.obj.textobj th{border:1px solid #a99580;padding:5px}
 .obj.imageobj{width:220px;height:160px;padding:0}
 .obj img{width:100%;height:100%;object-fit:contain;pointer-events:none}
-.resize{display:none;position:absolute;right:-6px;bottom:-6px;width:13px;height:13px;border-radius:50%;background:var(--purple);border:2px solid white;cursor:nwse-resize;touch-action:none}
+.resize{
+  display:none;position:absolute;right:-6px;bottom:-6px;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--accent);border:2px solid white;
+  cursor:nwse-resize;touch-action:none
+}
 .obj.selected .resize{display:block}
-.canvas{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none;touch-action:none}
+.canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  z-index:5;pointer-events:none;touch-action:none
+}
 .canvas.drawing{pointer-events:auto;cursor:crosshair}
-.modal-bg{position:fixed;inset:0;background:#30243c70;z-index:50;display:grid;place-items:center;padding:18px}
-.modal{background:white;border-radius:22px;padding:24px;width:100%;max-width:420px;box-shadow:0 15px 50px #0002}
+
+.modal-bg{
+  position:fixed;inset:0;background:#30251e70;z-index:50;
+  display:grid;place-items:center;padding:18px
+}
+.modal{
+  background:var(--card);color:var(--text);border-radius:20px;
+  padding:24px;width:100%;max-width:440px;
+  box-shadow:0 15px 50px #0002;max-height:90vh;overflow:auto
+}
 .modal h2{font-family:'DM Serif Display',serif;font-weight:400}
-.modal input,.modal select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;margin:7px 0 14px}
-.modal-actions{display:flex;justify-content:flex-end;gap:9px}
-body.dark{--bg:#201d27;--text:#eee8f7;--muted:#b4a8c5;--border:#41384b;--pale:#3b3248}
-body.dark header,body.dark .toolbar,body.dark .modal{background:#292432;color:var(--text)}
-body.dark .paper{background-color:#292432}
-body.dark .paper{--line:#51465e}
-@media(max-width:650px){.container{padding:22px 12px}.toolbar{top:60px}.paper{min-height:900px}.objects{min-height:900px}}
-@media print{header,.editor-top,.toolbar,#reabrirBarra{display:none!important}.container{padding:0}.paper{box-shadow:none;border:0;max-width:none}}
+.modal input,.modal select,.modal textarea{
+  width:100%;padding:10px;border:1px solid var(--border);
+  border-radius:10px;margin:7px 0 14px;background:var(--card);color:var(--text)
+}
+.modal-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.modal label{font-size:13px;font-weight:700}
+
+#reabrirBarra{
+  position:fixed;top:78px;left:10px;z-index:60
+}
+#painelPesquisa{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:12px;margin-bottom:12px
+}
+#painelPesquisa input{
+  width:100%;padding:9px;border:1px solid var(--border);
+  border-radius:8px;background:var(--card);color:var(--text)
+}
+#contador{font-size:12px;color:var(--muted)}
+
+body.dark{
+  --bg:#28231f;--card:#332b25;--text:#eee2d4;
+  --muted:#b7a391;--border:#504137;--pale:#493a30;
+  --accent:#c19a76;--accent2:#ddbb98
+}
+body.dark header,body.dark .toolbar{background:#332b25ed;color:var(--text)}
+body.dark .paper{background-color:#332b25;--line:#59493b}
+body.dark .toolbar select{background:#332b25;color:var(--text)}
+body.dark .obj.textobj{color:var(--text)}
+body.dark .modal input,body.dark .modal select{background:#332b25;color:var(--text)}
+
+@media(max-width:650px){
+  .container{padding:22px 12px}
+  .toolbar{top:60px;gap:3px}
+  .toolbar button{width:32px;height:32px}
+  .paper{min-height:900px}
+  .objects{min-height:900px}
+}
+@media print{
+  header,.editor-top,.toolbar,#reabrirBarra,#painelPesquisa{display:none!important}
+  .container{padding:0}
+  .paper{box-shadow:none;border:0;max-width:none}
+  body{background:white}
+}
 </style>
 </head>
 <body>
@@ -97,7 +248,10 @@ body.dark .paper{--line:#51465e}
     <span class="pageinfo" id="paginaInfo"></span>
     <button title="Nova página" onclick="novaPagina()">＋</button>
     <button title="Duplicar página" onclick="duplicarPagina()">⧉</button>
+    <button title="Renomear página" onclick="renomearPagina()">✎</button>
+
     <span class="toolsep"></span>
+
     <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">↖</button>
     <button title="Adicionar texto" onclick="adicionarTexto()">T</button>
     <button id="btnPen" title="Caneta" onclick="modo('pen')">✎</button>
@@ -105,41 +259,83 @@ body.dark .paper{--line:#51465e}
     <button id="btnErase" title="Borracha" onclick="modo('erase')">⌫</button>
     <button title="Desfazer desenho" onclick="desfazer()">↶</button>
     <button title="Limpar desenhos" onclick="limparDesenho()">⌧</button>
+
+    <span class="toolsep"></span>
+
     <button title="Inserir imagem" onclick="inserirImagem()">▧</button>
     <button title="Excluir selecionado" onclick="excluirSelecionado()">🗑</button>
+    <button title="Duplicar elemento" onclick="duplicarObjeto()">⧉</button>
+    <button title="Bloquear/desbloquear" onclick="bloquearObjeto()">♙</button>
+    <button title="Enviar para trás" onclick="camada(-1)">↓</button>
+    <button title="Trazer para frente" onclick="camada(1)">↑</button>
+
     <span class="toolsep"></span>
-    <input type="color" id="corCaneta" value="#51456f" title="Cor">
+
+    <input type="color" id="corCaneta" value="#795b43" title="Cor do desenho">
     <input type="range" id="tamanho" min="1" max="24" value="3" title="Espessura">
+    <button title="Linha reta" onclick="alternarLinha()">╱</button>
+
     <span class="toolsep"></span>
+
     <select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
-      <option value="Nunito">Nunito</option><option value="Arial">Arial</option>
-      <option value="Georgia">Georgia</option><option value="Verdana">Verdana</option>
+      <option value="Nunito">Nunito</option>
+      <option value="Arial">Arial</option>
+      <option value="Georgia">Georgia</option>
+      <option value="Verdana">Verdana</option>
       <option value="Courier New">Courier</option>
     </select>
+
     <select id="tamanhoFonte" title="Tamanho da letra" onchange="mudarTamanho(this.value)">
-      <option value="2">Pequeno</option><option value="3" selected>Normal</option>
-      <option value="4">Grande</option><option value="5">Maior</option><option value="6">Título</option>
+      <option value="2">Pequeno</option>
+      <option value="3" selected>Normal</option>
+      <option value="4">Grande</option>
+      <option value="5">Maior</option>
+      <option value="6">Título</option>
     </select>
+
     <button title="Negrito" onclick="formatar('bold')"><b>B</b></button>
     <button title="Itálico" onclick="formatar('italic')"><i>I</i></button>
     <button title="Sublinhado" onclick="formatar('underline')"><u>U</u></button>
+    <button title="Riscado" onclick="formatar('strikeThrough')">S̶</button>
+    <button title="Subscrito" onclick="formatar('subscript')">x₂</button>
+    <button title="Sobrescrito" onclick="formatar('superscript')">x²</button>
     <button title="Lista" onclick="formatar('insertUnorderedList')">•</button>
+    <button title="Lista numerada" onclick="formatar('insertOrderedList')">1.</button>
+    <button title="Alinhar à esquerda" onclick="formatar('justifyLeft')">☰</button>
     <button title="Centralizar" onclick="formatar('justifyCenter')">≡</button>
+    <button title="Alinhar à direita" onclick="formatar('justifyRight')">☷</button>
+    <button title="Justificar" onclick="formatar('justifyFull')">▤</button>
+    <button title="Título" onclick="estiloTexto('h2')">H</button>
+    <button title="Texto normal" onclick="estiloTexto('p')">¶</button>
+
+    <span class="toolsep"></span>
+
     <button title="Checklist" onclick="inserirChecklist()">☑</button>
     <button title="Tabela" onclick="inserirTabela()">▦</button>
     <button title="Link" onclick="inserirLink()">🔗</button>
-    <span class="toolsep"></span>
     <button title="Sticker" onclick="inserirSticker()">✦</button>
     <button title="Post-it" onclick="postit()">▣</button>
     <button title="Configurar folha" onclick="configurar()">⚙</button>
-    <button title="Pesquisar" onclick="buscarTexto()">⌕</button>
+    <button title="Pesquisar" onclick="abrirPesquisa()">⌕</button>
+
+    <span class="toolsep"></span>
+
     <button title="Exportar backup" onclick="exportarBackup()">⬇</button>
     <button title="Importar backup" onclick="importarBackup()">⬆</button>
     <button title="Imprimir/salvar PDF" onclick="window.print()">▤</button>
-    <button title="Modo escuro" onclick="document.body.classList.toggle('dark')">◐</button>
+    <button title="Modo escuro" onclick="alternarEscuro()">◐</button>
+    <button title="Tela cheia" onclick="telaCheia()">⛶</button>
     <button title="Ocultar ferramentas" onclick="toggleBarra()">☰</button>
   </nav>
-  <button id="reabrirBarra" class="hidden" onclick="toggleBarra()" style="position:fixed;top:78px;left:10px;z-index:60" title="Mostrar ferramentas">✦</button>
+
+  <button id="reabrirBarra" class="hidden" onclick="toggleBarra()" title="Mostrar ferramentas">✦</button>
+
+  <div id="painelPesquisa" class="hidden">
+    <input id="campoPesquisa" placeholder="Pesquisar nos cadernos..." oninput="executarPesquisa(this.value)">
+    <div id="resultadosPesquisa"></div>
+  </div>
+
+  <div id="contador" class="hidden"></div>
 
   <div class="paper-wrap">
     <section class="paper grid" id="folha">
@@ -155,7 +351,7 @@ body.dark .paper{--line:#51465e}
     <label>Nome do caderno</label>
     <input id="modalNome" placeholder="Ex.: Matemática">
     <label>Cor da capa</label>
-    <input type="color" id="modalCor" value="#eee8f7">
+    <input type="color" id="modalCor" value="#e9ded0">
     <div class="modal-actions">
       <button onclick="fecharModal()">Cancelar</button>
       <button class="primary" onclick="confirmarModal()">Criar</button>
@@ -168,13 +364,18 @@ body.dark .paper{--line:#51465e}
     <h2>Personalizar folha</h2>
     <label>Tipo de folha</label>
     <select id="tipoFolha">
-      <option value="grid">Quadriculada</option><option value="lined">Pautada</option>
-      <option value="dotted">Pontilhada</option><option value="blank">Branca</option>
-      <option value="binder">Fichário</option><option value="cornell">Cornell</option>
+      <option value="grid">Quadriculada</option>
+      <option value="lined">Pautada</option>
+      <option value="dotted">Pontilhada</option>
+      <option value="blank">Branca</option>
+      <option value="binder">Fichário</option>
+      <option value="cornell">Cornell</option>
       <option value="math">Matemática</option>
     </select>
-    <label>Cor das linhas</label><input type="color" id="corLinha" value="#e4dced">
-    <label>Espaçamento</label><input type="range" id="espacamento" min="12" max="50" value="25">
+    <label>Cor das linhas</label>
+    <input type="color" id="corLinha" value="#e6d9ca">
+    <label>Espaçamento</label>
+    <input type="range" id="espacamento" min="12" max="50" value="25">
     <div class="modal-actions">
       <button onclick="fecharFolha()">Cancelar</button>
       <button class="primary" onclick="salvarConfigFolha()">Salvar</button>
@@ -182,475 +383,424 @@ body.dark .paper{--line:#51465e}
   </div>
 </div>
 
-<script> const STORAGE='aster_notebooks_v1';
-let livros=[];
-let livroAtual=null,paginaAtual=0;
+<script>
+  const STORAGE='aster_notebooks_v1';
+let livros=[],livroAtual=null,paginaAtual=0;
 let modoAtual='select',desenhando=false,ultimo=null;
-let selecionado=null,undoStack=[];
-const cores=['#eee8f7','#e5f0fa','#f8e5e9','#e5f2e9','#fff0dc','#f1e9dd'];
+let selecionado=null,undoStack=[],linhaReta=false;
+let pontoInicio=null,memoriaSelecao=null;
+
+const cores=['#e9ded0','#eadcc9','#f2e5d7','#e7d8c9','#ddc8b2','#f5eee5'];
 
 try{livros=JSON.parse(localStorage.getItem(STORAGE)||'[]')}catch(e){livros=[]}
 
 function paginaVazia(){
-  return {objetos:[],desenho:'',tipo:'grid',corLinha:'#e4dced',espacamento:25};
+ return {objetos:[],desenho:'',tipo:'grid',corLinha:'#e6d9ca',espacamento:25,nome:''};
 }
 function salvarBiblioteca(){
-  try{localStorage.setItem(STORAGE,JSON.stringify(livros))}
-  catch(e){alert('O armazenamento está cheio. Exporte um backup ou remova imagens grandes.')}
+ try{localStorage.setItem(STORAGE,JSON.stringify(livros))}
+ catch(e){alert('Armazenamento cheio. Exporte um backup e remova imagens grandes.')}
 }
 function montarBiblioteca(){
-  const lista=document.getElementById('listaLivros');
-  lista.innerHTML='';
-  livros.forEach((l,i)=>{
-    const div=document.createElement('div');
-    div.className='book';div.style.background=l.cor||cores[0];
-    const topo=document.createElement('div');
-    topo.innerHTML='<div class="book-icon">📔</div>';
-    const titulo=document.createElement('h3');titulo.textContent=l.nome;
-    const info=document.createElement('small');
-    info.textContent=(l.paginas?.length||1)+' página(s)';
-    topo.append(titulo,info);
-    const actions=document.createElement('div');actions.className='book-actions';
-    const abrir=document.createElement('button');
-    abrir.textContent='Abrir';abrir.className='primary';abrir.onclick=()=>abrirLivro(i);
-    const ren=document.createElement('button');
-    ren.textContent='Renomear';ren.onclick=()=>editarNome(i);
-    const del=document.createElement('button');
-    del.textContent='Excluir';del.className='danger';del.onclick=()=>excluirLivro(i);
-    actions.append(abrir,ren,del);div.append(topo,actions);lista.append(div);
-  });
-  const novo=document.createElement('div');
-  novo.className='newbook';novo.textContent='＋ Criar caderno';
-  novo.onclick=criarLivro;lista.append(novo);
+ const lista=document.getElementById('listaLivros');
+ lista.innerHTML='';
+ livros.forEach((l,i)=>{
+  const div=document.createElement('div');
+  div.className='book';div.style.background=l.cor||cores[0];
+  const topo=document.createElement('div');
+  topo.innerHTML='<div class="book-icon">📔</div>';
+  const titulo=document.createElement('h3');
+  titulo.textContent=l.nome;
+  const info=document.createElement('small');
+  info.textContent=(l.paginas?.length||1)+' página(s)';
+  topo.append(titulo,info);
+  const actions=document.createElement('div');
+  actions.className='book-actions';
+  const abrir=document.createElement('button');
+  abrir.textContent='Abrir';abrir.className='primary';
+  abrir.onclick=()=>abrirLivro(i);
+  const ren=document.createElement('button');
+  ren.textContent='Renomear';ren.onclick=()=>editarNome(i);
+  const del=document.createElement('button');
+  del.textContent='Excluir';del.className='danger';
+  del.onclick=()=>excluirLivro(i);
+  actions.append(abrir,ren,del);
+  div.append(topo,actions);lista.append(div);
+ });
+ const novo=document.createElement('div');
+ novo.className='newbook';novo.textContent='＋ Criar caderno';
+ novo.onclick=criarLivro;lista.append(novo);
 }
 function criarLivro(){
-  document.getElementById('modalNome').value='';
-  document.getElementById('modalCor').value='#eee8f7';
-  document.getElementById('modal').classList.remove('hidden');
+ modalNome.value='';modalCor.value='#e9ded0';
+ modal.classList.remove('hidden');
 }
-function fecharModal(){document.getElementById('modal').classList.add('hidden')}
+function fecharModal(){modal.classList.add('hidden')}
 function confirmarModal(){
-  const nome=document.getElementById('modalNome').value.trim();
-  if(!nome)return alert('Digite um nome para o caderno.');
-  livros.push({
-    nome,cor:document.getElementById('modalCor').value,
-    paginas:[paginaVazia()]
-  });
-  salvarBiblioteca();fecharModal();montarBiblioteca();
+ const nome=modalNome.value.trim();
+ if(!nome)return alert('Digite um nome.');
+ livros.push({nome,cor:modalCor.value,paginas:[paginaVazia()]});
+ salvarBiblioteca();fecharModal();montarBiblioteca();
 }
 function abrirLivro(i){
-  livroAtual=i;paginaAtual=0;
-  document.getElementById('biblioteca').classList.add('hidden');
-  document.getElementById('editor').classList.remove('hidden');
-  carregarLivro();
+ livroAtual=i;paginaAtual=0;
+ biblioteca.classList.add('hidden');editor.classList.remove('hidden');
+ carregarLivro();
 }
 function carregarLivro(){
-  document.getElementById('nomeLivro').textContent=livros[livroAtual].nome;
-  carregarPagina();
+ nomeLivro.textContent=livros[livroAtual].nome;
+ carregarPagina();
 }
 function carregarPagina(){
-  const l=livros[livroAtual];
-  if(!l.paginas||!l.paginas.length)l.paginas=[paginaVazia()];
-  paginaAtual=Math.max(0,Math.min(paginaAtual,l.paginas.length-1));
-  const p=l.paginas[paginaAtual];
-
-  // Compatibilidade com páginas da versão anterior
-  if(!p.objetos)p.objetos=[];
-  if(p.html&&!p.objetos.length){
-    p.objetos.push({tipo:'texto',x:55,y:50,w:780,h:400,html:p.html});
-    p.html='';
-  }
-
-  const folha=document.getElementById('folha');
-  folha.className='paper '+(p.tipo||'grid');
-  folha.style.setProperty('--line',p.corLinha||'#e4dced');
-  folha.style.setProperty('--spacing',(p.espacamento||25)+'px');
-  document.getElementById('paginaInfo').textContent=
-    (paginaAtual+1)+' / '+l.paginas.length;
-
-  renderObjetos();
-  redimensionarCanvas();
-  carregarDesenho(p.desenho||'');
-  modo(modoAtual);
+ const l=livros[livroAtual];
+ if(!l.paginas||!l.paginas.length)l.paginas=[paginaVazia()];
+ paginaAtual=Math.max(0,Math.min(paginaAtual,l.paginas.length-1));
+ const p=l.paginas[paginaAtual];
+ if(!p.objetos)p.objetos=[];
+ if(p.html&&!p.objetos.length){
+  p.objetos.push({tipo:'texto',x:55,y:50,w:780,h:400,html:p.html});
+  p.html='';
+ }
+ nomeLivro.textContent=l.nome;
+ paginaInfo.textContent=(p.nome? p.nome+' · ':'')+(paginaAtual+1)+' / '+l.paginas.length;
+ folha.className='paper '+(p.tipo||'grid');
+ folha.style.setProperty('--line',p.corLinha||'#e6d9ca');
+ folha.style.setProperty('--spacing',(p.espacamento||25)+'px');
+ renderObjetos();redimensionarCanvas();
+ carregarDesenho(p.desenho||'');modo(modoAtual);
+ atualizarContador();
 }
 function salvarPagina(){
-  if(livroAtual===null)return;
-  const p=livros[livroAtual].paginas[paginaAtual];
-  p.objetos=[];
-  document.querySelectorAll('#objects .obj').forEach(el=>{
-    const o={
-      tipo:el.dataset.tipo,
-      x:parseFloat(el.style.left)||0,
-      y:parseFloat(el.style.top)||0,
-      w:el.offsetWidth,h:el.offsetHeight
-    };
-    if(o.tipo==='texto')o.html=el.innerHTML;
-    if(o.tipo==='imagem')o.src=el.querySelector('img').src;
-    p.objetos.push(o);
-  });
-  p.desenho=canvas.toDataURL('image/png');
-  salvarBiblioteca();
-  document.getElementById('status').textContent='✓ Salvo';
+ if(livroAtual===null||!livros[livroAtual])return;
+ const p=livros[livroAtual].paginas[paginaAtual];
+ p.objetos=[];
+ document.querySelectorAll('#objects .obj').forEach(el=>{
+  const o={tipo:el.dataset.tipo,x:parseFloat(el.style.left)||0,
+  y:parseFloat(el.style.top)||0,w:el.offsetWidth,h:el.offsetHeight,
+  bloqueado:el.dataset.locked==='true'};
+  if(o.tipo==='texto'){
+   o.html=el.innerHTML;o.font=el.style.fontFamily;
+  }
+  if(o.tipo==='imagem')o.src=el.querySelector('img').src;
+  p.objetos.push(o);
+ });
+ p.desenho=canvas.toDataURL('image/png');
+ salvarBiblioteca();
+ status.textContent='✓ Salvo';
 }
 function renderObjetos(){
-  document.getElementById('objects').innerHTML='';
-  const p=livros[livroAtual].paginas[paginaAtual];
-  (p.objetos||[]).forEach(o=>criarObjeto(o));
-  selecionado=null;
+ objects.innerHTML='';
+ const p=livros[livroAtual].paginas[paginaAtual];
+ (p.objetos||[]).forEach(o=>criarObjeto(o));
+ selecionado=null;
 }
 function criarObjeto(o){
-  const el=document.createElement('div');
-  el.className='obj '+(o.tipo==='texto'?'textobj':'imageobj');
-  el.dataset.tipo=o.tipo;
-  el.style.left=(o.x||40)+'px';
-  el.style.top=(o.y||40)+'px';
-  el.style.width=(o.w||260)+'px';
-  el.style.height=(o.h||120)+'px';
-
-  if(o.tipo==='texto'){
-    el.contentEditable='true';
-    el.innerHTML=o.html||'';
-    el.addEventListener('input',()=>salvarPagina());
-    el.addEventListener('focus',()=>selecionar(el));
-  }else if(o.tipo==='imagem'){
-    const img=document.createElement('img');
-    img.src=o.src||'';el.append(img);
-  }
-
-  const handle=document.createElement('div');
-  handle.className='resize';el.append(handle);
-
-el.addEventListener('pointerdown',e=>{
+ const el=document.createElement('div');
+ el.className='obj '+(o.tipo==='texto'?'textobj':'imageobj');
+ el.dataset.tipo=o.tipo;el.dataset.locked=o.bloqueado?'true':'false';
+ el.style.left=(o.x||40)+'px';el.style.top=(o.y||40)+'px';
+ el.style.width=(o.w||260)+'px';el.style.height=(o.h||120)+'px';
+ if(o.tipo==='texto'){
+  el.contentEditable='true';el.innerHTML=o.html||'';
+  if(o.font)el.style.fontFamily=o.font;
+  el.addEventListener('input',()=>{salvarPagina();atualizarContador()});
+  el.addEventListener('focus',()=>selecionar(el));
+  el.addEventListener('keyup',atualizarContador);
+ }else if(o.tipo==='imagem'){
+  const img=document.createElement('img');img.src=o.src||'';el.append(img);
+ }
+ const handle=document.createElement('div');handle.className='resize';el.append(handle);
+ el.addEventListener('pointerdown',e=>{
   if(['pen','mark','erase'].includes(modoAtual))return;
-  if(e.target===handle)return;
-  if(e.target.closest('a'))return;
-
+  if(e.target===handle||e.target.closest('a'))return;
   selecionar(el);
-
-  if(modoAtual==='select'&&!el.isContentEditable){
-    arrastar(el,e);
-  }
-});
-  handle.addEventListener('pointerdown',e=>{
-    e.stopPropagation();selecionar(el);redimensionar(el,e);
-  });
-  document.getElementById('objects').append(el);
-  return el;
+  if(modoAtual==='select'&&!el.isContentEditable&&el.dataset.locked!=='true')arrastar(el,e);
+ });
+ handle.addEventListener('pointerdown',e=>{
+  if(el.dataset.locked==='true')return;
+  e.stopPropagation();selecionar(el);redimensionar(el,e);
+ });
+ objects.append(el);return el;
 }
 function selecionar(el){
-  document.querySelectorAll('.obj').forEach(x=>x.classList.remove('selected'));
-  selecionado=el;
-  if(el)el.classList.add('selected');
+ document.querySelectorAll('.obj').forEach(x=>x.classList.remove('selected'));
+ selecionado=el;if(el)el.classList.add('selected');
 }
 function adicionarTexto(){
-  modo('select');
-  const el=criarObjeto({tipo:'texto',x:55,y:55,w:260,h:110,html:''});
-  selecionar(el);el.focus();salvarPagina();
+ modo('select');
+ const el=criarObjeto({tipo:'texto',x:55,y:55,w:260,h:110,html:''});
+ selecionar(el);el.focus();salvarPagina();
 }
 function inserirImagem(){
-  const input=document.createElement('input');
-  input.type='file';input.accept='image/*';
-  input.onchange=()=>{
-    const file=input.files[0];if(!file)return;
-    if(file.size>2*1024*1024)return alert('Escolha uma imagem de até 2 MB.');
-    const reader=new FileReader();
-    reader.onload=()=>{
-      const el=criarObjeto({tipo:'imagem',x:60,y:80,w:220,h:160,src:reader.result});
-      selecionar(el);salvarPagina();
-    };
-    reader.readAsDataURL(file);
-  };
-  input.click();
+ const input=document.createElement('input');
+ input.type='file';input.accept='image/*';
+ input.onchange=()=>{
+  const file=input.files[0];if(!file)return;
+  if(file.size>2*1024*1024)return alert('Imagem de até 2 MB.');
+  const reader=new FileReader();
+  reader.onload=()=>{
+   const el=criarObjeto({tipo:'imagem',x:60,y:80,w:220,h:160,src:reader.result});
+   selecionar(el);salvarPagina();
+  };reader.readAsDataURL(file);
+ };input.click();
 }
 function arrastar(el,e){
-  if(e.button!==0)return;
-  if(el.isContentEditable&&e.target!==el)return;
-  e.preventDefault();
-  const sx=e.clientX,sy=e.clientY;
-  const ox=parseFloat(el.style.left)||0,oy=parseFloat(el.style.top)||0;
-  function mover(ev){
-    el.style.left=(ox+ev.clientX-sx)+'px';
-    el.style.top=(oy+ev.clientY-sy)+'px';
-  }
-  function fim(){
-    window.removeEventListener('pointermove',mover);
-    window.removeEventListener('pointerup',fim);
-    salvarPagina();
-  }
-  window.addEventListener('pointermove',mover);
-  window.addEventListener('pointerup',fim);
+ if(e.button!==0||el.dataset.locked==='true')return;
+ if(el.isContentEditable&&e.target!==el)return;
+ e.preventDefault();
+ const sx=e.clientX,sy=e.clientY;
+ const ox=parseFloat(el.style.left)||0,oy=parseFloat(el.style.top)||0;
+ function mover(ev){
+  el.style.left=(ox+ev.clientX-sx)+'px';
+  el.style.top=(oy+ev.clientY-sy)+'px';
+ }
+ function fim(){
+  window.removeEventListener('pointermove',mover);
+  window.removeEventListener('pointerup',fim);salvarPagina();
+ }
+ window.addEventListener('pointermove',mover);window.addEventListener('pointerup',fim);
 }
 function redimensionar(el,e){
-  e.preventDefault();
-  const sx=e.clientX,sy=e.clientY;
-  const sw=el.offsetWidth,sh=el.offsetHeight;
-  function mover(ev){
-    el.style.width=Math.max(70,sw+ev.clientX-sx)+'px';
-    el.style.height=Math.max(40,sh+ev.clientY-sy)+'px';
-  }
-  function fim(){
-    window.removeEventListener('pointermove',mover);
-    window.removeEventListener('pointerup',fim);
-    salvarPagina();
-  }
-  window.addEventListener('pointermove',mover);
-  window.addEventListener('pointerup',fim);
+ e.preventDefault();
+ const sx=e.clientX,sy=e.clientY,sw=el.offsetWidth,sh=el.offsetHeight;
+ function mover(ev){
+  el.style.width=Math.max(70,sw+ev.clientX-sx)+'px';
+  el.style.height=Math.max(40,sh+ev.clientY-sy)+'px';
+ }
+ function fim(){
+  window.removeEventListener('pointermove',mover);
+  window.removeEventListener('pointerup',fim);salvarPagina();
+ }
+ window.addEventListener('pointermove',mover);window.addEventListener('pointerup',fim);
 }
 function excluirSelecionado(){
-  if(!selecionado)return;
-  selecionado.remove();selecionado=null;salvarPagina();
+ if(!selecionado)return;
+ selecionado.remove();selecionado=null;salvarPagina();
+}
+function duplicarObjeto(){
+ if(!selecionado)return alert('Selecione um elemento.');
+ const o={tipo:selecionado.dataset.tipo,x:(parseFloat(selecionado.style.left)||0)+25,
+ y:(parseFloat(selecionado.style.top)||0)+25,w:selecionado.offsetWidth,h:selecionado.offsetHeight};
+ if(o.tipo==='texto'){o.html=selecionado.innerHTML;o.font=selecionado.style.fontFamily}
+ if(o.tipo==='imagem')o.src=selecionado.querySelector('img').src;
+ const el=criarObjeto(o);selecionar(el);salvarPagina();
+}
+function bloquearObjeto(){
+ if(!selecionado)return alert('Selecione um elemento.');
+ selecionado.dataset.locked=selecionado.dataset.locked==='true'?'false':'true';
+ selecionado.style.opacity=selecionado.dataset.locked==='true'?.8:1;
+ salvarPagina();
+}
+function camada(d){
+ if(!selecionado)return alert('Selecione um elemento.');
+ if(d>0)selecionado.parentNode.appendChild(selecionado);
+ else selecionado.parentNode.insertBefore(selecionado,selecionado.parentNode.firstChild);
+ salvarPagina();
 }
 function modo(m){
-  modoAtual=m;
-  canvas.classList.toggle('drawing',['pen','mark','erase'].includes(m));
-  ['btnSelect','btnPen','btnMark','btnErase'].forEach(id=>
-    document.getElementById(id).classList.remove('active')
-  );
-  const mapa={select:'btnSelect',pen:'btnPen',mark:'btnMark',erase:'btnErase'};
-  if(mapa[m])document.getElementById(mapa[m]).classList.add('active');
+ modoAtual=m;canvas.classList.toggle('drawing',['pen','mark','erase'].includes(m));
+ ['btnSelect','btnPen','btnMark','btnErase'].forEach(id=>document.getElementById(id).classList.remove('active'));
+ const mapa={select:'btnSelect',pen:'btnPen',mark:'btnMark',erase:'btnErase'};
+ if(mapa[m])document.getElementById(mapa[m]).classList.add('active');
 }
 function formatar(cmd){
-  if(!selecionado||selecionado.dataset.tipo!=='texto'){
-    alert('Selecione uma caixa de texto primeiro.');return;
-  }
-  selecionado.focus();
-  document.execCommand(cmd,false,null);
-  salvarPagina();
+ if(!selecionado||selecionado.dataset.tipo!=='texto')return alert('Selecione uma caixa de texto.');
+ selecionado.focus();document.execCommand(cmd,false,null);salvarPagina();
 }
-function mudarFonte(fonte){
-  if(!selecionado||selecionado.dataset.tipo!=='texto')return;
-  selecionado.style.fontFamily=fonte;salvarPagina();
+function mudarFonte(f){
+ if(!selecionado||selecionado.dataset.tipo!=='texto')return;
+ selecionado.focus();selecionado.style.fontFamily=f;salvarPagina();
 }
-function mudarTamanho(tamanho){
-  if(!selecionado||selecionado.dataset.tipo!=='texto')return;
-  selecionado.focus();document.execCommand('fontSize',false,tamanho);salvarPagina();
+function mudarTamanho(t){
+ if(!selecionado||selecionado.dataset.tipo!=='texto')return;
+ selecionado.focus();document.execCommand('fontSize',false,t);salvarPagina();
 }
+function estiloTexto(tag){
+ if(!selecionado||selecionado.dataset.tipo!=='texto')return alert('Selecione uma caixa de texto.');
+ selecionado.focus();document.execCommand('formatBlock',false,tag);salvarPagina();
+}
+function alternarLinha(){linhaReta=!linhaReta;alert(linhaReta?'Linha reta ativada':'Linha reta desativada')}
 function configurar(){
-  const p=livros[livroAtual].paginas[paginaAtual];
-  document.getElementById('tipoFolha').value=p.tipo||'grid';
-  document.getElementById('corLinha').value=p.corLinha||'#e4dced';
-  document.getElementById('espacamento').value=p.espacamento||25;
-  document.getElementById('modalFolha').classList.remove('hidden');
+ const p=livros[livroAtual].paginas[paginaAtual];
+ tipoFolha.value=p.tipo||'grid';corLinha.value=p.corLinha||'#e6d9ca';
+ espacamento.value=p.espacamento||25;modalFolha.classList.remove('hidden');
 }
-function fecharFolha(){document.getElementById('modalFolha').classList.add('hidden')}
+function fecharFolha(){modalFolha.classList.add('hidden')}
 function salvarConfigFolha(){
-  const p=livros[livroAtual].paginas[paginaAtual];
-  p.tipo=document.getElementById('tipoFolha').value;
-  p.corLinha=document.getElementById('corLinha').value;
-  p.espacamento=Number(document.getElementById('espacamento').value);
-  salvarBiblioteca();fecharFolha();carregarPagina();
+ const p=livros[livroAtual].paginas[paginaAtual];
+ p.tipo=tipoFolha.value;p.corLinha=corLinha.value;
+ p.espacamento=Number(espacamento.value);
+ salvarBiblioteca();fecharFolha();carregarPagina();
 }
-  const canvas=document.getElementById('desenho');
-const ctx=canvas.getContext('2d');
 
+const canvas=document.getElementById('desenho'),ctx=canvas.getContext('2d');
 function redimensionarCanvas(){
-  const folha=document.getElementById('folha');
-  const largura=folha.clientWidth;
-  const altura=folha.clientHeight;
-  if(canvas.width===largura&&canvas.height===altura)return;
-  const anterior=canvas.toDataURL();
-  canvas.width=largura;canvas.height=altura;
-  if(anterior&&anterior!=='data:,')carregarDesenho(anterior);
+ const w=folha.clientWidth,h=folha.clientHeight;
+ if(canvas.width===w&&canvas.height===h)return;
+ const anterior=canvas.toDataURL();
+ canvas.width=w;canvas.height=h;
+ if(anterior&&anterior!=='data:,')carregarDesenho(anterior);
 }
 function carregarDesenho(data){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  if(!data)return;
-  const img=new Image();
-  img.onload=()=>ctx.drawImage(img,0,0,canvas.width,canvas.height);
-  img.src=data;
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ if(!data)return;
+ const img=new Image();
+ img.onload=()=>ctx.drawImage(img,0,0,canvas.width,canvas.height);
+ img.src=data;
 }
 function posicao(e){
-  const r=canvas.getBoundingClientRect();
-  return {
-    x:(e.clientX-r.left)*(canvas.width/r.width),
-    y:(e.clientY-r.top)*(canvas.height/r.height)
-  };
+ const r=canvas.getBoundingClientRect();
+ return {x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)};
 }
 canvas.addEventListener('pointerdown',e=>{
-  if(!['pen','mark','erase'].includes(modoAtual))return;
-  desenhando=true;
-  canvas.setPointerCapture(e.pointerId);
-  undoStack.push(canvas.toDataURL());
-  if(undoStack.length>15)undoStack.shift();
-  ultimo=posicao(e);
+ if(!['pen','mark','erase'].includes(modoAtual))return;
+ desenhando=true;canvas.setPointerCapture(e.pointerId);
+ undoStack.push(canvas.toDataURL());if(undoStack.length>20)undoStack.shift();
+ ultimo=posicao(e);pontoInicio=ultimo;
 });
 canvas.addEventListener('pointermove',e=>{
-  if(!desenhando)return;
-  const p=posicao(e);
-  ctx.lineCap='round';ctx.lineJoin='round';
-  ctx.lineWidth=Number(document.getElementById('tamanho').value);
-  if(modoAtual==='erase'){
-    ctx.globalCompositeOperation='destination-out';
-    ctx.globalAlpha=1;
-  }else{
-    ctx.globalCompositeOperation='source-over';
-    ctx.strokeStyle=document.getElementById('corCaneta').value;
-    ctx.globalAlpha=modoAtual==='mark'?.3:1;
-    if(modoAtual==='mark')ctx.lineWidth*=4;
-  }
-  ctx.beginPath();ctx.moveTo(ultimo.x,ultimo.y);
-  ctx.lineTo(p.x,p.y);ctx.stroke();
-  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
-  ultimo=p;
+ if(!desenhando)return;
+ const p=posicao(e);
+ ctx.lineCap='round';ctx.lineJoin='round';
+ ctx.lineWidth=Number(tamanho.value);
+ if(modoAtual==='erase'){
+  ctx.globalCompositeOperation='destination-out';ctx.globalAlpha=1;
+ }else{
+  ctx.globalCompositeOperation='source-over';ctx.strokeStyle=corCaneta.value;
+  ctx.globalAlpha=modoAtual==='mark'?.28:1;
+  if(modoAtual==='mark')ctx.lineWidth*=4;
+ }
+ ctx.beginPath();ctx.moveTo(ultimo.x,ultimo.y);
+ ctx.lineTo(p.x,p.y);ctx.stroke();
+ ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ultimo=p;
 });
 function finalizarDesenho(){
-  if(!desenhando)return;
-  desenhando=false;salvarPagina();
+ if(!desenhando)return;desenhando=false;salvarPagina();
 }
 canvas.addEventListener('pointerup',finalizarDesenho);
 canvas.addEventListener('pointercancel',finalizarDesenho);
-
 function desfazer(){
-  if(!undoStack.length)return;
-  carregarDesenho(undoStack.pop());salvarPagina();
+ if(!undoStack.length)return;
+ carregarDesenho(undoStack.pop());salvarPagina();
 }
 function limparDesenho(){
-  if(!confirm('Apagar os desenhos desta página?'))return;
-  undoStack.push(canvas.toDataURL());
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  salvarPagina();
+ if(!confirm('Apagar desenhos desta página?'))return;
+ undoStack.push(canvas.toDataURL());ctx.clearRect(0,0,canvas.width,canvas.height);salvarPagina();
 }
 function novaPagina(){
-  salvarPagina();
-  livros[livroAtual].paginas.push(paginaVazia());
-  paginaAtual=livros[livroAtual].paginas.length-1;
-  salvarBiblioteca();carregarPagina();
+ salvarPagina();livros[livroAtual].paginas.push(paginaVazia());
+ paginaAtual=livros[livroAtual].paginas.length-1;salvarBiblioteca();carregarPagina();
 }
-function paginaAnterior(){
-  salvarPagina();
-  if(paginaAtual>0)paginaAtual--;
-  carregarPagina();
-}
-function paginaSeguinte(){
-  salvarPagina();
-  if(paginaAtual<livros[livroAtual].paginas.length-1)paginaAtual++;
-  carregarPagina();
-}
+function paginaAnterior(){salvarPagina();if(paginaAtual>0)paginaAtual--;carregarPagina()}
+function paginaSeguinte(){salvarPagina();if(paginaAtual<livros[livroAtual].paginas.length-1)paginaAtual++;carregarPagina()}
 function duplicarPagina(){
-  salvarPagina();
-  const copia=JSON.parse(JSON.stringify(livros[livroAtual].paginas[paginaAtual]));
-  livros[livroAtual].paginas.splice(paginaAtual+1,0,copia);
-  paginaAtual++;salvarBiblioteca();carregarPagina();
+ salvarPagina();const copia=JSON.parse(JSON.stringify(livros[livroAtual].paginas[paginaAtual]));
+ livros[livroAtual].paginas.splice(paginaAtual+1,0,copia);paginaAtual++;salvarBiblioteca();carregarPagina();
+}
+function renomearPagina(){
+ const p=livros[livroAtual].paginas[paginaAtual];
+ const n=prompt('Nome desta página:',p.nome||'');
+ if(n!==null){p.nome=n.trim();salvarBiblioteca();carregarPagina()}
 }
 function voltarBiblioteca(){
-  salvarPagina();
-  document.getElementById('editor').classList.add('hidden');
-  document.getElementById('biblioteca').classList.remove('hidden');
-  montarBiblioteca();
+ salvarPagina();editor.classList.add('hidden');biblioteca.classList.remove('hidden');montarBiblioteca();
 }
 function voltar(){window.location.href='index.html'}
 function editarNome(i){
-  const n=prompt('Novo nome do caderno:',livros[i].nome);
-  if(n&&n.trim()){
-    livros[i].nome=n.trim();salvarBiblioteca();montarBiblioteca();
-  }
+ const n=prompt('Novo nome:',livros[i].nome);
+ if(n&&n.trim()){livros[i].nome=n.trim();salvarBiblioteca();montarBiblioteca()}
 }
 function excluirLivro(i){
-  if(!confirm('Excluir este caderno e todas as suas páginas?'))return;
-  livros.splice(i,1);salvarBiblioteca();montarBiblioteca();
+ if(!confirm('Excluir caderno e todas as páginas?'))return;
+ livros.splice(i,1);salvarBiblioteca();montarBiblioteca();
 }
 function toggleBarra(){
-  const barra=document.getElementById('barra');
-  const botao=document.getElementById('reabrirBarra');
-  barra.classList.toggle('hidden');
-  botao.classList.toggle('hidden',!barra.classList.contains('hidden'));
+ barra.classList.toggle('hidden');
+ reabrirBarra.classList.toggle('hidden',!barra.classList.contains('hidden'));
 }
-function inserirChecklist(){
-  adicionarConteudo('<ul><li>☐ Tarefa</li><li>☐ Tarefa</li><li>☐ Tarefa</li></ul>');
+function alternarEscuro(){document.body.classList.toggle('dark')}
+function telaCheia(){
+ if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();
+ else document.exitFullscreen?.();
 }
+function inserirChecklist(){adicionarConteudo('<ul><li>☐ Tarefa</li><li>☐ Tarefa</li><li>☐ Tarefa</li></ul>')}
 function inserirTabela(){
-  const linhas=Math.max(1,Math.min(8,parseInt(prompt('Número de linhas:','3'))||3));
-  const colunas=Math.max(1,Math.min(8,parseInt(prompt('Número de colunas:','3'))||3));
-  let html='<table border="1" style="border-collapse:collapse;width:100%">';
-  for(let i=0;i<linhas;i++){
-    html+='<tr>';
-    for(let j=0;j<colunas;j++)html+='<td style="padding:8px">&nbsp;</td>';
-    html+='</tr>';
-  }
-  html+='</table>';adicionarConteudo(html);
+ const l=Math.max(1,Math.min(8,parseInt(prompt('Linhas:','3'))||3));
+ const c=Math.max(1,Math.min(8,parseInt(prompt('Colunas:','3'))||3));
+ let html='<table style="border-collapse:collapse;width:100%">';
+ for(let i=0;i<l;i++){html+='<tr>';for(let j=0;j<c;j++)html+='<td style="border:1px solid;padding:8px">&nbsp;</td>';html+='</tr>'}
+ html+='</table>';adicionarConteudo(html);
 }
 function inserirLink(){
-  if(!selecionado||selecionado.dataset.tipo!=='texto'){
-    alert('Selecione uma caixa de texto e marque uma palavra primeiro.');return;
-  }
-  const url=prompt('Cole o endereço do link:');
-  if(!url)return;
-  selecionado.focus();document.execCommand('createLink',false,url);salvarPagina();
+ if(!selecionado||selecionado.dataset.tipo!=='texto')return alert('Selecione texto e marque uma palavra.');
+ const url=prompt('Endereço do link:');if(!url)return;
+ selecionado.focus();document.execCommand('createLink',false,url);salvarPagina();
 }
 function adicionarConteudo(html){
-  const el=criarObjeto({tipo:'texto',x:60,y:60,w:350,h:140,html});
-  selecionar(el);el.focus();salvarPagina();
+ const el=criarObjeto({tipo:'texto',x:60,y:60,w:350,h:140,html});
+ selecionar(el);el.focus();salvarPagina();
 }
 function inserirSticker(){
-  const opcoes=['✦','★','♡','❀','☾','➤','✿','❄','☀','♪','⚡','✓','❦','✧','∞','❥'];
-  const sticker=prompt('Digite ou escolha um símbolo:',opcoes[Math.floor(Math.random()*opcoes.length)]);
-  if(!sticker)return;
-  adicionarConteudo('<div style="font-size:42px;text-align:center">'+
-    sticker.replace(/[<>]/g,'')+'</div>');
+ const op=['✦','★','♡','❀','☾','➤','✿','❄','☀','♪','⚡','✓','❦','✧','∞','❥'];
+ const s=prompt('Símbolo:',op[Math.floor(Math.random()*op.length)]);
+ if(s)adicionarConteudo('<div style="font-size:42px;text-align:center">'+s.replace(/[<>]/g,'')+'</div>');
 }
 function postit(){
-  adicionarConteudo('<div style="background:#fff2a8;padding:18px;min-height:120px;color:#55472c;box-shadow:2px 4px 8px #0002">Lembrete ✨</div>');
+ adicionarConteudo('<div style="background:#f3dfaa;padding:18px;min-height:120px;color:#5b4933;box-shadow:2px 4px 8px #0002">Lembrete ✨</div>');
 }
-function buscarTexto(){
-  const termo=prompt('O que deseja pesquisar nos cadernos?');
-  if(!termo)return;
-  const resultados=[];
-  livros.forEach(l=>{
-    (l.paginas||[]).forEach((p,i)=>{
-      (p.objetos||[]).forEach(o=>{
-        if(o.tipo==='texto'&&(o.html||'').toLowerCase().includes(termo.toLowerCase())){
-          resultados.push(l.nome+' — página '+(i+1));
-        }
-      });
-    });
-  });
-  alert(resultados.length?'Encontrado em:\n'+resultados.join('\n'):'Nenhum resultado encontrado.');
+function abrirPesquisa(){
+ painelPesquisa.classList.toggle('hidden');
+ if(!painelPesquisa.classList.contains('hidden'))campoPesquisa.focus();
+}
+function executarPesquisa(termo){
+ resultadosPesquisa.innerHTML='';
+ if(!termo.trim())return;
+ const r=[];
+ livros.forEach(l=>(l.paginas||[]).forEach((p,i)=>(p.objetos||[]).forEach(o=>{
+  if(o.tipo==='texto'&&(o.html||'').toLowerCase().includes(termo.toLowerCase())){
+   r.push(l.nome+' — página '+(i+1));
+  }
+ })));
+ resultadosPesquisa.textContent=r.length?r.join(' | '):'Nenhum resultado encontrado.';
+}
+function buscarTexto(){abrirPesquisa()}
+function atualizarContador(){
+ if(!selecionado||selecionado.dataset.tipo!=='texto'){
+  contador.classList.add('hidden');return;
+ }
+ const txt=selecionado.innerText||'';
+ contador.classList.remove('hidden');
+ contador.textContent='Palavras: '+(txt.trim()?txt.trim().split(/\s+/).length:0)+' · Caracteres: '+txt.length;
 }
 function exportarBackup(){
-  salvarPagina();
-  const blob=new Blob([JSON.stringify(livros,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download='AsterStudy-backup.json';a.click();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
+ salvarPagina();const blob=new Blob([JSON.stringify(livros,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='AsterStudy-backup.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 function importarBackup(){
-  const input=document.createElement('input');
-  input.type='file';input.accept='.json,application/json';
-  input.onchange=()=>{
-    const file=input.files[0];if(!file)return;
-    const reader=new FileReader();
-    reader.onload=()=>{
-      try{
-        const dados=JSON.parse(reader.result);
-        if(!Array.isArray(dados))throw new Error('Formato inválido');
-        if(!confirm('Importar este backup? Os cadernos atuais serão substituídos.'))return;
-        livros=dados;
-        salvarBiblioteca();
-        livroAtual=null;
-        document.getElementById('editor').classList.add('hidden');
-        document.getElementById('biblioteca').classList.remove('hidden');
-        montarBiblioteca();
-      }catch(e){alert('Não foi possível ler esse backup.')}
-    };
-    reader.readAsText(file);
-  };
-  input.click();
+ const input=document.createElement('input');input.type='file';input.accept='.json,application/json';
+ input.onchange=()=>{
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+   try{
+    const d=JSON.parse(reader.result);if(!Array.isArray(d))throw 0;
+    if(!confirm('Importar backup? Os cadernos atuais serão substituídos.'))return;
+    livros=d;salvarBiblioteca();livroAtual=null;
+    editor.classList.add('hidden');biblioteca.classList.remove('hidden');montarBiblioteca();
+   }catch(e){alert('Backup inválido.')}
+  };reader.readAsText(file);
+ };input.click();
 }
 window.addEventListener('keydown',e=>{
-  if(document.getElementById('editor').classList.contains('hidden'))return;
-  if(e.ctrlKey&&e.key.toLowerCase()==='s'){
-    e.preventDefault();salvarPagina();
-  }
-  if(e.key==='Escape')selecionar(null);
+ if(editor.classList.contains('hidden'))return;
+ if(e.ctrlKey&&e.key.toLowerCase()==='s'){e.preventDefault();salvarPagina()}
+ if(e.key==='Escape')selecionar(null);
 });
 window.addEventListener('resize',()=>{
-  if(!document.getElementById('editor').classList.contains('hidden')){
-    redimensionarCanvas();
-  }
+ if(!editor.classList.contains('hidden'))redimensionarCanvas();
 });
-
-// Inicia a biblioteca
 montarBiblioteca();
 </script>
 </body>
