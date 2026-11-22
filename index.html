@@ -962,7 +962,7 @@ function salvarCaderno(){
 
  }catch(error){
   console.error('Erro ao salvar caderno:',error);
-  toast('Erro ao criar caderno. Verifique os dados e tente novamente.');
+  toast('Erro: '+error.message);
  }
 }
 
