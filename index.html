@@ -856,10 +856,6 @@ function atualizarPreview(){
  document.getElementById('previewTitle').textContent=document.getElementById('bookName').value||'Meu caderno';
 }
 
- document.getElementById('previewIcon').textContent=selectedIcon;
- document.getElementById('previewTitle').textContent=
-  document.getElementById('bookName').value||'Meu caderno';
-}
 function prepararTemplates(){
  const sel=document.getElementById('bookTemplate');sel.innerHTML='';
  MODELS.forEach(m=>{
