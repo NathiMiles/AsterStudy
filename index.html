@@ -583,7 +583,6 @@ function createBookCard(b,options={}){
  if(options.list)card.classList.add('list-card');
  const cover=document.createElement('div');
  cover.className='cover';
- if(b.imagem)cover.classList.add('cover-image');
  cover.style.cssText=coverStyle(b);
  const icon=document.createElement('div');
  icon.className='cover-icon';icon.textContent=b.icone||'📚';
@@ -1027,7 +1026,6 @@ document.getElementById('logoMark').addEventListener('click',e=>{
 
 // INICIALIZAÇÃO
 prepararTemplates();
-prepararImagemCapa();
 atualizarPerfilUI();
 renderAll();
 </script>
