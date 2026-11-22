@@ -237,7 +237,7 @@ body.dark .modal input,body.dark .modal select{background:#332b25;color:var(--te
 
 <main class="container hidden" id="editor">
   <div class="editor-top">
-    <button onclick="voltarBiblioteca()">← Cadernos</button>
+    <button onclick="voltar()">← Biblioteca</button>
     <h2 id="nomeLivro"></h2>
     <span class="status" id="status"></span>
   </div>
@@ -801,7 +801,20 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('resize',()=>{
  if(!editor.classList.contains('hidden'))redimensionarCanvas();
 });
-montarBiblioteca();
+// ABERTURA DIRETA DO CADERNO
+const livroSolicitado = new URLSearchParams(window.location.search).get('book');
+
+if(livroSolicitado){
+ const indice = livros.findIndex(l => l.id === livroSolicitado);
+
+ if(indice !== -1){
+  abrirLivro(indice);
+ }else{
+  montarBiblioteca();
+ }
+}else{
+ montarBiblioteca();
+}
 </script>
 </body>
 </html>
