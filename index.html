@@ -583,7 +583,6 @@ function createBookCard(b,options={}){
  if(options.list)card.classList.add('list-card');
  const cover=document.createElement('div');
  cover.className='cover';
- if(b.imagem)cover.classList.add('cover-image');
  cover.style.cssText=coverStyle(b);
  const icon=document.createElement('div');
  icon.className='cover-icon';icon.textContent=b.icone||'📚';
@@ -856,11 +855,6 @@ function atualizarPreview(){
  document.getElementById('previewIcon').textContent=selectedIcon;
  document.getElementById('previewTitle').textContent=document.getElementById('bookName').value||'Meu caderno';
 }
-
- document.getElementById('previewIcon').textContent=selectedIcon;
- document.getElementById('previewTitle').textContent=
-  document.getElementById('bookName').value||'Meu caderno';
-}
 function prepararTemplates(){
  const sel=document.getElementById('bookTemplate');sel.innerHTML='';
  MODELS.forEach(m=>{
@@ -1027,7 +1021,6 @@ document.getElementById('logoMark').addEventListener('click',e=>{
 
 // INICIALIZAÇÃO
 prepararTemplates();
-prepararImagemCapa();
 atualizarPerfilUI();
 renderAll();
 </script>
