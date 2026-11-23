@@ -117,6 +117,15 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
 }
 .toolbar input[type=range]{width:60px}
 .toolsep{height:22px;width:1px;background:var(--border);margin:0 3px}
+  .toolbar-label{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:#9b7658;
+  white-space:nowrap;
+  align-self:center;
+  margin:0 3px;
+}
 .pageinfo{font-size:12px;color:var(--muted);padding:0 4px}
 
 .paper-wrap{padding:5px 0 35px}
@@ -496,6 +505,7 @@ body.dark .sidepanel textarea{
   </div>
 
   <nav class="toolbar" id="barra">
+    <span class="toolbar-label">PÁGINAS</span>
     <button title="Página anterior" onclick="paginaAnterior()">🠰</button>
     <button title="Próxima página" onclick="paginaSeguinte()">🠲</button>
     <span class="pageinfo" id="paginaInfo"></span>
@@ -504,7 +514,8 @@ body.dark .sidepanel textarea{
     <button title="Renomear página" onclick="renomearPagina()">✎</button>
 
     <span class="toolsep"></span>
-
+    <span class="toolbar-label">DESENHO</span>
+    
     <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">⊕</button>
     <button title="Adicionar texto" onclick="adicionarTexto()">⊺</button>
     <button id="btnPen" title="Caneta" onclick="modo('pen')">✒</button>
@@ -514,7 +525,8 @@ body.dark .sidepanel textarea{
     <button title="Limpar desenhos" onclick="limparDesenho()">⊗</button>
 
     <span class="toolsep"></span>
-
+    <span class="toolbar-label">OBJETOS</span>
+    
     <button title="Inserir imagem" onclick="inserirImagem()">▧</button>
     <button title="Excluir selecionado" onclick="excluirSelecionado()">⊠</button>
     <button title="Duplicar elemento" onclick="duplicarObjeto()">⧉</button>
@@ -529,7 +541,8 @@ body.dark .sidepanel textarea{
     <button title="Linha reta" onclick="alternarLinha()">╱</button>
 
 <span class="toolsep"></span>
-
+<span class="toolbar-label">TEXTO & ESTILO</span>
+    
 <select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
   <option value="Nunito">Nunito</option>
   <option value="DM Serif Display">DM Serif Display</option>
