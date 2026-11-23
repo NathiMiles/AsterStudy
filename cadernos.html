@@ -81,11 +81,27 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
 .status{font-size:12px;color:var(--success)}
 
 .toolbar{
-  position:sticky;top:65px;z-index:20;background:#fffdf9ed;
-  backdrop-filter:blur(10px);border:1px solid var(--border);
-  border-radius:13px;padding:6px;display:flex;align-items:center;
-  gap:4px;flex-wrap:wrap;margin-bottom:12px;
-  box-shadow:0 4px 16px #30251e0a
+  position:sticky;
+  top:65px;
+  z-index:20;
+  background:#fffdf9ed;
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:6px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+
+  width:calc(100vw - 90px);
+  max-width:none;
+  box-sizing:border-box;
+  margin-left:calc((100% - 100vw)/2);
+  overflow:visible;
+
+  box-shadow:0 4px 16px #30251e0a;
 }
 .toolbar button{
   width:34px;height:34px;padding:0;display:grid;
@@ -443,7 +459,22 @@ body.dark .sidepanel textarea{
     display:none!important;
   }
 }
-  
+  @media print{
+  #asterSidebar,
+  #sidebarPanels{
+    display:none!important;
+  }
+}
+
+/* ===== ASTERSTUDY: REMOVER SETAS DE ROLAGEM ===== */
+
+::-webkit-scrollbar-button{
+  display:none!important;
+  width:0!important;
+  height:0!important;
+}
+
+</style>
 </style>
 </head>
 <body>
