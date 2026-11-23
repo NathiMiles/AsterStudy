@@ -76,7 +76,11 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
   display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px
 }
 .editor-top h2{
-  font-family:'DM Serif Display',serif;font-weight:400;margin:0
+  font-family:'DM Serif Display',serif;
+  font-weight:400;
+  margin:0;
+  font-size:32px;
+  letter-spacing:0.5px;
 }
 .status{font-size:12px;color:var(--success)}
 
@@ -168,12 +172,20 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
 .obj{
   position:absolute;min-width:65px;min-height:35px;
   border:1px solid transparent;border-radius:5px;padding:5px;
-  touch-action:none;overflow-wrap:anywhere
+  touch-action:none;
 }
 .obj.selected{border:1px dashed var(--accent)}
 .obj.textobj{
-  width:260px;min-height:90px;font-size:17px;
-  line-height:1.6;outline:none;overflow:visible
+  width:260px;
+  min-width:260px;
+  min-height:90px;
+  font-size:17px;
+  line-height:1.6;
+  outline:none;
+  overflow:visible;
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap:break-word;
 }
 .obj.textobj:empty:before{content:"Digite aqui...";color:#b7a797}
 .obj.textobj table{border-collapse:collapse}
@@ -511,6 +523,7 @@ body.dark .sidepanel textarea{
     <span class="pageinfo" id="paginaInfo"></span>
     <button title="Nova página" onclick="novaPagina()">✚</button>
     <button title="Duplicar página" onclick="duplicarPagina()">❏</button>
+    <button title="Excluir página" onclick="excluirPagina()">🗑</button>
     <button title="Renomear página" onclick="renomearPagina()">✎</button>
 
     <span class="toolsep"></span>
@@ -1082,6 +1095,26 @@ function limparDesenho(){
  undoStack.push(canvas.toDataURL());ctx.clearRect(0,0,canvas.width,canvas.height);salvarPagina();
 }
 function novaPagina(){
+  function excluirPagina(){
+  const paginas=livros[livroAtual].paginas;
+
+  if(paginas.length<=1){
+    alert('O caderno precisa ter pelo menos uma página.');
+    return;
+  }
+
+  if(!confirm('Deseja realmente excluir esta página?'))return;
+
+  salvarPagina();
+  paginas.splice(paginaAtual,1);
+
+  if(paginaAtual>=paginas.length){
+    paginaAtual=paginas.length-1;
+  }
+
+  salvarBiblioteca();
+  carregarPagina();
+}
  salvarPagina();livros[livroAtual].paginas.push(paginaVazia());
  paginaAtual=livros[livroAtual].paginas.length-1;salvarBiblioteca();carregarPagina();
 }
