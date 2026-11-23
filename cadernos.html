@@ -1026,12 +1026,14 @@ function criarObjeto(o){
     el.append(handle);
   });
 
-  el.addEventListener('pointerdown',e=>{
-    if(['pen','mark','erase'].includes(modoAtual))return;
-    if(e.target.closest('.movezone,.resize'))return;
+el.addEventListener('pointerdown',e=>{
+  if(['pen','mark','erase'].includes(modoAtual))return;
+  if(e.target.closest('.movezone,.resize'))return;
 
+  if(modoAtual==='select'){
     selecionar(el);
-  });
+  }
+});
 
   objects.append(el);
   return el;
@@ -1056,8 +1058,7 @@ function inserirImagem(){
 }
 function arrastar(el,e){
   if(e.button!==0||el.dataset.locked==='true')return;
-  if(el.isContentEditable&&e.target!==el)return;
-
+ 
   e.preventDefault();
 
   const sx=e.clientX,sy=e.clientY;
