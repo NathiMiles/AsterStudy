@@ -490,9 +490,8 @@ body.dark .sidepanel textarea{
 </main>
 
 <main class="container hidden" id="editor">
-  <div class="editor-top">
-    <button onclick="voltar()">← Biblioteca</button>
-    <h2 id="nomeLivro"></h2>
+<div class="editor-top">
+  <h2 id="nomeLivro"></h2>
     <span class="status" id="status"></span>
   </div>
 
@@ -729,8 +728,33 @@ body.dark .sidepanel textarea{
       <option value="cornell">Cornell</option>
       <option value="math">Matemática</option>
     </select>
-    <label>Cor das linhas</label>
-    <input type="color" id="corLinha" value="#e6d9ca">
+<label>Cor das linhas</label>
+
+<div style="display:flex;flex-wrap:wrap;gap:7px;margin:8px 0;align-items:center">
+
+  <button type="button" title="Cappuccino" onclick="corLinha.value='#D8C3A5'" style="background:#D8C3A5;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Caramelo" onclick="corLinha.value='#C89F78'" style="background:#C89F78;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Moca" onclick="corLinha.value='#B9A18D'" style="background:#B9A18D;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Latte" onclick="corLinha.value='#E8D5C4'" style="background:#E8D5C4;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Mel" onclick="corLinha.value='#E5C8A8'" style="background:#E5C8A8;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+
+  <button type="button" title="Rosé" onclick="corLinha.value='#E9CFC5'" style="background:#E9CFC5;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Lavanda" onclick="corLinha.value='#E2D8EC'" style="background:#E2D8EC;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Sálvia" onclick="corLinha.value='#D6E4D5'" style="background:#D6E4D5;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Azul pastel" onclick="corLinha.value='#D5E3EF'" style="background:#D5E3EF;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Baunilha" onclick="corLinha.value='#F0E4B9'" style="background:#F0E4B9;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Menta" onclick="corLinha.value='#C6D6D0'" style="background:#C6D6D0;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+
+  <button type="button" title="Bege rosado" onclick="corLinha.value='#D9C7BB'" style="background:#D9C7BB;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Cinza claro" onclick="corLinha.value='#D1D1D1'" style="background:#D1D1D1;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Cinza" onclick="corLinha.value='#999999'" style="background:#999999;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Grafite" onclick="corLinha.value='#555555'" style="background:#555555;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+  <button type="button" title="Preto" onclick="corLinha.value='#222222'" style="background:#222222;width:27px;height:27px;border:1px solid #aaa;border-radius:50%;cursor:pointer"></button>
+
+</div>
+
+<label>Ou escolha outra cor</label>
+<input type="color" id="corLinha" value="#e6d9ca">
     <label>Espaçamento</label>
     <input type="range" id="espacamento" min="12" max="50" value="25">
     <div class="modal-actions">
