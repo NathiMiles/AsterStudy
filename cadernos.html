@@ -257,7 +257,193 @@ input[type="range"]{
 #desenho{
   cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 36 36'%3E%3Cpath d='M7 3 Q5 2 5 6 L5 27 Q5 31 9 28 L15 23 L21 32 Q23 35 26 32 L28 30 Q30 28 28 25 L22 18 L30 16 Q34 15 31 12 Z' fill='%23c58b55' stroke='%237b4e2c' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M9 7 L9 20' stroke='%23f8e0bf' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='6' r='2' fill='%23fff1dc'/%3E%3C/svg%3E") 5 3, auto !important;
 }
+/* ===== ASTERSTUDY: BARRA LATERAL ===== */
 
+.aster-sidebar{
+  position:fixed;
+  right:0;
+  top:72px;
+  bottom:0;
+  width:54px;
+  z-index:45;
+  background:#f2e5d7;
+  border-left:1px solid #e5d8c9;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+  padding:10px 5px;
+  overflow-y:auto;
+}
+
+.aster-sidebar button{
+  width:40px;
+  height:40px;
+  min-height:40px;
+  padding:0;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  background:#e9ded0;
+  color:#795b43;
+}
+
+.aster-sidebar button:hover{
+  background:#dfc8b1;
+}
+
+.sidepanel{
+  position:fixed;
+  right:66px;
+  top:95px;
+  z-index:46;
+  width:270px;
+  max-width:calc(100vw - 80px);
+  max-height:75vh;
+  overflow:auto;
+  padding:14px;
+  border:1px solid #e5d8c9;
+  border-radius:16px;
+  background:#fffdf9;
+  color:#49372b;
+  box-shadow:0 8px 30px #30251e18;
+}
+
+.panelhead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.panelhead button{
+  width:30px;
+  height:30px;
+  padding:0;
+}
+
+.clockdisplay{
+  text-align:center;
+  font-size:28px;
+  font-weight:800;
+  margin:12px 0;
+}
+
+.panelbuttons{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+}
+
+.panelbuttons button{
+  width:40px;
+  height:38px;
+}
+
+.timerinputs{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+}
+
+.timerinputs input{
+  width:65px;
+  padding:7px;
+  border:1px solid #e5d8c9;
+  border-radius:8px;
+  text-align:center;
+}
+
+#panel-notes textarea{
+  width:100%;
+  resize:vertical;
+  border:1px solid #e5d8c9;
+  border-radius:10px;
+  padding:9px;
+  background:#fffdf9;
+  color:#49372b;
+}
+
+.side-task{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:8px 0;
+}
+
+.side-task span{
+  flex:1;
+  overflow-wrap:anywhere;
+}
+
+.side-task button{
+  padding:3px 8px;
+}
+
+.taskadd{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+}
+
+.taskadd input{
+  min-width:0;
+  flex:1;
+  padding:8px;
+  border:1px solid #e5d8c9;
+  border-radius:8px;
+}
+
+body.dark .aster-sidebar{
+  background:#47372c;
+  border-color:#5b4738;
+}
+
+body.dark .aster-sidebar button{
+  background:#332b25;
+  color:#e4c7a8;
+}
+
+body.dark .sidepanel{
+  background:#332b25;
+  color:#eee2d4;
+  border-color:#504137;
+}
+
+body.dark .sidepanel input,
+body.dark .sidepanel textarea{
+  background:#332b25;
+  color:#eee2d4;
+  border-color:#504137;
+}
+
+@media(max-width:650px){
+  .aster-sidebar{
+    width:48px;
+    top:65px;
+    padding:7px 4px;
+  }
+
+  .aster-sidebar button{
+    width:36px;
+    height:36px;
+  }
+
+  .sidepanel{
+    right:55px;
+    width:min(260px,calc(100vw - 65px));
+  }
+}
+
+@media print{
+  #asterSidebar,
+  #sidebarPanels{
+    display:none!important;
+  }
+}
+  
 </style>
 </head>
 <body>
@@ -280,29 +466,29 @@ input[type="range"]{
   </div>
 
   <nav class="toolbar" id="barra">
-    <button title="Página anterior" onclick="paginaAnterior()">‹</button>
-    <button title="Próxima página" onclick="paginaSeguinte()">›</button>
+    <button title="Página anterior" onclick="paginaAnterior()">🠰</button>
+    <button title="Próxima página" onclick="paginaSeguinte()">🠲</button>
     <span class="pageinfo" id="paginaInfo"></span>
-    <button title="Nova página" onclick="novaPagina()">＋</button>
-    <button title="Duplicar página" onclick="duplicarPagina()">⧉</button>
+    <button title="Nova página" onclick="novaPagina()">✚</button>
+    <button title="Duplicar página" onclick="duplicarPagina()">❏</button>
     <button title="Renomear página" onclick="renomearPagina()">✎</button>
 
     <span class="toolsep"></span>
 
-    <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">↖</button>
-    <button title="Adicionar texto" onclick="adicionarTexto()">T</button>
-    <button id="btnPen" title="Caneta" onclick="modo('pen')">✎</button>
+    <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">⊕</button>
+    <button title="Adicionar texto" onclick="adicionarTexto()">⊺</button>
+    <button id="btnPen" title="Caneta" onclick="modo('pen')">✒</button>
     <button id="btnMark" title="Marca-texto" onclick="modo('mark')">▰</button>
-    <button id="btnErase" title="Borracha" onclick="modo('erase')">⌫</button>
-    <button title="Desfazer desenho" onclick="desfazer()">↶</button>
-    <button title="Limpar desenhos" onclick="limparDesenho()">⌧</button>
+    <button id="btnErase" title="Borracha" onclick="modo('erase')">✘</button>
+    <button title="Desfazer desenho" onclick="desfazer()">↩</button>
+    <button title="Limpar desenhos" onclick="limparDesenho()">⊗</button>
 
     <span class="toolsep"></span>
 
     <button title="Inserir imagem" onclick="inserirImagem()">▧</button>
-    <button title="Excluir selecionado" onclick="excluirSelecionado()">🗑</button>
+    <button title="Excluir selecionado" onclick="excluirSelecionado()">⊠</button>
     <button title="Duplicar elemento" onclick="duplicarObjeto()">⧉</button>
-    <button title="Bloquear/desbloquear" onclick="bloquearObjeto()">♙</button>
+    <button title="Bloquear/desbloquear" onclick="bloquearObjeto()">◉</button>
     <button title="Enviar para trás" onclick="camada(-1)">↓</button>
     <button title="Trazer para frente" onclick="camada(1)">↑</button>
 
@@ -312,15 +498,30 @@ input[type="range"]{
     <input type="range" id="tamanho" min="1" max="24" value="3" title="Espessura">
     <button title="Linha reta" onclick="alternarLinha()">╱</button>
 
-    <span class="toolsep"></span>
+<span class="toolsep"></span>
 
-    <select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
-      <option value="Nunito">Nunito</option>
-      <option value="Arial">Arial</option>
-      <option value="Georgia">Georgia</option>
-      <option value="Verdana">Verdana</option>
-      <option value="Courier New">Courier</option>
-    </select>
+<select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
+  <option value="Nunito">Nunito</option>
+  <option value="DM Serif Display">DM Serif Display</option>
+  <option value="Playfair Display">Playfair Display</option>
+  <option value="Lora">Lora</option>
+  <option value="EB Garamond">EB Garamond</option>
+  <option value="Amatic SC">Amatic SC</option>
+  <option value="Caveat">Caveat</option>
+  <option value="Patrick Hand">Patrick Hand</option>
+  <option value="Kalam">Kalam</option>
+  <option value="Dancing Script">Dancing Script</option>
+  <option value="Great Vibes">Great Vibes</option>
+  <option value="Quicksand">Quicksand</option>
+  <option value="Roboto">Roboto</option>
+  <option value="Montserrat">Montserrat</option>
+  <option value="Oswald">Oswald</option>
+  <option value="Courier Prime">Courier Prime</option>
+  <option value="Arial">Arial</option>
+  <option value="Georgia">Georgia</option>
+  <option value="Verdana">Verdana</option>
+  <option value="Courier New">Courier</option>
+</select>
 
     <select id="tamanhoFonte" title="Tamanho da letra" onchange="mudarTamanho(this.value)">
       <option value="2">Pequeno</option>
@@ -341,31 +542,16 @@ input[type="range"]{
     <button title="Alinhar à esquerda" onclick="formatar('justifyLeft')">☰</button>
     <button title="Centralizar" onclick="formatar('justifyCenter')">≡</button>
     <button title="Alinhar à direita" onclick="formatar('justifyRight')">☷</button>
-    <button title="Justificar" onclick="formatar('justifyFull')">▤</button>
-    <button title="Título" onclick="estiloTexto('h2')">H</button>
-    <button title="Texto normal" onclick="estiloTexto('p')">¶</button>
+    <button title="Justificar" onclick="formatar('justifyFull')">≋</button>
+    <button title="Título" onclick="estiloTexto('h2')">Ⓗ</button>
+    <button title="Texto normal" onclick="estiloTexto('p')">ⓟ</button>
 
     <span class="toolsep"></span>
 
-    <button title="Checklist" onclick="inserirChecklist()">☑</button>
-    <button title="Tabela" onclick="inserirTabela()">▦</button>
-    <button title="Link" onclick="inserirLink()">🔗</button>
-    <button title="Sticker" onclick="inserirSticker()">✦</button>
-    <button title="Post-it" onclick="postit()">▣</button>
-    <button title="Configurar folha" onclick="configurar()">⚙</button>
-    <button title="Pesquisar" onclick="abrirPesquisa()">⌕</button>
-
-    <span class="toolsep"></span>
-
-    <button title="Exportar backup" onclick="exportarBackup()">⬇</button>
-    <button title="Importar backup" onclick="importarBackup()">⬆</button>
-    <button title="Imprimir/salvar PDF" onclick="window.print()">▤</button>
-    <button title="Modo escuro" onclick="alternarEscuro()">◐</button>
-    <button title="Tela cheia" onclick="telaCheia()">⛶</button>
-    <button title="Ocultar ferramentas" onclick="toggleBarra()">☰</button>
+    <button title="Ocultar ferramentas" onclick="toggleBarra()">☷</button>
   </nav>
 
-  <button id="reabrirBarra" class="hidden" onclick="toggleBarra()" title="Mostrar ferramentas">✦</button>
+  <button id="reabrirBarra" class="hidden" onclick="toggleBarra()" title="Mostrar ferramentas">⌬</button>
 
   <div id="painelPesquisa" class="hidden">
     <input id="campoPesquisa" placeholder="Pesquisar nos cadernos..." oninput="executarPesquisa(this.value)">
@@ -373,7 +559,110 @@ input[type="range"]{
   </div>
 
   <div id="contador" class="hidden"></div>
+<aside id="asterSidebar" class="aster-sidebar" aria-label="Ferramentas laterais">
 
+  <button title="Relógio" onclick="abrirPainel('clock')">◷</button>
+  <button title="Temporizador" onclick="abrirPainel('timer')">⌛</button>
+  <button title="Cronômetro" onclick="abrirPainel('stopwatch')">⏱</button>
+  <button title="Calendário" onclick="abrirPainel('calendar')">▦</button>
+  <button title="Checklist" onclick="abrirPainel('tasks')">☑</button>
+  <button title="Notas rápidas" onclick="abrirPainel('notes')">✎</button>
+
+  <button title="Tabela" onclick="inserirTabela()">▤</button>
+  <button title="Link" onclick="inserirLink()">↗</button>
+  <button title="Configurar folha" onclick="configurar()">⚙</button>
+  <button title="Pesquisar" onclick="abrirPesquisa()">⌕</button>
+
+  <button title="Exportar backup" onclick="exportarBackup()">↓</button>
+  <button title="Importar backup" onclick="importarBackup()">↑</button>
+  <button title="Imprimir/PDF" onclick="window.print()">▣</button>
+  <button title="Modo escuro" onclick="alternarEscuro()">◐</button>
+  <button title="Tela cheia" onclick="telaCheia()">⛶</button>
+
+</aside>
+
+<div id="sidebarPanels">
+
+  <section class="sidepanel hidden" id="panel-clock">
+    <div class="panelhead">
+      <b>Relógio</b>
+      <button onclick="fecharPainel('clock')">—</button>
+    </div>
+    <div class="clockdisplay" id="clockDisplay">--:--:--</div>
+    <small id="clockDate"></small>
+  </section>
+
+  <section class="sidepanel hidden" id="panel-timer">
+    <div class="panelhead">
+      <b>Temporizador</b>
+      <button onclick="fecharPainel('timer')">—</button>
+    </div>
+
+    <div class="timerinputs">
+      <input id="timerMin" type="number" min="0" value="5" aria-label="Minutos">
+      <span>min</span>
+      <input id="timerSec" type="number" min="0" max="59" value="0" aria-label="Segundos">
+      <span>seg</span>
+    </div>
+
+    <div class="clockdisplay" id="timerDisplay">05:00</div>
+
+    <div class="panelbuttons">
+      <button onclick="iniciarTimer()">▶</button>
+      <button onclick="pausarTimer()">Ⅱ</button>
+      <button onclick="resetTimer()">↺</button>
+    </div>
+  </section>
+
+  <section class="sidepanel hidden" id="panel-stopwatch">
+    <div class="panelhead">
+      <b>Cronômetro</b>
+      <button onclick="fecharPainel('stopwatch')">—</button>
+    </div>
+
+    <div class="clockdisplay" id="swDisplay">00:00:00</div>
+
+    <div class="panelbuttons">
+      <button onclick="startSW()">▶</button>
+      <button onclick="pauseSW()">Ⅱ</button>
+      <button onclick="resetSW()">↺</button>
+    </div>
+  </section>
+
+  <section class="sidepanel hidden" id="panel-calendar">
+    <div class="panelhead">
+      <b>Calendário</b>
+      <button onclick="fecharPainel('calendar')">—</button>
+    </div>
+
+    <input type="date" id="calendarDate">
+    <p id="calendarToday"></p>
+  </section>
+
+  <section class="sidepanel hidden" id="panel-tasks">
+    <div class="panelhead">
+      <b>Checklist</b>
+      <button onclick="fecharPainel('tasks')">—</button>
+    </div>
+
+    <div id="taskList"></div>
+
+    <div class="taskadd">
+      <input id="taskInput" placeholder="Nova tarefa...">
+      <button onclick="addTask()">＋</button>
+    </div>
+  </section>
+
+  <section class="sidepanel hidden" id="panel-notes">
+    <div class="panelhead">
+      <b>Notas rápidas</b>
+      <button onclick="fecharPainel('notes')">—</button>
+    </div>
+
+    <textarea id="quickNotes" rows="8" placeholder="Escreva uma nota rápida..."></textarea>
+  </section>
+
+</div>
   <div class="paper-wrap">
     <section class="paper grid" id="folha">
       <div class="objects" id="objects"></div>
@@ -741,6 +1030,244 @@ function renomearPagina(){
 }
 function voltarBiblioteca(){
  salvarPagina();editor.classList.add('hidden');biblioteca.classList.remove('hidden');montarBiblioteca();
+}
+  /* ===== ASTERSTUDY: PAINÉIS LATERAIS ===== */
+
+function abrirPainel(nome){
+  document.querySelectorAll('.sidepanel').forEach(p=>p.classList.add('hidden'));
+  const painel=document.getElementById('panel-'+nome);
+  if(painel) painel.classList.remove('hidden');
+}
+
+function fecharPainel(nome){
+  const painel=document.getElementById('panel-'+nome);
+  if(painel) painel.classList.add('hidden');
+}
+  /* ===== ASTERSTUDY: RELÓGIO ===== */
+
+function atualizarRelogio(){
+  const agora=new Date();
+
+  const hora=document.getElementById('clockDisplay');
+  const data=document.getElementById('clockDate');
+
+  if(hora){
+    hora.textContent=agora.toLocaleTimeString('pt-BR');
+  }
+
+  if(data){
+    data.textContent=agora.toLocaleDateString('pt-BR',{
+      weekday:'long',
+      day:'2-digit',
+      month:'long',
+      year:'numeric'
+    });
+  }
+}
+
+atualizarRelogio();
+setInterval(atualizarRelogio,1000);
+  /* ===== ASTERSTUDY: TEMPORIZADOR ===== */
+
+let timerRestante=300;
+let timerInterval=null;
+
+function formatarTimer(segundos){
+  const m=Math.floor(segundos/60);
+  const s=segundos%60;
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function atualizarTimerDisplay(){
+  const display=document.getElementById('timerDisplay');
+  if(display) display.textContent=formatarTimer(timerRestante);
+}
+
+function iniciarTimer(){
+  if(timerInterval!==null)return;
+
+  const min=parseInt(document.getElementById('timerMin').value)||0;
+  const seg=parseInt(document.getElementById('timerSec').value)||0;
+
+  if(timerRestante===300){
+    timerRestante=Math.max(0,min*60+seg);
+    atualizarTimerDisplay();
+  }
+
+  if(timerRestante<=0)return;
+
+  timerInterval=setInterval(()=>{
+    timerRestante--;
+
+    atualizarTimerDisplay();
+
+    if(timerRestante<=0){
+      clearInterval(timerInterval);
+      timerInterval=null;
+      alert('Tempo concluído!');
+    }
+  },1000);
+}
+
+function pausarTimer(){
+  clearInterval(timerInterval);
+  timerInterval=null;
+}
+
+function resetTimer(){
+  pausarTimer();
+
+  const min=parseInt(document.getElementById('timerMin').value)||0;
+  const seg=parseInt(document.getElementById('timerSec').value)||0;
+
+  timerRestante=Math.max(0,min*60+seg);
+  atualizarTimerDisplay();
+}
+
+atualizarTimerDisplay();
+  /* ===== ASTERSTUDY: CRONÔMETRO ===== */
+
+let swSegundos=0;
+let swInterval=null;
+
+function atualizarSW(){
+  const h=Math.floor(swSegundos/3600);
+  const m=Math.floor((swSegundos%3600)/60);
+  const s=swSegundos%60;
+
+  const display=document.getElementById('swDisplay');
+
+  if(display){
+    display.textContent=
+      String(h).padStart(2,'0')+':'+
+      String(m).padStart(2,'0')+':'+
+      String(s).padStart(2,'0');
+  }
+}
+
+function startSW(){
+  if(swInterval!==null)return;
+
+  swInterval=setInterval(()=>{
+    swSegundos++;
+    atualizarSW();
+  },1000);
+}
+
+function pauseSW(){
+  clearInterval(swInterval);
+  swInterval=null;
+}
+
+function resetSW(){
+  pauseSW();
+  swSegundos=0;
+  atualizarSW();
+}
+
+atualizarSW();
+  /* ===== ASTERSTUDY: CALENDÁRIO ===== */
+
+function atualizarCalendario(){
+  const dataInput=document.getElementById('calendarDate');
+  const hoje=document.getElementById('calendarToday');
+
+  if(dataInput && !dataInput.value){
+    const agora=new Date();
+    const ano=agora.getFullYear();
+    const mes=String(agora.getMonth()+1).padStart(2,'0');
+    const dia=String(agora.getDate()).padStart(2,'0');
+
+    dataInput.value=`${ano}-${mes}-${dia}`;
+  }
+
+  if(hoje){
+    hoje.textContent='Hoje: '+new Date().toLocaleDateString('pt-BR',{
+      weekday:'long',
+      day:'numeric',
+      month:'long',
+      year:'numeric'
+    });
+  }
+}
+
+atualizarCalendario();
+  /* ===== ASTERSTUDY: CHECKLIST LATERAL ===== */
+
+let tarefasLaterais=JSON.parse(localStorage.getItem('asterTarefas')||'[]');
+
+function salvarTarefas(){
+  localStorage.setItem('asterTarefas',JSON.stringify(tarefasLaterais));
+}
+
+function renderTarefas(){
+  const lista=document.getElementById('taskList');
+  if(!lista)return;
+
+  lista.innerHTML='';
+
+  tarefasLaterais.forEach((t,i)=>{
+    const item=document.createElement('div');
+    item.className='side-task';
+
+    const check=document.createElement('input');
+    check.type='checkbox';
+    check.checked=t.concluida;
+    check.onchange=()=>{
+      tarefasLaterais[i].concluida=check.checked;
+      salvarTarefas();
+      renderTarefas();
+    };
+
+    const texto=document.createElement('span');
+    texto.textContent=t.texto;
+    if(t.concluida){
+      texto.style.textDecoration='line-through';
+      texto.style.opacity='0.6';
+    }
+
+    const excluir=document.createElement('button');
+    excluir.textContent='×';
+    excluir.title='Excluir tarefa';
+    excluir.onclick=()=>{
+      tarefasLaterais.splice(i,1);
+      salvarTarefas();
+      renderTarefas();
+    };
+
+    item.append(check,texto,excluir);
+    lista.appendChild(item);
+  });
+}
+
+function addTask(){
+  const input=document.getElementById('taskInput');
+  if(!input)return;
+
+  const texto=input.value.trim();
+  if(!texto)return;
+
+  tarefasLaterais.push({
+    texto,
+    concluida:false
+  });
+
+  input.value='';
+  salvarTarefas();
+  renderTarefas();
+}
+
+renderTarefas();
+  /* ===== ASTERSTUDY: NOTAS RÁPIDAS ===== */
+
+const notasRapidas=document.getElementById('quickNotes');
+
+if(notasRapidas){
+  notasRapidas.value=localStorage.getItem('asterNotas')||'';
+
+  notasRapidas.addEventListener('input',()=>{
+    localStorage.setItem('asterNotas',notasRapidas.value);
+  });
 }
 function voltar(){window.location.href='index.html'}
 function editarNome(i){
