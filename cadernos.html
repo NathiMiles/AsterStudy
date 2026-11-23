@@ -192,13 +192,69 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
 .obj.textobj td,.obj.textobj th{border:1px solid #a99580;padding:5px}
 .obj.imageobj{width:220px;height:160px;padding:0}
 .obj img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+/* Controles de redimensionamento */
 .resize{
-  display:none;position:absolute;right:-6px;bottom:-6px;
-  width:13px;height:13px;border-radius:50%;
-  background:var(--accent);border:2px solid white;
-  cursor:nwse-resize;touch-action:none
+  display:none;
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--accent);
+  border:2px solid white;
+  z-index:10;
+  touch-action:none;
 }
-.obj.selected .resize{display:block}
+
+.obj.selected .resize{
+  display:block;
+}
+/* Áreas exclusivas para movimentar os objetos */
+.movezone{
+  position:absolute;
+  z-index:8;
+  display:none;
+  touch-action:none;
+}
+
+.obj.selected .movezone{
+  display:block;
+}
+
+.movezone.top{
+  top:-5px;
+  left:8px;
+  right:8px;
+  height:8px;
+  cursor:move;
+}
+
+.movezone.bottom{
+  bottom:-5px;
+  left:8px;
+  right:8px;
+  height:8px;
+  cursor:move;
+}
+
+.movezone.left{
+  left:-5px;
+  top:8px;
+  bottom:8px;
+  width:8px;
+  cursor:move;
+}
+
+.movezone.right{
+  right:-5px;
+  top:8px;
+  bottom:8px;
+  width:8px;
+  cursor:move;
+}
+.resize.tl{top:-6px;left:-6px;cursor:nwse-resize;}
+.resize.tr{top:-6px;right:-6px;cursor:nesw-resize;}
+.resize.bl{bottom:-6px;left:-6px;cursor:nesw-resize;}
+.resize.br{bottom:-6px;right:-6px;cursor:nwse-resize;}
 .canvas{
   position:absolute;inset:0;width:100%;height:100%;
   z-index:5;pointer-events:none;touch-action:none
@@ -260,7 +316,6 @@ body.dark .modal input,body.dark .modal select{background:#332b25;color:var(--te
   body{background:white}
 }
   
-
 /* ===== CURSORES BUBBLE CARAMelo ===== */
 
 /* Cursor normal: ponteiro caramelo */
@@ -858,6 +913,12 @@ function carregarLivro(){
  nomeLivro.textContent=livros[livroAtual].nome;
  carregarPagina();
 }
+  document.addEventListener('pointerdown',e=>{
+  if(!e.target.closest('.obj')){
+    document.querySelectorAll('.obj').forEach(x=>x.classList.remove('selected'));
+    selecionado=null;
+  }
+});
 function carregarPagina(){
  const l=livros[livroAtual];
  if(!l.paginas||!l.paginas.length)l.paginas=[paginaVazia()];
@@ -902,36 +963,78 @@ function renderObjetos(){
  selecionado=null;
 }
 function criarObjeto(o){
- const el=document.createElement('div');
- el.className='obj '+(o.tipo==='texto'?'textobj':'imageobj');
- el.dataset.tipo=o.tipo;el.dataset.locked=o.bloqueado?'true':'false';
- el.style.left=(o.x||40)+'px';el.style.top=(o.y||40)+'px';
- el.style.width=(o.w||260)+'px';el.style.height=(o.h||120)+'px';
- if(o.tipo==='texto'){
-  el.contentEditable='true';el.innerHTML=o.html||'';
-  if(o.font)el.style.fontFamily=o.font;
-  el.addEventListener('input',()=>{salvarPagina();atualizarContador()});
-  el.addEventListener('focus',()=>selecionar(el));
-  el.addEventListener('keyup',atualizarContador);
- }else if(o.tipo==='imagem'){
-  const img=document.createElement('img');img.src=o.src||'';el.append(img);
- }
- const handle=document.createElement('div');handle.className='resize';el.append(handle);
- el.addEventListener('pointerdown',e=>{
-  if(['pen','mark','erase'].includes(modoAtual))return;
-  if(e.target===handle||e.target.closest('a'))return;
-  selecionar(el);
- if(modoAtual==='select'&&el.dataset.locked!=='true')arrastar(el,e);
- });
- handle.addEventListener('pointerdown',e=>{
-  if(el.dataset.locked==='true')return;
-  e.stopPropagation();selecionar(el);redimensionar(el,e);
- });
- objects.append(el);return el;
-}
-function selecionar(el){
- document.querySelectorAll('.obj').forEach(x=>x.classList.remove('selected'));
- selecionado=el;if(el)el.classList.add('selected');
+  const el=document.createElement('div');
+  el.className='obj '+(o.tipo==='texto'?'textobj':'imageobj');
+  el.dataset.tipo=o.tipo;
+  el.dataset.locked=o.bloqueado?'true':'false';
+  el.style.left=(o.x||40)+'px';
+  el.style.top=(o.y||40)+'px';
+  el.style.width=(o.w||260)+'px';
+  el.style.height=(o.h||120)+'px';
+
+  if(o.tipo==='texto'){
+    el.contentEditable='true';
+    el.innerHTML=o.html||'';
+
+    if(o.font)el.style.fontFamily=o.font;
+
+    el.addEventListener('input',()=>{
+      salvarPagina();
+      atualizarContador();
+    });
+
+    el.addEventListener('focus',()=>selecionar(el));
+    el.addEventListener('keyup',atualizarContador);
+  }else if(o.tipo==='imagem'){
+    const img=document.createElement('img');
+    img.src=o.src||'';
+    el.append(img);
+  }
+
+  /* Bordas para movimentação */
+  ['top','bottom','left','right'].forEach(lado=>{
+    const zona=document.createElement('div');
+    zona.className='movezone '+lado;
+
+    zona.addEventListener('pointerdown',e=>{
+      if(el.dataset.locked==='true')return;
+      if(modoAtual!=='select')return;
+
+      e.stopPropagation();
+      selecionar(el);
+      arrastar(el,e);
+    });
+
+    el.append(zona);
+  });
+
+  /* Quatro cantos para redimensionar */
+  ['tl','tr','bl','br'].forEach(canto=>{
+    const handle=document.createElement('div');
+    handle.className='resize '+canto;
+    handle.dataset.canto=canto;
+
+    handle.addEventListener('pointerdown',e=>{
+      if(el.dataset.locked==='true')return;
+      if(modoAtual!=='select')return;
+
+      e.stopPropagation();
+      selecionar(el);
+      redimensionar(el,e,canto);
+    });
+
+    el.append(handle);
+  });
+
+  el.addEventListener('pointerdown',e=>{
+    if(['pen','mark','erase'].includes(modoAtual))return;
+    if(e.target.closest('.movezone,.resize'))return;
+
+    selecionar(el);
+  });
+
+  objects.append(el);
+  return el;
 }
 function adicionarTexto(){
  modo('select');
@@ -977,18 +1080,46 @@ function arrastar(el,e){
   window.addEventListener('pointerup',fim);
   window.addEventListener('pointercancel',fim);
 }
-
-function redimensionar(el,e){
+function redimensionar(el,e,canto){
   if(el.dataset.locked==='true')return;
 
   e.preventDefault();
 
   const sx=e.clientX,sy=e.clientY;
   const sw=el.offsetWidth,sh=el.offsetHeight;
+  const ox=parseFloat(el.style.left)||0;
+  const oy=parseFloat(el.style.top)||0;
 
   function mover(ev){
-    el.style.width=Math.max(70,sw+ev.clientX-sx)+'px';
-    el.style.height=Math.max(40,sh+ev.clientY-sy)+'px';
+    let dx=ev.clientX-sx;
+    let dy=ev.clientY-sy;
+
+    let w=sw,h=sh,x=ox,y=oy;
+
+    if(canto.includes('r')){
+      w=Math.max(70,sw+dx);
+    }
+
+    if(canto.includes('b')){
+      h=Math.max(40,sh+dy);
+    }
+
+    if(canto.includes('l')){
+      dx=Math.min(dx,sw-70);
+      w=sw-dx;
+      x=ox+dx;
+    }
+
+    if(canto.includes('t')){
+      dy=Math.min(dy,sh-40);
+      h=sh-dy;
+      y=oy+dy;
+    }
+
+    el.style.width=w+'px';
+    el.style.height=h+'px';
+    el.style.left=x+'px';
+    el.style.top=y+'px';
   }
 
   function fim(){
