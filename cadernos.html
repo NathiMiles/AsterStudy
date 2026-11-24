@@ -495,6 +495,65 @@ body *::after {
  padding:2px;
  cursor:pointer;
 }
+  .marca-wrap{
+ position:relative;
+ display:inline-flex;
+}
+
+.painel-marca{
+ position:absolute;
+ top:calc(100% + 8px);
+ left:0;
+ z-index:1000;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:10px;
+ padding:12px;
+ background:var(--panel,#fff);
+ border:1px solid #d8c9b8;
+ border-radius:12px;
+ box-shadow:0 5px 18px rgba(0,0,0,.16);
+ min-width:170px;
+}
+
+.painel-marca .coresMarca{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:7px;
+}
+
+.painel-marca .coresMarca button{
+ width:24px;
+ height:24px;
+ min-width:24px;
+ padding:0;
+ border:2px solid #ccc;
+ border-radius:50%;
+ cursor:pointer;
+}
+
+.painel-marca .coresMarca button:hover{
+ transform:scale(1.15);
+}
+
+.painel-marca input[type="color"]{
+ width:28px;
+ height:28px;
+ padding:2px;
+ cursor:pointer;
+}
+
+.painel-marca button:last-child{
+ padding:7px 18px;
+ border:0;
+ border-radius:7px;
+ background:var(--accent,#8b6249);
+ color:white;
+ cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -532,9 +591,20 @@ body *::after {
     <button id="btnMoverCaixa" title="Ativar movimentação" onclick="alternarMovimento()">↔</button>
     <button title="Adicionar texto" onclick="adicionarTexto()">⊺</button>
     <button id="btnPen" title="Caneta" onclick="modo('pen')">✒</button>
- <button id="btnMark" title="Aplicar marca-texto"
- onmousedown="event.preventDefault()"
- onclick="aplicarMarcaTexto(corMarcaSelecionada)">▰</button>
+<div class="marca-wrap">
+  <button id="btnMark" title="Marca-texto"
+    onmousedown="event.preventDefault()"
+    onclick="alternarPainelMarca()">▰</button>
+
+  <div id="painelMarca" class="painel-marca" style="display:none">
+
+    <button type="button"
+      onmousedown="event.preventDefault()"
+      onclick="aplicarMarcaTexto(corMarcaSelecionada); alternarPainelMarca(false)">
+      Aplicar
+    </button>
+  </div>
+</div>
     <button id="btnErase" title="Borracha" onclick="modo('erase')">✘</button>
     <button title="Desfazer desenho" onclick="desfazer()">↩</button>
     <button title="Limpar desenhos" onclick="limparDesenho()">⊗</button>
@@ -1118,6 +1188,16 @@ function alternarMovimento(){
 function selecionarCorMarca(cor){
  corMarcaSelecionada=cor;
 }
+  function alternarPainelMarca(abrir){
+ const painel=document.getElementById('painelMarca');
+
+ if(typeof abrir==='boolean'){
+  painel.style.display=abrir?'flex':'none';
+ }else{
+  painel.style.display=
+   painel.style.display==='none'?'flex':'none';
+ }
+}
 
 document.addEventListener('selectionchange',()=>{
  const selecao=window.getSelection();
@@ -1137,15 +1217,18 @@ document.addEventListener('selectionchange',()=>{
 function aplicarMarcaTexto(cor){
  if(!selecaoTextoSalva)return;
 
- const caixa=selecaoTextoSalva.commonAncestorContainer;
- const elemento=caixa.nodeType===1?caixa:caixa.parentElement;
- const textObj=elemento.closest('.textobj');
-
- if(!textObj)return;
-
  const range=selecaoTextoSalva.cloneRange();
 
  if(range.collapsed)return;
+
+ const elemento=range.commonAncestorContainer;
+ const caixa=elemento.nodeType===1
+  ?elemento
+  :elemento.parentElement;
+
+ const textObj=caixa.closest('.textobj');
+
+ if(!textObj)return;
 
  const marca=document.createElement('span');
  marca.style.backgroundColor=cor;
