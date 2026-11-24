@@ -271,41 +271,7 @@ body.dark .modal input,body.dark .modal select{background:#332b25;color:var(--te
   .paper{box-shadow:none;border:0;max-width:none}
   body{background:white}
 }
-  
 
-/* ===== CURSORES BUBBLE CARAMelo ===== */
-
-/* Cursor normal: ponteiro caramelo */
-body,
-body *{
-  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 36 36'%3Cpath d='M7 3 Q5 2 5 6 L5 27 Q5 31 9 28 L15 23 L21 32 Q23 35 26 32 L28 30 Q30 28 28 25 L22 18 L30 16 Q34 15 31 12 Z' fill='%23c58b55' stroke='%237b4e2c' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M9 7 L9 20' stroke='%23f8e0bf' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='6' r='2' fill='%23fff1dc'/%3E%3C/svg%3E") 4 2, auto !important;
-}
-
-/* Cursor de digitação: bolha vertical */
-input,
-textarea,
-[contenteditable="true"],
-[contenteditable="true"] *{
-  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='28' viewBox='0 0 24 36'%3E%3Cpath d='M12 4 Q17 4 17 9 L17 27 Q17 32 12 32 Q7 32 7 27 L7 9 Q7 4 12 4 Z' fill='%23c58b55' stroke='%237b4e2c' stroke-width='1.8'/%3E%3Cpath d='M10 9 Q10 7 12 7' stroke='%23fff1dc' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='7' r='1.5' fill='%23fff1dc'/%3E%3C/svg%3E") 9 14, text !important;
-}
-
-/* Cursor de clique: mão caramelo */
-button,
-a,
-summary,
-select,
-label,
-[role="button"],
-input[type="button"],
-input[type="submit"],
-input[type="range"]{
-  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 36 36'%3E%3Cpath d='M13 17 L13 8 Q13 5 16 5 Q19 5 19 8 L19 16 L22 12 Q24 10 26 12 Q28 14 26 16 L23 20 L26 23 Q29 27 25 31 L17 32 Q12 31 10 27 L6 21 Q4 18 7 16 Q9 14 11 17 Z' fill='%23c58b55' stroke='%237b4e2c' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M16 8 L16 16' stroke='%23fff1dc' stroke-width='1.8' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='7' r='1.5' fill='%23fff1dc'/%3E%3C/svg%3E") 10 4, pointer !important;
-}
-
-/* Cursor também no desenho */
-#desenho{
-  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 36 36'%3E%3Cpath d='M7 3 Q5 2 5 6 L5 27 Q5 31 9 28 L15 23 L21 32 Q23 35 26 32 L28 30 Q30 28 28 25 L22 18 L30 16 Q34 15 31 12 Z' fill='%23c58b55' stroke='%237b4e2c' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M9 7 L9 20' stroke='%23f8e0bf' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='6' r='2' fill='%23fff1dc'/%3E%3C/svg%3E") 5 3, auto !important;
-}
 /* ===== ASTERSTUDY: BARRA LATERAL ===== */
 
 .aster-sidebar{
@@ -492,15 +458,17 @@ body.dark .sidepanel textarea{
     display:none!important;
   }
 }
+ 
+/* ===== CURSOR ÚNICO ASTERSTUDY — CARAMEL BUBBLE ===== */
 
-/* ===== ASTERSTUDY: REMOVER SETAS DE ROLAGEM ===== */
-
-::-webkit-scrollbar-button{
-  display:none!important;
-  width:0!important;
-  height:0!important;
+html,
+body,
+body *,
+body *::before,
+body *::after {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 2 L4 25 L10 19 L15 29 Q16 31 18 29 L20 27 Q21 26 20 24 L16 17 L25 17 Z' fill='%23B87333' stroke='%23FFF0D5' stroke-width='2.2' stroke-linejoin='round'/%3E%3Ccircle cx='23' cy='5' r='2' fill='%23E6AD70'/%3E%3Ccircle cx='27' cy='10' r='1.5' fill='%23D99A5B'/%3E%3C/svg%3E") 4 3, auto !important;
 }
-  
+ 
 </style>
 </head>
 <body>
