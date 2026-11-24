@@ -174,7 +174,7 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
   border:1px solid transparent;border-radius:5px;padding:5px;
   touch-action:none;
 }
-.obj.selected{border:1px dashed var(--accent)}
+.obj.selected.move-enabled{border:1px dashed var(--accent)}
 .obj.textobj{
   width:260px;
   min-width:260px;
@@ -197,8 +197,7 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
   width:13px;height:13px;border-radius:50%;
   background:var(--accent);border:2px solid white;
   touch-action:none;z-index:10;user-select:none;-webkit-user-select:none
-}
-.obj.selected .resize{display:block}
+.obj.selected.move-enabled .resize{display:block}
 
 .resize-nw{top:-6px;left:-6px;cursor:nwse-resize}
 .resize-ne{top:-6px;right:-6px;cursor:nesw-resize}
@@ -533,7 +532,8 @@ body.dark .sidepanel textarea{
     <span class="toolsep"></span>
     <span class="toolbar-label">DESENHO & ESCRITA</span>
     
-    <button id="btnSelect" title="Selecionar/mover" onclick="modo('select')">⊕</button>
+    <button id="btnSelect" title="Selecionar" onclick="modo('select')">⊕</button>
+    <button id="btnMoverCaixa" title="Ativar movimentação" onclick="alternarMovimento()">↔</button>
     <button title="Adicionar texto" onclick="adicionarTexto()">⊺</button>
     <button id="btnPen" title="Caneta" onclick="modo('pen')">✒</button>
     <button id="btnMark" title="Marca-texto" onclick="modo('mark')">▰</button>
@@ -798,6 +798,7 @@ body.dark .sidepanel textarea{
   const STORAGE='aster_notebooks_v1';
 let livros=[],livroAtual=null,paginaAtual=0;
 let modoAtual='select',desenhando=false,ultimo=null;
+let movimentoCaixa=false;
 let selecionado=null,undoStack=[],linhaReta=false;
 let pontoInicio=null,memoriaSelecao=null;
 
@@ -926,18 +927,7 @@ el.addEventListener('pointerdown',e=>{
 
   selecionar(el);
 
-  if(modoAtual!=='select'||el.dataset.locked==='true')return;
-
-  const r=el.getBoundingClientRect();
-  const margem=10;
-
-  const naBorda=
-    e.clientX-r.left<margem||
-    r.right-e.clientX<margem||
-    e.clientY-r.top<margem||
-    r.bottom-e.clientY<margem;
-
-  if(naBorda){
+  if(movimentoCaixa&&modoAtual==='select'){
     arrastar(el,e);
   }
 });
@@ -947,18 +937,53 @@ el.addEventListener('pointerdown',e=>{
   handle.dataset.canto=canto;
   el.append(handle);
 
-  handle.addEventListener('pointerdown',e=>{
-    if(el.dataset.locked==='true')return;
-    e.stopPropagation();
-    selecionar(el);
-    redimensionar(el,e,canto);
-  });
+handle.addEventListener('pointerdown',e=>{
+  if(el.dataset.locked==='true'||!movimentoCaixa)return;
+  e.stopPropagation();
+  selecionar(el);
+  redimensionar(el,e,canto);
+});
 });
  objects.append(el);return el;
 }
 function selecionar(el){
- document.querySelectorAll('.obj').forEach(x=>x.classList.remove('selected'));
- selecionado=el;if(el)el.classList.add('selected');
+ document.querySelectorAll('.obj').forEach(x=>{
+  x.classList.remove('selected','move-enabled');
+ });
+ selecionado=el;
+ if(el){
+  el.classList.add('selected');
+  if(movimentoCaixa)el.classList.add('move-enabled');
+ }
+}
+  function selecionar(el){
+ document.querySelectorAll('.obj').forEach(x=>{
+  x.classList.remove('selected','move-enabled');
+ });
+ selecionado=el;
+ if(el){
+  el.classList.add('selected');
+  if(movimentoCaixa)el.classList.add('move-enabled');
+ }
+}
+
+function alternarMovimento(){
+ movimentoCaixa=!movimentoCaixa;
+
+ const btn=document.getElementById('btnMoverCaixa');
+ btn.classList.toggle('active',movimentoCaixa);
+ btn.title=movimentoCaixa?'Desativar movimentação':'Ativar movimentação';
+
+ document.querySelectorAll('.obj').forEach(el=>{
+  if(el.dataset.tipo==='texto'){
+   el.contentEditable=!movimentoCaixa;
+  }
+  el.classList.toggle('move-enabled',movimentoCaixa&&el===selecionado);
+ });
+
+ if(selecionado){
+  selecionado.classList.toggle('move-enabled',movimentoCaixa);
+ }
 }
 function adicionarTexto(){
  modo('select');
@@ -980,7 +1005,7 @@ function inserirImagem(){
 }
 function arrastar(el,e){
   if(e.button!==0||el.dataset.locked==='true')return;
-  if(el.isContentEditable&&e.target!==el)return;
+  if(!movimentoCaixa)return;
 
   e.preventDefault();
 
@@ -1006,124 +1031,7 @@ function arrastar(el,e){
 }
 
 function redimensionar(el,e,canto){
-  if(el.dataset.locked==='true')return;
-  e.preventDefault();
-
-  const sx=e.clientX,sy=e.clientY;
-  const sw=el.offsetWidth,sh=el.offsetHeight;
-  const ox=parseFloat(el.style.left)||0;
-  const oy=parseFloat(el.style.top)||0;
-
-  function mover(ev){
-    const dx=ev.clientX-sx;
-    const dy=ev.clientY-sy;
-
-    let w=sw,h=sh,x=ox,y=oy;
-
-    if(canto.includes('e'))w=Math.max(70,sw+dx);
-    if(canto.includes('s'))h=Math.max(40,sh+dy);
-
-    if(canto.includes('w')){
-      w=Math.max(70,sw-dx);
-      x=ox+sw-w;
-    }
-
-    if(canto.includes('n')){
-      h=Math.max(40,sh-dy);
-      y=oy+sh-h;
-    }
-
-    el.style.width=w+'px';
-    el.style.height=h+'px';
-    el.style.left=x+'px';
-    el.style.top=y+'px';
-  }
-
-  function fim(){
-    window.removeEventListener('pointermove',mover);
-    window.removeEventListener('pointerup',fim);
-    window.removeEventListener('pointercancel',fim);
-    salvarPagina();
-  }
-
-  window.addEventListener('pointermove',mover);
-  window.addEventListener('pointerup',fim);
-  window.addEventListener('pointercancel',fim);
-}
-function arrastar(el,e){
-  if(e.button!==0||el.dataset.locked==='true')return;
-  if(el.isContentEditable&&e.target!==el)return;
-
-  e.preventDefault();
-
-  const sx=e.clientX,sy=e.clientY;
-  const ox=parseFloat(el.style.left)||0;
-  const oy=parseFloat(el.style.top)||0;
-
-  function mover(ev){
-    el.style.left=(ox+ev.clientX-sx)+'px';
-    el.style.top=(oy+ev.clientY-sy)+'px';
-  }
-
-  function fim(){
-    window.removeEventListener('pointermove',mover);
-    window.removeEventListener('pointerup',fim);
-    window.removeEventListener('pointercancel',fim);
-    salvarPagina();
-  }
-
-  window.addEventListener('pointermove',mover);
-  window.addEventListener('pointerup',fim);
-  window.addEventListener('pointercancel',fim);
-}
-
-function redimensionar(el,e,canto){
-  if(el.dataset.locked==='true')return;
-  e.preventDefault();
-
-  const sx=e.clientX,sy=e.clientY;
-  const sw=el.offsetWidth,sh=el.offsetHeight;
-  const ox=parseFloat(el.style.left)||0;
-  const oy=parseFloat(el.style.top)||0;
-
-  function mover(ev){
-    const dx=ev.clientX-sx;
-    const dy=ev.clientY-sy;
-
-    let w=sw,h=sh,x=ox,y=oy;
-
-    if(canto.includes('e'))w=Math.max(70,sw+dx);
-    if(canto.includes('s'))h=Math.max(40,sh+dy);
-
-    if(canto.includes('w')){
-      w=Math.max(70,sw-dx);
-      x=ox+sw-w;
-    }
-
-    if(canto.includes('n')){
-      h=Math.max(40,sh-dy);
-      y=oy+sh-h;
-    }
-
-    el.style.width=w+'px';
-    el.style.height=h+'px';
-    el.style.left=x+'px';
-    el.style.top=y+'px';
-  }
-
-  function fim(){
-    window.removeEventListener('pointermove',mover);
-    window.removeEventListener('pointerup',fim);
-    window.removeEventListener('pointercancel',fim);
-    salvarPagina();
-  }
-
-  window.addEventListener('pointermove',mover);
-  window.addEventListener('pointerup',fim);
-  window.addEventListener('pointercancel',fim);
-}
-function redimensionar(el,e,canto){
-  if(el.dataset.locked==='true')return;
+  if(el.dataset.locked==='true'||!movimentoCaixa)return;
   e.preventDefault();
 
   const sx=e.clientX,sy=e.clientY;
