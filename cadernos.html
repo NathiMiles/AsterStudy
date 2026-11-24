@@ -177,7 +177,8 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
 .obj.selected.move-enabled{border:1px dashed var(--accent)}
 .obj.textobj{
   width:260px;
-  min-width:260px;
+  min-width:150px;
+  height:auto;
   min-height:90px;
   font-size:17px;
   line-height:1.6;
@@ -953,13 +954,18 @@ function criarObjeto(o){
  el.className='obj '+(o.tipo==='texto'?'textobj':'imageobj');
  el.dataset.tipo=o.tipo;el.dataset.locked=o.bloqueado?'true':'false';
  el.style.left=(o.x||40)+'px';el.style.top=(o.y||40)+'px';
- el.style.width=(o.w||260)+'px';el.style.height=(o.h||120)+'px';
+ el.style.width=(o.w||260)+'px';
+ el.style.height=o.tipo==='texto'?'auto':(o.h||120)+'px';
  if(o.tipo==='texto'){
   el.contentEditable='true';el.innerHTML=o.html||'';
   if(o.font)el.style.fontFamily=o.font;
-  el.addEventListener('input',()=>{salvarPagina();atualizarContador()});
-  el.addEventListener('focus',()=>selecionar(el));
-  el.addEventListener('keyup',atualizarContador);
+el.addEventListener('input',()=>{
+  ajustarAlturaTexto(el);
+  salvarPagina();
+  atualizarContador();
+});
+el.addEventListener('focus',()=>selecionar(el));
+el.addEventListener('keyup',atualizarContador);
  }else if(o.tipo==='imagem'){
   const img=document.createElement('img');img.src=o.src||'';el.append(img);
  }
@@ -988,6 +994,12 @@ el.addEventListener('pointerdown',e=>{
   });
 });
  objects.append(el);return el;
+}
+  function ajustarAlturaTexto(el){
+  if(!el||el.dataset.tipo!=='texto')return;
+
+  el.style.height='auto';
+  el.style.height=Math.max(90,el.scrollHeight)+'px';
 }
 function selecionar(el){
  document.querySelectorAll('.obj').forEach(x=>{
@@ -1081,11 +1093,30 @@ function redimensionar(el,e,canto){
   const sw=el.offsetWidth,sh=el.offsetHeight;
   const ox=parseFloat(el.style.left)||0;
   const oy=parseFloat(el.style.top)||0;
-  const fonteOriginal=parseFloat(getComputedStyle(el).fontSize)||17;
 
   function mover(ev){
     const dx=ev.clientX-sx;
     const dy=ev.clientY-sy;
+
+    if(el.dataset.tipo==='texto'){
+      let w=sw,x=ox;
+
+      if(canto.includes('e')){
+        w=Math.max(150,sw+dx);
+      }
+
+      if(canto.includes('w')){
+        w=Math.max(150,sw-dx);
+        x=ox+sw-w;
+      }
+
+      if(!canto.includes('e')&&!canto.includes('w'))return;
+
+      el.style.width=w+'px';
+      el.style.left=x+'px';
+      ajustarAlturaTexto(el);
+      return;
+    }
 
     let w=sw,h=sh,x=ox,y=oy;
 
@@ -1102,16 +1133,13 @@ function redimensionar(el,e,canto){
       y=oy+sh-h;
     }
 
-el.style.width=w+'px';
-el.style.height=h+'px';
-el.style.left=x+'px';
-el.style.top=y+'px';
+    el.style.width=w+'px';
+    el.style.height=h+'px';
+    el.style.left=x+'px';
+    el.style.top=y+'px';
+  }
 
-const escala=(w/sw+h/sh)/2;
-el.style.fontSize=Math.max(8,fonteOriginal*escala)+'px';
-}
-
-function fim(){
+  function fim(){
     window.removeEventListener('pointermove',mover);
     window.removeEventListener('pointerup',fim);
     window.removeEventListener('pointercancel',fim);
