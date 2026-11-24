@@ -6,7 +6,7 @@
 <title>AsterStudy — Cadernos</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23f5e6d3'/%3E%3Cpath d='M30 22 Q25 15 33 9' fill='none' stroke='%23a77950' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M47 22 Q42 15 50 9' fill='none' stroke='%23a77950' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M24 34 H67 V63 Q67 77 53 77 H38 Q24 77 24 63 Z' fill='%23c58b55'/%3E%3Cpath d='M67 42 H76 Q87 42 87 53 Q87 64 76 64 H67' fill='none' stroke='%23c58b55' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M30 40 H61' stroke='%23f4d7b5' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M18 82 H76' stroke='%237b4e2c' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=DM+Serif+Display&family=Playfair+Display&family=Lora:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600;700&family=Amatic+SC:wght@400;700&family=Caveat:wght@400;500;600;700&family=Patrick+Hand&family=Kalam:wght@300;400;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Quicksand:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Courier+Prime&display=swap');
 
 :root{
   --bg:#f4efe7;
@@ -603,28 +603,57 @@ textarea,
 <span class="toolsep"></span>
 <span class="toolbar-label" style="flex-basis:100%;margin-left:4px">TEXTO & ESTILO</span>
     
+
 <select id="fonte" title="Fonte" onchange="mudarFonte(this.value)">
-  <option value="Nunito">Nunito</option>
-  <option value="DM Serif Display">DM Serif Display</option>
-  <option value="Playfair Display">Playfair Display</option>
-  <option value="Lora">Lora</option>
-  <option value="EB Garamond">EB Garamond</option>
-  <option value="Amatic SC">Amatic SC</option>
-  <option value="Caveat">Caveat</option>
-  <option value="Patrick Hand">Patrick Hand</option>
-  <option value="Kalam">Kalam</option>
-  <option value="Dancing Script">Dancing Script</option>
-  <option value="Great Vibes">Great Vibes</option>
-  <option value="Quicksand">Quicksand</option>
-  <option value="Roboto">Roboto</option>
-  <option value="Montserrat">Montserrat</option>
-  <option value="Oswald">Oswald</option>
-  <option value="Courier Prime">Courier Prime</option>
-  <option value="Arial">Arial</option>
-  <option value="Georgia">Georgia</option>
-  <option value="Verdana">Verdana</option>
-  <option value="Courier New">Courier</option>
+  <optgroup label="Básicas">
+    <option value="Nunito">Nunito</option>
+    <option value="Roboto">Roboto</option>
+    <option value="Montserrat">Montserrat</option>
+    <option value="Quicksand">Quicksand</option>
+    <option value="Arial">Arial</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Courier New">Courier New</option>
+  </optgroup>
+
+  <optgroup label="Elegantes">
+    <option value="DM Serif Display">DM Serif Display</option>
+    <option value="Playfair Display">Playfair Display</option>
+    <option value="Lora">Lora</option>
+    <option value="EB Garamond">EB Garamond</option>
+  </optgroup>
+
+  <optgroup label="Manuscritas">
+    <option value="Caveat">Caveat</option>
+    <option value="Patrick Hand">Patrick Hand</option>
+    <option value="Kalam">Kalam</option>
+    <option value="Dancing Script">Dancing Script</option>
+    <option value="Great Vibes">Great Vibes</option>
+  </optgroup>
+
+  <optgroup label="Decorativas">
+    <option value="Amatic SC">Amatic SC</option>
+    <option value="Oswald">Oswald</option>
+    <option value="Courier Prime">Courier Prime</option>
+  </optgroup>
+
+  <optgroup label="Estilos especiais">
+    <option value="special:math-italic">Itálico Matemático</option>
+    <option value="special:math-bold-italic">Negrito Itálico Matemático</option>
+    <option value="special:bold-script">Script em Negrito</option>
+    <option value="special:sans">Sans-Serif</option>
+    <option value="special:sans-bold">Sans-Serif em Negrito</option>
+    <option value="special:mono">Monoespaçada</option>
+    <option value="special:spaced">Espaçada</option>
+    <option value="special:double">Traço Duplo</option>
+    <option value="special:gothic">Gótica em Negrito</option>
+    <option value="special:wide">Texto Largo</option>
+    <option value="special:superscript">Sobrescrito</option>
+    <option value="special:subscript">Subscrito</option>
+    <option value="special:small-caps">Minúsculas / Pequenas</option>
+  </optgroup>
 </select>
+
 
     <select id="tamanhoFonte" title="Tamanho da letra" onchange="mudarTamanho(this.value)">
       <option value="2">Pequeno</option>
@@ -1218,12 +1247,97 @@ function formatar(cmd){
  document.execCommand(cmd,false,null);
  salvarPagina();
 }
+  
+function transformarEstilo(texto,tipo){
+ const mapas={
+  'math-italic':[0x1D434,0x1D44E],
+  'math-bold-italic':[0x1D468,0x1D482],
+  'bold-script':[0x1D4D0,0x1D4EA],
+  'sans':[0x1D5A0,0x1D5BA],
+  'sans-bold':[0x1D5D4,0x1D5EE],
+  'mono':[0x1D670,0x1D68A],
+  'gothic':[0x1D56C,0x1D586],
+  'wide':[0xFF21,0xFF41]
+ };
+
+ if(tipo==='spaced')return Array.from(texto).join(' ');
+ if(tipo==='superscript'){
+  const m={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','+':'⁺','-':'⁻','=':'⁼','(':'⁽',')':'⁾','n':'ⁿ','i':'ⁱ'};
+  return Array.from(texto).map(c=>m[c]||c).join('');
+ }
+ if(tipo==='subscript'){
+  const m={'0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉','+':'₊','-':'₋','=':'₌','(':'₍',')':'₎','a':'ₐ','e':'ₑ','i':'ᵢ','o':'ₒ','r':'ᵣ','u':'ᵤ','v':'ᵥ','x':'ₓ'};
+  return Array.from(texto).map(c=>m[c]||c).join('');
+ }
+ if(tipo==='small-caps'){
+  const m='ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀꜱᴛᴜᴠᴡxʏᴢ';
+  return Array.from(texto).map(c=>{
+   const i='abcdefghijklmnopqrstuvwxyz'.indexOf(c.toLowerCase());
+   return i<0?c:m[i];
+  }).join('');
+ }
+ if(tipo==='double'){
+  const m={'C':'ℂ','H':'ℍ','N':'ℕ','P':'ℙ','Q':'ℚ','R':'ℝ','Z':'ℤ'};
+  return Array.from(texto).map(c=>{
+   if(m[c])return m[c];
+   if(/[A-Z]/.test(c))return String.fromCodePoint(0x1D538+c.charCodeAt(0)-65);
+   if(/[a-z]/.test(c))return String.fromCodePoint(0x1D552+c.charCodeAt(0)-97);
+   if(/[0-9]/.test(c))return String.fromCodePoint(0x1D7D8+c.charCodeAt(0)-48);
+   return c;
+  }).join('');
+ }
+
+ const bases=mapas[tipo];
+ if(!bases)return texto;
+
+ return Array.from(texto).map(c=>{
+  const n=c.charCodeAt(0);
+  if(n>=65&&n<=90)return String.fromCodePoint(bases[0]+n-65);
+  if(n>=97&&n<=122){
+   if(tipo==='math-italic'&&c==='h')return 'ℎ';
+   return String.fromCodePoint(bases[1]+n-97);
+  }
+  if(tipo==='sans-bold'&&n>=48&&n<=57)return String.fromCodePoint(0x1D7EC+n-48);
+  if(tipo==='mono'&&n>=48&&n<=57)return String.fromCodePoint(0x1D7F6+n-48);
+  if(tipo==='wide'&&n>=48&&n<=57)return String.fromCodePoint(0xFF10+n-48);
+  return c;
+ }).join('');
+}
+
+
 function mudarFonte(f){
  if(!memoriaSelecao)return alert('Selecione um trecho de texto primeiro.');
+
  restaurarSelecao();
- document.execCommand('fontName',false,f);
+
+ if(f.startsWith('special:')){
+  const tipo=f.replace('special:','');
+  const range=window.getSelection().getRangeAt(0);
+  const texto=range.toString();
+
+  if(!texto)return;
+
+  const convertido=transformarEstilo(texto,tipo);
+  const novoTexto=document.createTextNode(convertido);
+
+  range.deleteContents();
+  range.insertNode(novoTexto);
+
+  range.setStartAfter(novoTexto);
+  range.collapse(true);
+
+  const sel=window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+
+  memoriaSelecao=null;
+ }else{
+  document.execCommand('fontName',false,f);
+ }
+
  salvarPagina();
 }
+
 function mudarTamanho(t){
  if(!memoriaSelecao)return alert('Selecione um trecho de texto primeiro.');
  restaurarSelecao();
@@ -1234,7 +1348,16 @@ function estiloTexto(tag){
  if(!selecionado||selecionado.dataset.tipo!=='texto')return alert('Selecione uma caixa de texto.');
  selecionado.focus();document.execCommand('formatBlock',false,tag);salvarPagina();
 }
-function alternarLinha(){linhaReta=!linhaReta;alert(linhaReta?'Linha reta ativada':'Linha reta desativada')}
+function alternarLinha(){
+ linhaReta=!linhaReta;
+
+ const botao=document.getElementById('btnLinha');
+
+ if(botao){
+  botao.classList.toggle('active',linhaReta);
+ }
+
+}
 function configurar(){
  const p=livros[livroAtual].paginas[paginaAtual];
  tipoFolha.value=p.tipo||'grid';corLinha.value=p.corLinha||'#e6d9ca';
