@@ -1021,7 +1021,39 @@ function selecionar(el){
   if(movimentoCaixa)el.classList.add('move-enabled');
  }
 }
+  function guardarSelecao(){
+  const sel=window.getSelection();
 
+  if(!selecionado||selecionado.dataset.tipo!=='texto')return;
+  if(!sel.rangeCount||sel.isCollapsed)return;
+
+  const range=sel.getRangeAt(0);
+
+  if(!selecionado.contains(range.commonAncestorContainer))return;
+
+  memoriaSelecao={
+    caixa:selecionado,
+    range:range.cloneRange()
+  };
+}
+
+function restaurarSelecao(){
+  if(!memoriaSelecao)return;
+
+  const caixa=memoriaSelecao.caixa;
+  if(!caixa.isConnected)return;
+
+  selecionar(caixa);
+  caixa.focus();
+
+  const sel=window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(memoriaSelecao.range);
+}
+document.getElementById('barra').addEventListener('mousedown',()=>{
+  guardarSelecao();
+});
+  
 function alternarMovimento(){
  movimentoCaixa=!movimentoCaixa;
 
@@ -1181,16 +1213,22 @@ function modo(m){
  if(mapa[m])document.getElementById(mapa[m]).classList.add('active');
 }
 function formatar(cmd){
- if(!selecionado||selecionado.dataset.tipo!=='texto')return alert('Selecione uma caixa de texto.');
- selecionado.focus();document.execCommand(cmd,false,null);salvarPagina();
+ if(!memoriaSelecao)return alert('Selecione um trecho de texto primeiro.');
+ restaurarSelecao();
+ document.execCommand(cmd,false,null);
+ salvarPagina();
 }
 function mudarFonte(f){
- if(!selecionado||selecionado.dataset.tipo!=='texto')return;
- selecionado.focus();selecionado.style.fontFamily=f;salvarPagina();
+ if(!memoriaSelecao)return alert('Selecione um trecho de texto primeiro.');
+ restaurarSelecao();
+ document.execCommand('fontName',false,f);
+ salvarPagina();
 }
 function mudarTamanho(t){
- if(!selecionado||selecionado.dataset.tipo!=='texto')return;
- selecionado.focus();document.execCommand('fontSize',false,t);salvarPagina();
+ if(!memoriaSelecao)return alert('Selecione um trecho de texto primeiro.');
+ restaurarSelecao();
+ document.execCommand('fontSize',false,t);
+ salvarPagina();
 }
 function estiloTexto(tag){
  if(!selecionado||selecionado.dataset.tipo!=='texto')return alert('Selecione uma caixa de texto.');
