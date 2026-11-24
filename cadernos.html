@@ -1038,6 +1038,7 @@ function redimensionar(el,e,canto){
   const sw=el.offsetWidth,sh=el.offsetHeight;
   const ox=parseFloat(el.style.left)||0;
   const oy=parseFloat(el.style.top)||0;
+  const fonteOriginal=parseFloat(getComputedStyle(el).fontSize)||17;
 
   function mover(ev){
     const dx=ev.clientX-sx;
@@ -1058,11 +1059,13 @@ function redimensionar(el,e,canto){
       y=oy+sh-h;
     }
 
-    el.style.width=w+'px';
-    el.style.height=h+'px';
-    el.style.left=x+'px';
-    el.style.top=y+'px';
-  }
+el.style.width=w+'px';
+el.style.height=h+'px';
+el.style.left=x+'px';
+el.style.top=y+'px';
+
+const escala=(w/sw+h/sh)/2;
+el.style.fontSize=Math.max(8,fonteOriginal*escala)+'px';
 
   function fim(){
     window.removeEventListener('pointermove',mover);
