@@ -197,12 +197,19 @@ h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:34px}
   width:13px;height:13px;border-radius:50%;
   background:var(--accent);border:2px solid white;
   touch-action:none;z-index:10;user-select:none;-webkit-user-select:none
+}
 .obj.selected.move-enabled .resize{display:block}
+/* 8 pontos de redimensionamento */
+.resize-nw{top:-6px;left:-6px}
+.resize-n{top:-6px;left:50%;transform:translateX(-50%)}
+.resize-ne{top:-6px;right:-6px}
 
-.resize-nw{top:-6px;left:-6px;cursor:nwse-resize}
-.resize-ne{top:-6px;right:-6px;cursor:nesw-resize}
-.resize-sw{bottom:-6px;left:-6px;cursor:nesw-resize}
-.resize-se{bottom:-6px;right:-6px;cursor:nwse-resize}
+.resize-e{top:50%;right:-6px;transform:translateY(-50%)}
+.resize-se{bottom:-6px;right:-6px}
+.resize-s{bottom:-6px;left:50%;transform:translateX(-50%)}
+
+.resize-sw{bottom:-6px;left:-6px}
+.resize-w{top:50%;left:-6px;transform:translateY(-50%)}
 .canvas{
   position:absolute;inset:0;width:100%;height:100%;
   z-index:5;pointer-events:none;touch-action:none
@@ -931,18 +938,19 @@ el.addEventListener('pointerdown',e=>{
     arrastar(el,e);
   }
 });
-['nw','ne','sw','se'].forEach(canto=>{
+['nw','n','ne','e','se','s','sw','w'].forEach(canto=>{
   const handle=document.createElement('div');
   handle.className='resize resize-'+canto;
   handle.dataset.canto=canto;
   el.append(handle);
 
-handle.addEventListener('pointerdown',e=>{
-  if(el.dataset.locked==='true'||!movimentoCaixa)return;
-  e.stopPropagation();
-  selecionar(el);
-  redimensionar(el,e,canto);
-});
+  handle.addEventListener('pointerdown',e=>{
+    if(el.dataset.locked==='true'||!movimentoCaixa)return;
+    e.stopPropagation();
+    e.preventDefault();
+    selecionar(el);
+    redimensionar(el,e,canto);
+  });
 });
  objects.append(el);return el;
 }
@@ -1066,9 +1074,9 @@ el.style.top=y+'px';
 
 const escala=(w/sw+h/sh)/2;
 el.style.fontSize=Math.max(8,fonteOriginal*escala)+'px';
-    }
-  
-  function fim(){
+}
+
+function fim(){
     window.removeEventListener('pointermove',mover);
     window.removeEventListener('pointerup',fim);
     window.removeEventListener('pointercancel',fim);
