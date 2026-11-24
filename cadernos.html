@@ -468,7 +468,33 @@ body *::before,
 body *::after {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M5 3 Q4 2 4 5 L4 29 Q4 32 7 29 L13 23 L18 32 Q19 34 21 32 L24 30 Q26 29 24 27 L19 18 L29 18 Q32 18 29 15 Z' fill='%23704B35' stroke='%23F5E6D0' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M8 7 L8 19' stroke='%23C99A72' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='27' cy='5' r='3' fill='%23C99A72' stroke='%23F5E6D0' stroke-width='1'/%3E%3Ccircle cx='32' cy='11' r='1.8' fill='%23A87958'/%3E%3Ccircle cx='23' cy='3' r='1.2' fill='%23E8C9A6'/%3E%3C/svg%3E") 4 3, auto !important;
 }
+.coresMarca{
+ display:flex;
+ align-items:center;
+ gap:5px;
+ flex-wrap:wrap;
+}
 
+.coresMarca button{
+ width:22px;
+ height:22px;
+ min-width:22px;
+ padding:0;
+ border:2px solid #ccc;
+ border-radius:50%;
+ cursor:pointer;
+}
+
+.coresMarca button:hover{
+ transform:scale(1.15);
+}
+
+.coresMarca input[type="color"]{
+ width:28px;
+ height:28px;
+ padding:2px;
+ cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -506,7 +532,9 @@ body *::after {
     <button id="btnMoverCaixa" title="Ativar movimentação" onclick="alternarMovimento()">↔</button>
     <button title="Adicionar texto" onclick="adicionarTexto()">⊺</button>
     <button id="btnPen" title="Caneta" onclick="modo('pen')">✒</button>
-    <button id="btnMark" title="Marca-texto" onclick="modo('mark')">▰</button>
+ <button id="btnMark" title="Aplicar marca-texto"
+ onmousedown="event.preventDefault()"
+ onclick="aplicarMarcaTexto(corMarcaSelecionada)">▰</button>
     <button id="btnErase" title="Borracha" onclick="modo('erase')">✘</button>
     <button title="Desfazer desenho" onclick="desfazer()">↩</button>
     <button title="Limpar desenhos" onclick="limparDesenho()">⊗</button>
@@ -524,6 +552,42 @@ body *::after {
     <span class="toolsep"></span>
 
     <input type="color" id="corCaneta" value="#795b43" title="Cor do desenho">
+    <div class="coresMarca">
+ <span title="Amarelo">
+  <button type="button"
+    style="background:#fff176"
+    onmousedown="event.preventDefault()"
+    onclick="selecionarCorMarca('#fff176')"></button>
+ </span>
+ <button type="button" style="background:#f48fb1"
+ title="Rosa"
+ onmousedown="event.preventDefault()"
+ onclick="selecionarCorMarca('#f48fb1')"></button>
+
+<button type="button" style="background:#90caf9"
+ title="Azul"
+ onmousedown="event.preventDefault()"
+ onclick="selecionarCorMarca('#90caf9')"></button>
+
+<button type="button" style="background:#a5d6a7"
+ title="Verde"
+ onmousedown="event.preventDefault()"
+ onclick="selecionarCorMarca('#a5d6a7')"></button>
+
+<button type="button" style="background:#ce93d8"
+ title="Lilás"
+ onmousedown="event.preventDefault()"
+ onclick="selecionarCorMarca('#ce93d8')"></button>
+
+<button type="button" style="background:#ffcc80"
+ title="Laranja"
+ onmousedown="event.preventDefault()"
+ onclick="selecionarCorMarca('#ffcc80')"></button>
+
+<input type="color" id="corMarca" value="#fff176"
+ title="Escolher outra cor"
+ onchange="selecionarCorMarca(this.value)">
+</div>
     <input type="range" id="tamanho" min="1" max="24" value="3" title="Espessura">
    <button id="btnLinha" title="Linha reta" onclick="alternarLinha()">╱</button>
 
@@ -944,7 +1008,7 @@ el.addEventListener('keyup',atualizarContador);
   const img=document.createElement('img');img.src=o.src||'';el.append(img);
  }
 el.addEventListener('pointerdown',e=>{
-  if(['pen','mark','erase'].includes(modoAtual))return;
+ if(['pen','erase'].includes(modoAtual))return;
   if(e.target.classList.contains('resize')||e.target.closest('a'))return;
 
   selecionar(el);
@@ -1047,6 +1111,59 @@ function alternarMovimento(){
  if(selecionado){
   selecionado.classList.toggle('move-enabled',movimentoCaixa);
  }
+}
+  let selecaoTextoSalva=null;
+  let corMarcaSelecionada='#fff176';
+
+function selecionarCorMarca(cor){
+ corMarcaSelecionada=cor;
+}
+
+document.addEventListener('selectionchange',()=>{
+ const selecao=window.getSelection();
+
+ if(!selecao||selecao.isCollapsed)return;
+
+ const range=selecao.getRangeAt(0);
+ const elemento=range.commonAncestorContainer;
+ const caixa=elemento.nodeType===1
+  ?elemento.closest('.textobj')
+  :elemento.parentElement.closest('.textobj');
+
+ if(caixa){
+  selecaoTextoSalva=range.cloneRange();
+ }
+});
+function aplicarMarcaTexto(cor){
+ if(!selecaoTextoSalva)return;
+
+ const caixa=selecaoTextoSalva.commonAncestorContainer;
+ const elemento=caixa.nodeType===1?caixa:caixa.parentElement;
+ const textObj=elemento.closest('.textobj');
+
+ if(!textObj)return;
+
+ const range=selecaoTextoSalva.cloneRange();
+
+ if(range.collapsed)return;
+
+ const marca=document.createElement('span');
+ marca.style.backgroundColor=cor;
+ marca.style.borderRadius='3px';
+ marca.style.padding='1px 0';
+
+ try{
+  const conteudo=range.extractContents();
+  marca.appendChild(conteudo);
+  range.insertNode(marca);
+ }catch(e){
+  return;
+ }
+
+ selecaoTextoSalva=null;
+ window.getSelection().removeAllRanges();
+
+ salvarPagina();
 }
 function adicionarTexto(){
  modo('select');
@@ -1185,9 +1302,19 @@ function camada(d){
  salvarPagina();
 }
 function modo(m){
- modoAtual=m;canvas.classList.toggle('drawing',['pen','mark','erase'].includes(m));
- ['btnSelect','btnPen','btnMark','btnErase'].forEach(id=>document.getElementById(id).classList.remove('active'));
- const mapa={select:'btnSelect',pen:'btnPen',mark:'btnMark',erase:'btnErase'};
+ modoAtual=m;
+ canvas.classList.toggle('drawing',['pen','erase'].includes(m));
+
+ ['btnSelect','btnPen','btnMark','btnErase'].forEach(id=>
+  document.getElementById(id).classList.remove('active')
+ );
+
+ const mapa={
+  select:'btnSelect',
+  pen:'btnPen',
+  erase:'btnErase'
+ };
+
  if(mapa[m])document.getElementById(mapa[m]).classList.add('active');
 }
 function formatar(cmd){
@@ -1394,7 +1521,7 @@ function posicao(e){
 }
 
 canvas.addEventListener('pointerdown',e=>{
- if(!['pen','mark','erase'].includes(modoAtual))return;
+ if(!['pen','erase'].includes(modoAtual))return;
 
  desenhando=true;
  canvas.setPointerCapture(e.pointerId);
@@ -1427,9 +1554,7 @@ canvas.addEventListener('pointermove',e=>{
  }else{
   ctx.globalCompositeOperation='source-over';
   ctx.strokeStyle=corCaneta.value;
-  ctx.globalAlpha=modoAtual==='mark'?.28:1;
-
-  if(modoAtual==='mark')ctx.lineWidth*=4;
+  ctx.globalAlpha=1;
  }
 
  ctx.beginPath();
@@ -1460,11 +1585,9 @@ function finalizarDesenho(e){
   ctx.lineJoin='round';
   ctx.lineWidth=Number(tamanho.value);
   ctx.strokeStyle=corCaneta.value;
-  ctx.globalAlpha=modoAtual==='mark'?.28:1;
-
-  if(modoAtual==='mark')ctx.lineWidth*=4;
-
+  ctx.globalAlpha=1;
   ctx.globalCompositeOperation='source-over';
+
   ctx.beginPath();
   ctx.moveTo(pontoInicio.x,pontoInicio.y);
   ctx.lineTo(p.x,p.y);
@@ -1481,7 +1604,7 @@ function finalizarDesenho(e){
 
 canvas.addEventListener('pointerup',finalizarDesenho);
 canvas.addEventListener('pointercancel',finalizarDesenho);
-
+  
 function desfazer(){
  if(!undoStack.length)return;
 
