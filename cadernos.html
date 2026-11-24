@@ -457,16 +457,15 @@ body.dark .sidepanel textarea{
   #sidebarPanels{
     display:none!important;
   }
-}
- 
-/* ===== CURSOR ASTERSTUDY — COFFEE BUBBLE ===== */
+}/* ===== CURSOR ÚNICO ASTERSTUDY — COFFEE BUBBLE ===== */
 
 html,
+html *,
 body,
 body *,
 body *::before,
 body *::after {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M5 3 Q4 2 4 5 L4 29 Q4 32 7 29 L13 23 L18 32 Q19 34 21 32 L24 30 Q26 29 24 27 L19 18 L29 18 Q32 18 29 15 Z' fill='%23704B35' stroke='%23F5E6D0' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M8 7 L8 19' stroke='%23C99A72' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='27' cy='5' r='3' fill='%23C99A72' stroke='%23F5E6D0' stroke-width='1'/%3E%3Ccircle cx='32' cy='11' r='1.8' fill='%23A87958'/%3E%3Ccircle cx='23' cy='3' r='1.2' fill='%23E8C9A6'/%3E%3C/svg%3E") 4 3, auto !important;
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABb0lEQVR4nL2XMY7CMBBFxyu6XGCVM1Cko9obsNo2UNC53H5RasQh0lGgHIBL0KXgDBEXSB0qg23s8Xjs7EhRFMvxf/4zlm2AGeJ+PU/Uvh92wzj05J8xcfUeh35Sj6u/wMSLshLAiPv1PH2utmIc+ul2OT3bl+vd25goQAqILe6DeEuBb7DU1PjCC9BICY2Us4OgDmx+vuB2ObFAirISy/XOaHPVwIJKqiAObWuAKDEfhA7q6kcG4IKECjgagAuiotvXT0fqYydIqyAEQq0RXVx9JwNwQPTIBsAFyQ6AgXz//hnf9bET7CKMAQF4FauCUIU6mwMuENuRfwUAcC/ZLCnQB44NkgOYAFc8ugYObZs0U5c4QCAF9m7mikZKAyz28OJ1wDfbXC4EAezAZqYvr9gDCwnAFs/pQhBAF5/DBRQAE8zlggFQlJVQotgxK4uyCyBWxHaBkwbWXuAD5KSFbSdlhhQnk/KZ8yqXHNxb0wNcPd3GHf6L/wAAAABJRU5ErkJggg==") 4 2, auto !important;
 }
 
 </style>
@@ -895,7 +894,7 @@ function carregarPagina(){
  folha.className='paper '+(p.tipo||'grid');
  folha.style.setProperty('--line',p.corLinha||'#e6d9ca');
  folha.style.setProperty('--spacing',(p.espacamento||25)+'px');
- renderObjetos();redimensionarCanvas();
+ renderObjetos();redimensionarCanvas(false);
  carregarDesenho(p.desenho||'');modo(modoAtual);
  atualizarContador();
 }
@@ -1363,12 +1362,17 @@ function salvarConfigFolha(){
 }
 
 const canvas=document.getElementById('desenho'),ctx=canvas.getContext('2d');
-function redimensionarCanvas(){
+function redimensionarCanvas(preservar=true){
  const w=folha.clientWidth,h=folha.clientHeight;
  if(canvas.width===w&&canvas.height===h)return;
- const anterior=canvas.toDataURL();
- canvas.width=w;canvas.height=h;
- if(anterior&&anterior!=='data:,')carregarDesenho(anterior);
+
+ const anterior=preservar?canvas.toDataURL():'';
+ canvas.width=w;
+ canvas.height=h;
+
+ if(preservar&&anterior&&anterior!=='data:,'){
+  carregarDesenho(anterior);
+ }
 }
 function carregarDesenho(data, aoCarregar){
  ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -1582,9 +1586,9 @@ function atualizarRelogio(){
 atualizarRelogio();
 setInterval(atualizarRelogio,1000);
   /* ===== ASTERSTUDY: TEMPORIZADOR ===== */
-
 let timerRestante=300;
 let timerInterval=null;
+let timerIniciado=false;
 
 function formatarTimer(segundos){
   const m=Math.floor(segundos/60);
@@ -1600,13 +1604,47 @@ function atualizarTimerDisplay(){
 function iniciarTimer(){
   if(timerInterval!==null)return;
 
+  if(!timerIniciado){
+    const min=parseInt(document.getElementById('timerMin').value)||0;
+    const seg=parseInt(document.getElementById('timerSec').value)||0;
+
+    timerRestante=Math.max(0,min*60+seg);
+    timerIniciado=true;
+    atualizarTimerDisplay();
+  }
+
+  if(timerRestante<=0)return;
+
+  timerInterval=setInterval(()=>{
+    timerRestante--;
+    atualizarTimerDisplay();
+
+    if(timerRestante<=0){
+      clearInterval(timerInterval);
+      timerInterval=null;
+      timerIniciado=false;
+      alert('Tempo concluído!');
+    }
+  },1000);
+}
+
+function pausarTimer(){
+  clearInterval(timerInterval);
+  timerInterval=null;
+}
+
+function resetTimer(){
+  pausarTimer();
+
   const min=parseInt(document.getElementById('timerMin').value)||0;
   const seg=parseInt(document.getElementById('timerSec').value)||0;
 
-  if(timerRestante===300){
-    timerRestante=Math.max(0,min*60+seg);
-    atualizarTimerDisplay();
-  }
+  timerRestante=Math.max(0,min*60+seg);
+  timerIniciado=false;
+  atualizarTimerDisplay();
+}
+
+atualizarTimerDisplay();
 
   if(timerRestante<=0)return;
 
@@ -1708,7 +1746,17 @@ function atualizarCalendario(){
 atualizarCalendario();
   /* ===== ASTERSTUDY: CHECKLIST LATERAL ===== */
 
-let tarefasLaterais=JSON.parse(localStorage.getItem('asterTarefas')||'[]');
+let tarefasLaterais=[];
+
+try{
+ tarefasLaterais=JSON.parse(localStorage.getItem('asterTarefas')||'[]');
+
+ if(!Array.isArray(tarefasLaterais)){
+  tarefasLaterais=[];
+ }
+}catch(e){
+ tarefasLaterais=[];
+}
 
 function salvarTarefas(){
   localStorage.setItem('asterTarefas',JSON.stringify(tarefasLaterais));
