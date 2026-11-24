@@ -926,7 +926,18 @@ el.addEventListener('pointerdown',e=>{
 
   selecionar(el);
 
-  if(e.target===el && modoAtual==='select'&&el.dataset.locked!=='true'){
+  if(modoAtual!=='select'||el.dataset.locked==='true')return;
+
+  const r=el.getBoundingClientRect();
+  const margem=10;
+
+  const naBorda=
+    e.clientX-r.left<margem||
+    r.right-e.clientX<margem||
+    e.clientY-r.top<margem||
+    r.bottom-e.clientY<margem;
+
+  if(naBorda){
     arrastar(el,e);
   }
 });
